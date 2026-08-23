@@ -3,11 +3,11 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ouadchum.com/</loc>
-    <lastmod>2026-08-08T12:52:00+07:00</lastmod>
+    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://ouadchum.com/logo.webp</image:loc>
+      <image:loc>https://ouadchum.com/Branding/logo.webp</image:loc>
       <image:title>Baan OuadChum Coastal Treehouse logo</image:title>
     </image:image>
     <image:image><image:loc>https://ouadchum.com/Background/background.webp</image:loc></image:image>
@@ -90,12 +90,12 @@
   </url>
   <url>
     <loc>https://ouadchum.com/workshop.html</loc>
-    <lastmod>2026-08-08T12:58:50+07:00</lastmod>
+    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://ouadchum.com/Workshop/1.webp</image:loc>
-      <image:title>เวิร์คช็อปเก็บน้ำผึ้งแบบอนุรัก - Baan OuadChum</image:title>
+      <image:title>เวิร์คช็อปเก็บน้ำผึ้งแบบอนุรักษ์ - Baan OuadChum</image:title>
     </image:image>
     <image:image>
       <image:loc>https://ouadchum.com/Workshop/2.webp</image:loc>
@@ -116,7 +116,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/menu.html</loc>
-    <lastmod>2026-08-08T12:59:49+07:00</lastmod>
+    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://ouadchum.com/Background/IMG_7813.webp</image:loc></image:image>
@@ -126,7 +126,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/articles.html</loc>
-    <lastmod>2026-08-08T13:00:50+07:00</lastmod>
+    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://ouadchum.com/Background/DSC00171.webp</image:loc></image:image>
@@ -139,7 +139,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/news.html</loc>
-    <lastmod>2026-08-08T13:01:50+07:00</lastmod>
+    <lastmod>2026-08-18T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://ouadchum.com/Background/DSC00171.webp</image:loc></image:image>
@@ -147,6 +147,26 @@
     <image:image>
       <image:loc>https://ouadchum.com/Philosophy/DSC07894.webp</image:loc>
       <image:title>Baan OuadChum Philosophy: Health</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://ouadchum.com/product.html</loc>
+    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://ouadchum.com/Background/IMG_8826.webp</image:loc>
+      <image:title>Baan OuadChum community products</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://ouadchum.com/project.html</loc>
+    <lastmod>2026-08-18T00:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://ouadchum.com/Philosophy/DSC07894.webp</image:loc>
+      <image:title>Baan OuadChum community project and sustainability</image:title>
     </image:image>
   </url>
 </urlset>

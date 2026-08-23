@@ -18,8 +18,9 @@
 <meta name="twitter:title" content="สินค้าชุมชน | บ้านต้นไม้อวดชุม">
 <meta name="twitter:description" content="สินค้าชุมชนจากบ้านต้นไม้อวดชุม ปะทิว ชุมพร สนับสนุนผลิตภัณฑ์ท้องถิ่น เร็วๆ นี้">
 <meta name="twitter:image" content="https://ouadchum.com/Background/IMG_8826.webp">
-<link rel="icon" href="logo.webp" type="image/webp">
-<link rel="apple-touch-icon" href="logo.webp">
+<link rel="icon" href="Branding/logo.webp" type="image/webp">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,6 +69,28 @@ body{
     padding-bottom: 0;
     overflow-x: hidden;
     width: 100%;
+}
+
+/* Custom scrollbar - replaces the plain browser default with one that
+   matches the site's tan/green palette. */
+::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+::-webkit-scrollbar-track {
+    background: var(--gray-light);
+}
+::-webkit-scrollbar-thumb {
+    background: #bdaa8a;
+    border-radius: 999px;
+    border: 3px solid var(--gray-light);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #bdaa8a var(--gray-light);
 }
 
 body.modal-locked {
@@ -460,6 +483,35 @@ nav{
 .menu-category-section {
     margin-top: 60px;
 }
+/* "All" filter view: hide each category's own heading, and flatten the
+   group/section/grid wrappers with display:contents so every product
+   card becomes a direct item of one shared grid - cards from different
+   categories line up together (เรียงกัน) instead of each category
+   starting its own new row. */
+#product.products-flat .menu-category-header { display: none; }
+#product.products-flat .product-group,
+#product.products-flat .menu-category-section,
+#product.products-flat .product-grid {
+    display: contents;
+}
+.product-cards-flat {
+    display: block;
+}
+#product.products-flat .product-cards-flat {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+}
+@media (max-width: 1000px) {
+    #product.products-flat .product-cards-flat { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 700px) {
+    #product.products-flat .product-cards-flat { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    #product.products-flat .product-cards-flat { grid-template-columns: 1fr; }
+}
 .menu-category-section.theme-red { --menu-accent: #b3413e; --menu-accent-soft: #f8e7e6; }
 .menu-category-section.theme-yellow { --menu-accent: #ad841f; --menu-accent-soft: #faf1d9; }
 .menu-category-section.theme-orange { --menu-accent: #c9702e; --menu-accent-soft: #faece0; }
@@ -502,18 +554,16 @@ nav{
     background: none;
     border: none;
     padding: 4px 2px 8px;
-    color: #9aa39f;
+    color: #bdaa8a;
     font-size: 1.05rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
+    font-weight: 500;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: var(--transition);
-    font-family: inherit;
+    font-family: 'Baloo 2', 'Mitr', serif;
 }
-.product-type-btn:hover { color: var(--primary); }
-.product-type-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+.product-type-btn:hover { border-bottom-color: color-mix(in srgb, #bdaa8a 40%, transparent); }
+.product-type-btn.active { border-bottom-color: #bdaa8a; }
 .menu-subcat-grid-single {
     grid-template-columns: minmax(0, 320px);
     justify-content: center;
@@ -531,7 +581,8 @@ nav{
 }
 .menu-category-kicker {
     display: block;
-    color: var(--menu-accent);
+    color: #bdaa8a;
+    font-family: 'Baloo 2', 'Mitr', serif;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -540,7 +591,8 @@ nav{
 }
 .menu-category-header h3 {
     font-size: clamp(1.6rem, 1.4rem + 0.8vw, 2rem);
-    color: var(--dark);
+    color: #bdaa8a;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 .menu-category-header p {
@@ -598,29 +650,28 @@ nav{
     border-radius: 999px;
 }
 
-/* Product tiles: one continuous full-bleed photo-frame grid (4 across),
-   name and price/detail overlaid directly on the frame itself instead of
-   living in a separate text panel below it - the frame is the whole card,
-   not a photo-tab plus a text-tab. */
+/* Product tiles: a photo-frame zone up top (icon on a soft accent-tinted
+   gradient) and a proper white detail panel below it - the same
+   photo-plus-body language the room and workshop cards already use,
+   instead of text overlaid straight on the frame. */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3px;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    gap: 16px;
     margin-top: 8px;
 }
 @media (max-width: 1000px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 700px) {
     .product-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px) {
     .product-grid { grid-template-columns: 1fr; }
 }
 .product-card {
-    position: relative;
-    aspect-ratio: 3 / 4;
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
     border: none;
@@ -629,9 +680,10 @@ nav{
     font: inherit;
     text-align: left;
     cursor: pointer;
-    border-radius: 0;
-    background: linear-gradient(150deg, color-mix(in srgb, var(--ws-accent) 22%, white) 0%, var(--menu-accent-soft, #f3ead9) 100%);
+    border-radius: 14px;
+    background: var(--white);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
     --ws-accent: var(--menu-accent, #8a6d3b);
     opacity: 0;
     transform: translateY(28px);
@@ -646,48 +698,49 @@ nav{
     .product-card { opacity: 1; transform: none; transition: box-shadow 0.35s ease; }
 }
 .product-card:hover {
-    box-shadow: inset 0 0 0 3px var(--ws-accent);
+    box-shadow: var(--shadow-md);
 }
 .product-card-photo {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    aspect-ratio: 3 / 4;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #fff;
     color: color-mix(in srgb, var(--ws-accent) 60%, white);
+    overflow: hidden;
+}
+.product-card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px;
 }
 .product-card-photo svg {
-    width: 25%;
+    width: 30%;
     height: auto;
-    max-width: 64px;
+    max-width: 72px;
     transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 .product-card:hover .product-card-photo svg { transform: scale(1.12) rotate(-4deg); }
+.product-card-photo img { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+.product-card:hover .product-card-photo img { transform: scale(1.08); }
 .product-card-name {
-    position: absolute;
-    top: 12px;
-    left: 14px;
-    right: 14px;
-    z-index: 2;
-    font-size: 0.78rem;
+    display: block;
+    padding: 16px 16px 0;
+    font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.3;
     color: var(--dark);
 }
 .product-card-detail {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    padding: 34px 16px 16px;
-    background: linear-gradient(to top, rgba(20,22,18,0.78) 0%, rgba(20,22,18,0.48) 60%, rgba(20,22,18,0) 100%);
+    padding: 8px 16px 16px;
 }
 .product-card-desc {
-    color: rgba(255,255,255,0.9);
-    font-size: 0.78rem;
+    color: #666;
+    font-size: 0.8rem;
     line-height: 1.45;
-    margin-bottom: 9px;
+    margin-bottom: 10px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -703,7 +756,7 @@ nav{
 .product-card-price {
     font-weight: 700;
     font-size: 0.9rem;
-    color: #fff;
+    color: var(--ws-accent);
 }
 .product-card-arrow {
     display: inline-flex;
@@ -713,7 +766,7 @@ nav{
     height: 28px;
     flex-shrink: 0;
     border-radius: 50%;
-    background: rgba(255,255,255,0.92);
+    background: var(--menu-accent-soft, #f3ead9);
     color: var(--ws-accent);
     font-weight: 700;
     font-size: 1.05rem;
@@ -731,20 +784,23 @@ nav{
     height: 0;
     z-index: 21;
 }
-#productModal .modal-content {
-    border-radius: 0;
-}
-/* Product detail modal: text on the left, photo on the right, a Shop Now
-   CTA with a speech-bubble note under it, then a one-line strip of the
-   site's 5 HAB development dimensions as a divider before "you might also
-   like" - tying an individual product back to the Business to Help story. */
-.product-detail-modal {
-    max-width: 900px;
+/* Product detail modal: text on the left, an icon photo-frame on the
+   right, then a Shop Now CTA, then a one-line strip of the site's 5 HAB
+   development dimensions as a divider before "you might also like".
+   Scoped with #productModal so this reliably beats the generic
+   .modal-content max-width:500px rule (equal class specificity would
+   otherwise let source order decide, which is what silently capped
+   this modal's width no matter what was set here before). */
+#productModal .modal-content.product-detail-modal {
+    max-width: 1200px;
+    border-radius: 20px;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .product-detail-top {
     display: flex;
+    align-items: stretch;
 }
 .product-detail-info {
     flex: 1.15;
@@ -752,6 +808,61 @@ nav{
     padding: 36px 34px;
     display: flex;
     flex-direction: column;
+}
+.product-detail-photo {
+    flex: 0.85;
+    min-width: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #fff;
+}
+.product-detail-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 20px;
+    cursor: zoom-in;
+}
+.product-detail-photo-scroll {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.product-detail-photo-scroll::-webkit-scrollbar { display: none; }
+.product-detail-photo-scroll img {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 20px;
+    scroll-snap-align: start;
+    cursor: zoom-in;
+}
+.product-detail-photo-count {
+    position: absolute;
+    bottom: 10px;
+    right: 14px;
+    z-index: 2;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    pointer-events: none;
+}
+.product-detail-photo svg {
+    width: 35%;
+    height: auto;
+    max-width: 110px;
+    color: var(--ws-accent, #8a6d3b);
 }
 .product-detail-info h2 {
     color: var(--primary-dark);
@@ -774,21 +885,6 @@ nav{
     border-radius: 999px;
     margin-bottom: 18px;
 }
-.product-detail-photo {
-    flex: 0.85;
-    min-width: 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(150deg, color-mix(in srgb, var(--ws-accent, #8a6d3b) 22%, white) 0%, var(--menu-accent-soft, #f3ead9) 100%);
-}
-.product-detail-photo svg {
-    width: 35%;
-    height: auto;
-    max-width: 110px;
-    color: var(--ws-accent, #8a6d3b);
-}
 .product-shop-now-btn {
     display: inline-flex;
     align-self: flex-start;
@@ -808,27 +904,6 @@ nav{
 .product-shop-now-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 22px -8px color-mix(in srgb, var(--ws-accent, var(--primary)) 60%, transparent);
-}
-.product-shop-bubble {
-    position: relative;
-    align-self: flex-start;
-    margin-top: 16px;
-    background: var(--menu-accent-soft, #f3ead9);
-    color: var(--ws-accent, #8a6d3b);
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 999px;
-}
-.product-shop-bubble::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: 30px;
-    width: 12px;
-    height: 12px;
-    background: var(--menu-accent-soft, #f3ead9);
-    clip-path: polygon(50% 0, 0 100%, 100% 100%);
 }
 .product-dimensions-strip {
     display: flex;
@@ -858,17 +933,26 @@ nav{
     flex-shrink: 0;
 }
 .product-suggestions {
-    padding: 26px 34px 32px;
+    padding: 16px 34px 20px;
 }
 .product-suggestions h4 {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--dark);
     margin-bottom: 16px;
 }
+.product-suggestions-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding-bottom: 8px;
+}
 .product-suggestions-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-auto-flow: column;
+    grid-auto-columns: 120px;
+    align-items: start;
+    gap: 10px;
 }
 .product-suggestion-tile {
     border: none;
@@ -878,26 +962,126 @@ nav{
     font: inherit;
     text-align: center;
     cursor: pointer;
+    scroll-snap-align: start;
 }
 .product-suggestion-photo {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(150deg, color-mix(in srgb, var(--ws-accent, #8a6d3b) 20%, white) 0%, var(--menu-accent-soft, #f3ead9) 100%);
+    overflow: hidden;
+    background: #fff;
     color: var(--ws-accent, #8a6d3b);
     transition: box-shadow 0.25s ease;
+}
+.product-suggestion-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
 }
 .product-suggestion-tile:hover .product-suggestion-photo {
     box-shadow: inset 0 0 0 2px var(--ws-accent, var(--primary));
 }
-.product-suggestion-photo svg { width: 34%; height: auto; max-width: 34px; }
+.product-suggestion-photo svg { width: 30%; height: auto; max-width: 26px; }
 .product-suggestion-name {
     display: block;
-    margin-top: 8px;
-    font-size: 0.8rem;
+    margin-top: 6px;
+    font-size: 0.68rem;
     font-weight: 700;
     color: var(--dark);
+    line-height: 1.3;
+}
+/* Full-screen product photo lightbox, with prev/next for multi-photo
+   galleries (kapi has several photos, so a click needs to move between
+   them, not just zoom the one that was clicked). */
+.product-lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    padding: 20px;
+}
+.product-lightbox-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.product-lightbox-overlay img {
+    display: block;
+    max-width: 88vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.94);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+}
+.product-lightbox-overlay.active img {
+    transform: scale(1);
+}
+.product-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.product-lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+.product-lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.product-lightbox-arrow:hover { background: rgba(255, 255, 255, 0.3); }
+.product-lightbox-prev { left: 16px; }
+.product-lightbox-next { right: 16px; }
+.product-lightbox-count {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 999px;
+}
+@media (max-width: 600px) {
+    .product-lightbox-close { top: 10px; right: 10px; width: 38px; height: 38px; }
+    .product-lightbox-arrow { width: 40px; height: 40px; font-size: 1.5rem; }
+    .product-lightbox-prev { left: 6px; }
+    .product-lightbox-next { right: 6px; }
 }
 @media (max-width: 700px) {
     .product-detail-top { flex-direction: column; }
@@ -905,7 +1089,6 @@ nav{
     .product-detail-info { padding: 28px 22px; }
     .product-dimensions-strip { padding: 14px 22px; justify-content: flex-start; }
     .product-suggestions { padding: 22px 22px 28px; }
-    .product-suggestions-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .ws-modal-tabs { display: none; }
 .ws-modal-tabs.has-tabs {
@@ -2056,7 +2239,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 <nav id="navbar">
 <div class="container nav-inner">
 <a href="index.html" class="logo">
-    <img src="logo-icon.webp" alt="Baan OuadChum Logo" class="logo-icon" width="220" height="220">
+    <img src="Branding/logo-icon.webp" alt="Baan OuadChum Logo" class="logo-icon" width="220" height="220">
     <span class="logo-word">OuadChum</span>
 </a>
 
@@ -2085,54 +2268,53 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 </div>
 </nav>
 
-<section id="product" class="news-page-section" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
+<section id="product" class="news-page-section products-flat" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
 <div class="container">
-    <div class="product-type-filter">
+    <div class="section-title-container" style="margin: 0 0 20px;">
+        <h2 class="section-title" style="color: #bdaa8a;" data-key="page-title">สินค้าชุมชน</h2>
+        <p class="menu-page-desc" data-key="page-desc">ผลิตภัณฑ์จากชุมชนท้องถิ่นจังหวัดชุมพร ส่วนหนึ่งของแนวคิด Business to Help</p>
+    </div>
+
+    <div class="product-type-filter" style="margin-bottom: 36px;">
         <button type="button" class="product-type-btn active" onclick="filterProductType('all', this)" data-key="filter-product-all">ทั้งหมด</button>
-        <button type="button" class="product-type-btn" onclick="filterProductType('sweets', this)" data-key="filter-product-sweets">ของหวาน</button>
         <button type="button" class="product-type-btn" onclick="filterProductType('seasonings', this)" data-key="filter-product-seasonings">เครื่องปรุง</button>
+        <button type="button" class="product-type-btn" onclick="filterProductType('seafood', this)" data-key="filter-product-seafood">ทะเล</button>
+        <button type="button" class="product-type-btn" onclick="filterProductType('sweets', this)" data-key="filter-product-sweets">ของหวาน</button>
         <button type="button" class="product-type-btn" onclick="filterProductType('honey', this)" data-key="filter-product-honey">น้ำผึ้ง</button>
-        <button type="button" class="product-type-btn" onclick="filterProductType('seafood', this)" data-key="filter-product-seafood">ทะเลและงานฝีมือ</button>
+        <button type="button" class="product-type-btn" onclick="filterProductType('household', this)" data-key="filter-product-household">เครื่องใช้</button>
     </div>
 
-    <div class="section-title-container" style="margin: 20px 0 36px;">
-        <span class="subtitle" style="color: #bdaa8a;" data-key="page-sub">สินค้าของเรา</span>
-        <h2 class="section-title" data-key="page-title">สินค้าชุมชน</h2>
-        <p class="menu-page-desc" data-key="page-desc">ผลิตภัณฑ์จากชุมชนท้องถิ่นรอบบ้านต้นไม้อวดชุม ส่วนหนึ่งของแนวคิด Business to Help ที่สนับสนุนคนในพื้นที่ รายการสินค้ากำลังทยอยเพิ่มเข้ามา</p>
-    </div>
-
-    <div class="product-group" data-product-type="sweets">
-    <div class="menu-category-section theme-brown" id="product-group-1">
+    <div class="product-cards-flat">
+    <div class="product-group" data-product-type="seasonings">
+    <div class="menu-category-section theme-brown" id="product-group-0">
         <div class="menu-category-header">
-            <span class="menu-category-kicker" data-key="product-group1-kicker">หมวดของหวาน</span>
-            <h3 data-key="product-group1-title">ขนมหวานและน้ำตาล</h3>
-            <p data-key="product-group1-desc">โกโก้และน้ำตาลจากสวนชุมชน แปรรูปโดยกลุ่มเกษตรกรในพื้นที่ปะทิว</p>
+            <h3 data-key="product-group0-title">เครื่องปรุงพื้นบ้าน</h3>
         </div>
         <div class="product-grid">
-        <button type="button" class="card product-card" onclick="openProductModal('chocbar')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="9" rx="1.5"/><path d="M8 8v9M12 8v9M16 8v9M4 12.5h16"/></svg></div>
-            <span class="product-card-name" data-key="chocbar-title">ช็อคแท่ง</span>
+        <button type="button" class="card product-card" onclick="openProductModal('kapi')">
+            <div class="product-card-photo"><img src="Product/kapi.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="kapi-title">กะปิ</span>
             <div class="product-card-detail">
-                <p class="product-card-desc" data-key="chocbar-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <p class="product-card-desc" data-key="kapi-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
                 <div class="product-card-bottom-row">
-                    <span class="product-card-price" data-key="chocbar-price">เร็วๆ นี้</span>
+                    <span class="product-card-price" data-key="kapi-price">เร็วๆ นี้</span>
                     <span class="product-card-arrow">›</span>
                 </div>
             </div>
         </button>
-        <button type="button" class="card product-card" onclick="openProductModal('chocpowder')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10l1 5v9a2 2 0 01-2 2H8a2 2 0 01-2-2V9l1-5z"/><path d="M9 4V2h6v2"/><circle cx="10" cy="13" r=".6" fill="currentColor" stroke="none"/><circle cx="13" cy="15" r=".6" fill="currentColor" stroke="none"/><circle cx="14.5" cy="11.5" r=".6" fill="currentColor" stroke="none"/></svg></div>
-            <span class="product-card-name" data-key="chocpowder-title">ช็อคผง</span>
+        <button type="button" class="card product-card" onclick="openProductModal('namkoei')">
+            <div class="product-card-photo"><img src="Product/namkoei.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="namkoei-title">น้ำเคย</span>
             <div class="product-card-detail">
-                <p class="product-card-desc" data-key="chocpowder-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <p class="product-card-desc" data-key="namkoei-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
                 <div class="product-card-bottom-row">
-                    <span class="product-card-price" data-key="chocpowder-price">เร็วๆ นี้</span>
+                    <span class="product-card-price" data-key="namkoei-price">เร็วๆ นี้</span>
                     <span class="product-card-arrow">›</span>
                 </div>
             </div>
         </button>
         <button type="button" class="card product-card" onclick="openProductModal('napalmsyrup')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3h4v3l2 2v11a2 2 0 01-2 2h-4a2 2 0 01-2-2V8l2-2V3z"/><path d="M9 12h6"/></svg></div>
+            <div class="product-card-photo"><img src="Product/napalmsyrup.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="napalmsyrup-title">ไซรัปจาก</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="napalmsyrup-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2143,7 +2325,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
         </button>
         <button type="button" class="card product-card" onclick="openProductModal('sugarblock')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="6" height="6" rx="1"/><rect x="13" y="12" width="6" height="6" rx="1"/><rect x="9" y="5" width="6" height="6" rx="1"/></svg></div>
+            <div class="product-card-photo"><img src="Product/sugarblock.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="sugarblock-title">น้ำตาลจากแบบปึก</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="sugarblock-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2154,7 +2336,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
         </button>
         <button type="button" class="card product-card" onclick="openProductModal('coconutsugar')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M9.5 9c0-2 1-4 2.5-4s2.5 2 2.5 4"/><circle cx="10" cy="12.5" r=".7" fill="currentColor" stroke="none"/><circle cx="14" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg></div>
+            <div class="product-card-photo"><img src="Product/coconutsugar.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="coconutsugar-title">น้ำตาลมะพร้าว</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="coconutsugar-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2168,32 +2350,95 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
     </div>
 
-    <div class="product-group" data-product-type="seasonings">
-    <div class="menu-category-section theme-brown" id="product-group-0">
+    <div class="product-group" data-product-type="seafood">
+    <div class="menu-category-section theme-brown" id="product-group-3">
         <div class="menu-category-header">
-            <span class="menu-category-kicker" data-key="product-group0-kicker">หมวดเครื่องปรุง</span>
-            <h3 data-key="product-group0-title">เครื่องปรุงพื้นบ้าน</h3>
-            <p data-key="product-group0-desc">รสชาติดั้งเดิมจากภูมิปัญญาชาวประมงและครัวเรือนท้องถิ่นรอบบ้านอวดชุม</p>
+            <h3 data-key="product-group3-title">อาหารทะเลแปรรูป</h3>
         </div>
         <div class="product-grid">
-        <button type="button" class="card product-card" onclick="openProductModal('kapi')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10h12v9a2 2 0 01-2 2H8a2 2 0 01-2-2v-9z"/><path d="M5 10h14M9 10V6a3 3 0 016 0v4"/></svg></div>
-            <span class="product-card-name" data-key="kapi-title">กะปิ</span>
+        <button type="button" class="card product-card" onclick="openProductModal('saltedfish')">
+            <div class="product-card-photo"><img src="Product/saltedfish.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="saltedfish-title">ปลากุเลาเค็ม</span>
             <div class="product-card-detail">
-                <p class="product-card-desc" data-key="kapi-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <p class="product-card-desc" data-key="saltedfish-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
                 <div class="product-card-bottom-row">
-                    <span class="product-card-price" data-key="kapi-price">เร็วๆ นี้</span>
+                    <span class="product-card-price" data-key="saltedfish-price">เร็วๆ นี้</span>
                     <span class="product-card-arrow">›</span>
                 </div>
             </div>
         </button>
-        <button type="button" class="card product-card" onclick="openProductModal('namkoei')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v3l1.5 2v11a2 2 0 01-2 2h-5a2 2 0 01-2-2V8L9 6V3z"/><path d="M8.5 11.5h7"/></svg></div>
-            <span class="product-card-name" data-key="namkoei-title">น้ำเคย</span>
+        </div>
+    </div>
+    </div>
+
+    <div class="product-group" data-product-type="sweets">
+    <div class="menu-category-section theme-brown" id="product-group-1">
+        <div class="menu-category-header">
+            <h3 data-key="product-group1-title">ขนมหวาน</h3>
+        </div>
+        <div class="product-grid">
+        <button type="button" class="card product-card" onclick="openProductModal('chocbardurian')">
+            <div class="product-card-photo"><img src="Product/chocbardurian.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="chocbardurian-title">ช็อคแท่ง รสทุเรียน</span>
             <div class="product-card-detail">
-                <p class="product-card-desc" data-key="namkoei-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <p class="product-card-desc" data-key="chocbardurian-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
                 <div class="product-card-bottom-row">
-                    <span class="product-card-price" data-key="namkoei-price">เร็วๆ นี้</span>
+                    <span class="product-card-price" data-key="chocbardurian-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="card product-card" onclick="openProductModal('chocbardark60')">
+            <div class="product-card-photo"><img src="Product/chocbardark60.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="chocbardark60-title">ช็อคแท่ง ดาร์ก 60%</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="chocbardark60-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="chocbardark60-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="card product-card" onclick="openProductModal('chocbardark85')">
+            <div class="product-card-photo"><img src="Product/chocbardark85.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="chocbardark85-title">ช็อคแท่ง ดาร์ก 85%</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="chocbardark85-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="chocbardark85-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="card product-card" onclick="openProductModal('chocbarbanana')">
+            <div class="product-card-photo"><img src="Product/chocbarbanana.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="chocbarbanana-title">ช็อคแท่ง รสกล้วย</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="chocbarbanana-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="chocbarbanana-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="card product-card" onclick="openProductModal('chocbarpalm')">
+            <div class="product-card-photo"><img src="Product/chocbarpalm.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="chocbarpalm-title">ช็อคแท่ง รสน้ำตาลจาก</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="chocbarpalm-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="chocbarpalm-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="card product-card" onclick="openProductModal('chocpowder')">
+            <div class="product-card-photo"><img src="Product/chocpowder.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="chocpowder-title">ช็อคผง</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="chocpowder-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="chocpowder-price">เร็วๆ นี้</span>
                     <span class="product-card-arrow">›</span>
                 </div>
             </div>
@@ -2205,13 +2450,11 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     <div class="product-group" data-product-type="honey">
     <div class="menu-category-section theme-brown" id="product-group-2">
         <div class="menu-category-header">
-            <span class="menu-category-kicker" data-key="product-group2-kicker">หมวดน้ำผึ้ง</span>
             <h3 data-key="product-group2-title">น้ำผึ้ง</h3>
-            <p data-key="product-group2-desc">น้ำผึ้งแท้จากป่าและจากโครงการเลี้ยงผึ้งร่วมกับโรงเรียนในพื้นที่</p>
         </div>
         <div class="product-grid">
         <button type="button" class="card product-card" onclick="openProductModal('wildhoney')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-4 4-6 9-6 12a6 6 0 0012 0c0-3-2-8-6-12z"/></svg></div>
+            <div class="product-card-photo"><img src="Product/wildhoney.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="wildhoney-title">น้ำผึ้งป่า</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="wildhoney-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2222,7 +2465,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
         </button>
         <button type="button" class="card product-card" onclick="openProductModal('honeythairat')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4z"/><path d="M12 8.2l3.3 1.9v3.8L12 15.8l-3.3-1.9V10.1L12 8.2z"/></svg></div>
+            <div class="product-card-photo"><img src="Product/honeythairat.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="honeythairat-title">น้ำผึ้ง รร.ไทยรัฐ</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="honeythairat-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2233,7 +2476,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
         </button>
         <button type="button" class="card product-card" onclick="openProductModal('honeyhinkop')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4z"/><path d="M12 8.2l3.3 1.9v3.8L12 15.8l-3.3-1.9V10.1L12 8.2z"/></svg></div>
+            <div class="product-card-photo"><img src="Product/honeyhinkop.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="honeyhinkop-title">น้ำผึ้ง รร.หินกบ</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="honeyhinkop-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2247,27 +2490,14 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
     </div>
 
-    <div class="product-group" data-product-type="seafood">
-    <div class="menu-category-section theme-brown" id="product-group-3">
+    <div class="product-group" data-product-type="household">
+    <div class="menu-category-section theme-brown" id="product-group-4">
         <div class="menu-category-header">
-            <span class="menu-category-kicker" data-key="product-group3-kicker">หมวดอาหารทะเลและงานฝีมือ</span>
-            <h3 data-key="product-group3-title">อาหารทะเลแปรรูปและงานฝีมือ</h3>
-            <p data-key="product-group3-desc">ปลาเค็มตากแดดและผ้าไขผึ้งทำมือ ส่วนหนึ่งของแนวคิด Business to Help</p>
+            <h3 data-key="product-group4-title">เครื่องใช้</h3>
         </div>
         <div class="product-grid">
-        <button type="button" class="card product-card" onclick="openProductModal('saltedfish')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg></div>
-            <span class="product-card-name" data-key="saltedfish-title">ปลากุเลาเค็ม</span>
-            <div class="product-card-detail">
-                <p class="product-card-desc" data-key="saltedfish-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
-                <div class="product-card-bottom-row">
-                    <span class="product-card-price" data-key="saltedfish-price">เร็วๆ นี้</span>
-                    <span class="product-card-arrow">›</span>
-                </div>
-            </div>
-        </button>
         <button type="button" class="card product-card" onclick="openProductModal('beeswaxwrap')">
-            <div class="product-card-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8c4-3 12-3 16 0v9c-4 3-12 3-16 0V8z"/><path d="M4 8c4 3 12 3 16 0"/></svg></div>
+            <div class="product-card-photo"><img src="Product/beeswaxwrap.webp" alt="" loading="lazy"></div>
             <span class="product-card-name" data-key="beeswaxwrap-title">ผ้าไขผึ้ง</span>
             <div class="product-card-detail">
                 <p class="product-card-desc" data-key="beeswaxwrap-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
@@ -2278,6 +2508,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
         </button>
         </div>
+    </div>
     </div>
     </div>
 </div>
@@ -2297,23 +2528,33 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 </div>
                 <div id="productModalBody" class="workshop-details"></div>
                 <a href="https://line.me/R/ti/p/%40ouadchum" target="_blank" rel="noopener" class="product-shop-now-btn" data-key="btn-shop-now">Shop Now</a>
-                <div class="product-shop-bubble" data-key="shop-bubble-text">ทักไลน์เพื่อสั่งซื้อ</div>
             </div>
-            <div class="product-detail-photo"><div id="productModalIcon"></div></div>
+            <div class="product-detail-photo">
+                <div id="productModalIcon"></div>
+                <span class="product-detail-photo-count" id="productModalPhotoCount" style="display:none;"></span>
+            </div>
         </div>
         <div class="product-dimensions-strip" id="productDimensionsStrip"></div>
         <div class="product-suggestions">
             <h4 data-key="product-suggestions-title">You might also like</h4>
-            <div class="product-suggestions-grid" id="productSuggestionsGrid"></div>
+            <div class="product-suggestions-scroll"><div class="product-suggestions-grid" id="productSuggestionsGrid"></div></div>
         </div>
     </div>
 </div>
 
+<div class="product-lightbox-overlay" id="productLightboxOverlay" onclick="handleProductLightboxBackdropClick(event)">
+    <button class="product-lightbox-close" onclick="closeProductLightbox()" aria-label="Close">&times;</button>
+    <button class="product-lightbox-arrow product-lightbox-prev" onclick="productLightboxStep(-1)" aria-label="Previous photo">&#8249;</button>
+    <img id="productLightboxImage" src="" alt="">
+    <button class="product-lightbox-arrow product-lightbox-next" onclick="productLightboxStep(1)" aria-label="Next photo">&#8250;</button>
+    <span class="product-lightbox-count" id="productLightboxCount"></span>
+</div>
+
 <footer id="contact">
 <div class="footer-bg-slideshow" id="footerBgSlideshow">
-    <div class="footer-bg-slide active" style="background-image:url('C1.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('C2.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('C3.JPG')"></div>
+    <div class="footer-bg-slide active" style="background-image:url('Background/C1.JPG')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C2.JPG')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C3.JPG')"></div>
 </div>
 <div class="footer-bg-overlay"></div>
 <div class="container">
@@ -2402,7 +2643,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     <div class="modal-content reserve-modal-content">
         <button class="close-modal" onclick="closeReserveModal()">&times;</button>
         <div class="reserve-modal-banner">
-            <div class="reserve-modal-banner-icon"><img src="logo-icon.webp" alt="Baan OuadChum Logo"></div>
+            <div class="reserve-modal-banner-icon"><img src="Branding/logo-icon.webp" alt="Baan OuadChum Logo"></div>
             <h2 data-key="reserve-modal-title">Reserve Your Stay</h2>
             <p data-key="reserve-modal-desc">Contact us directly with LINE or phone to check availability and book.</p>
         </div>
@@ -2519,26 +2760,26 @@ const langData = {
         "product-sub": "Community Products", "product-title": "Community Products",
         "product-desc": "We're gathering products from the community to showcase here. Details coming soon.",
         "btn-product-details": "View Details", "ws-tab-details": "Details", "ws-tab-collab": "Collaboration",
-        "filter-product-all": "All", "filter-product-sweets": "Sweets", "filter-product-seasonings": "Seasonings", "filter-product-honey": "Honey", "filter-product-seafood": "Seafood & Craft",
-        "product-dim-1": "Occupation", "product-dim-2": "Health", "product-dim-3": "Society", "product-dim-4": "Environment", "product-dim-5": "Education",
-        "btn-shop-now": "Shop Now", "shop-bubble-text": "Message us on LINE to order", "product-suggestions-title": "You might also like",
-        "product-modal-soon": "We are still writing up the details for this product. Message us on LINE or give us a call and we will be happy to tell you more.",
+        "filter-product-all": "All", "filter-product-sweets": "Sweets", "filter-product-seasonings": "Seasonings", "filter-product-honey": "Honey", "filter-product-seafood": "Seafood", "filter-product-household": "Home Goods",
+        "product-dim-1": "Economic Dimension", "product-dim-2": "Health Dimension", "product-dim-3": "Social Dimension", "product-dim-4": "Environmental Dimension", "product-dim-5": "Education Dimension",
+        "btn-shop-now": "Shop Now", "product-suggestions-title": "You might also like",
         "product-group0-kicker": "Seasonings", "product-group0-title": "Local Seasonings", "product-group0-desc": "Traditional flavors from local fishing and household know-how around Baan OuadChum.",
-        "product-group1-kicker": "Sweets", "product-group1-title": "Sweets & Sugar", "product-group1-desc": "Cacao and sugar from community farms, processed by local growers in Pathio.",
+        "product-group1-kicker": "Sweets", "product-group1-title": "Sweets", "product-group1-desc": "Cacao and sugar from community farms, processed by local growers in Pathio.",
         "product-group2-kicker": "Honey", "product-group2-title": "Honey", "product-group2-desc": "Real honey from the wild and from beekeeping partnerships with local schools.",
-        "product-group3-kicker": "Seafood & Craft", "product-group3-title": "Preserved Seafood & Handicraft", "product-group3-desc": "Sun-dried salted fish and handmade beeswax wraps, part of our Business to Help approach.",
-        "kapi-title": "Shrimp Paste", "kapi-desc": "Product details coming soon.", "kapi-price": "Coming soon",
-        "chocbar-title": "Chocolate Bar", "chocbar-desc": "Product details coming soon.", "chocbar-price": "Coming soon",
-        "chocpowder-title": "Cocoa Powder", "chocpowder-desc": "Product details coming soon.", "chocpowder-price": "Coming soon",
-        "napalmsyrup-title": "Nipa Palm Syrup", "napalmsyrup-desc": "Product details coming soon.", "napalmsyrup-price": "Coming soon",
-        "namkoei-title": "Fermented Krill Sauce", "namkoei-desc": "Product details coming soon.", "namkoei-price": "Coming soon",
-        "sugarblock-title": "Nipa Palm Sugar (Block)", "sugarblock-desc": "Product details coming soon.", "sugarblock-price": "Coming soon",
-        "coconutsugar-title": "Coconut Sugar", "coconutsugar-desc": "Product details coming soon.", "coconutsugar-price": "Coming soon",
-        "wildhoney-title": "Wild Honey", "wildhoney-desc": "Product details coming soon.", "wildhoney-price": "Coming soon",
-        "honeythairat-title": "Honey — Thairat School", "honeythairat-desc": "Product details coming soon.", "honeythairat-price": "Coming soon",
-        "honeyhinkop-title": "Honey — Hinkop School", "honeyhinkop-desc": "Product details coming soon.", "honeyhinkop-price": "Coming soon",
-        "saltedfish-title": "Salted Kulao Fish", "saltedfish-desc": "Product details coming soon.", "saltedfish-price": "Coming soon",
-        "beeswaxwrap-title": "Beeswax Wrap", "beeswaxwrap-desc": "Product details coming soon.", "beeswaxwrap-price": "Coming soon",
+        "product-group3-kicker": "Seafood", "product-group3-title": "Preserved Seafood", "product-group3-desc": "Sun-dried salted fish, part of our Business to Help approach.",
+        "product-group4-kicker": "Home Goods", "product-group4-title": "Home Goods", "product-group4-desc": "Handmade beeswax wraps, part of our Business to Help approach.",
+        "kapi-title": "Traditional Shrimp Paste", "kapi-desc": "Made from fresh krill, packed tight and pressed with bamboo in a jar, fermented airtight for 5-6 months - an old technique that drains the liquid out for a fragrant, dense paste. *The drained liquid can be used in place of fish sauce.", "kapi-price": "250 g / 190 THB, 500 g / 250 THB, 1 kg / 400 THB",
+        "chocbardurian-title": "Durian Delight", "chocbardurian-desc": "Monthong durian in milky cocoa.", "chocbardurian-price": "65 g / 160 THB", "chocbardark60-title": "Khao Sam Kaew", "chocbardark60-desc": "Dark chocolate, 60% cacao.", "chocbardark60-price": "65 g / 150 THB", "chocbardark85-title": "Prai Naam", "chocbardark85-desc": "Dark chocolate, 85% cacao.", "chocbardark85-price": "65 g / 200 THB", "chocbarbanana-title": "Khuen Khon Ching Thong", "chocbarbanana-desc": "Cacao with ladyfinger banana.", "chocbarbanana-price": "65 g / 150 THB", "chocbarpalm-title": "Wild Oasis", "chocbarpalm-desc": "Cacao with Nipa palm sugar.", "chocbarpalm-price": "65 g / 150 THB",
+        "chocpowder-title": "Dark Cacao Mass Powder 100%", "chocpowder-desc": "A drinking chocolate powder made from 100% cacao mass.", "chocpowder-price": "100 g / 250 THB",
+        "napalmsyrup-title": "Nipa Palm Syrup", "napalmsyrup-desc": "An old-fashioned health sugar from the Nipa palm with a caramel-like flavor, in an easy-to-use squeeze bottle.", "napalmsyrup-price": "360 ml / 200 THB",
+        "namkoei-title": "Traditional Krill Sauce", "namkoei-desc": "The liquid drained from our shrimp paste, boiled and fermented with an old family recipe into a rare, deeply fragrant fish-sauce substitute - great for stir-fries, soups, or simply with lime and chili.", "namkoei-price": "120 ml / 100 THB",
+        "sugarblock-title": "Nipa Palm Sugar (Block)", "sugarblock-desc": "A rare, old-fashioned health sugar with a caramel-like flavor, made from Nipa palm along the Bang Son canal.", "sugarblock-price": "500 g / 200 THB",
+        "coconutsugar-title": "Natural Coconut Sugar", "coconutsugar-desc": "Sweet coconut blossom nectar slow-boiled into sugar using a traditional method - no chemicals or preservatives.", "coconutsugar-price": "500 g / 150 THB",
+        "wildhoney-title": "Wildflower Raw Honey", "wildhoney-desc": "Nectar from a mixed deciduous forest - a complex, mellow, sweet-and-sour flavor, never heat-treated so all its natural properties stay intact.", "wildhoney-price": "360 ml / 360 THB",
+        "honeythairat-title": "Mangkrai Flower Honey — Thairat School", "honeythairat-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeythairat-price": "330 ml / 400 THB",
+        "honeyhinkop-title": "Mangkrai Flower Honey — Hinkop School", "honeyhinkop-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeyhinkop-price": "330 ml / 400 THB",
+        "saltedfish-title": "Fragrant Salted Kulao Fish", "saltedfish-desc": "Young kulao fish, salted fresh off coastal fishing boats and cured immediately - firm, pink, fragrant, and rich in natural oil. (Pre-sliced)", "saltedfish-price": "120 THB per 100g",
+        "beeswaxwrap-title": "Beeswax Food Wrap by Young Entrepreneurs", "beeswaxwrap-desc": "Natural beeswax-coated cloth for wrapping fruit, vegetables, and food - keeps it fresh, seals in aroma, and can be reused for 2-3 years.", "beeswaxwrap-price": "25x25 cm / 90 THB, 30x30 cm / 100 THB",
         "filter-menu-all": "All", "filter-menu-food": "Food", "filter-menu-drink": "Drink",
         "hero-badge": "Coming Soon", "hero-title": "Our Menu Is Coming Soon", "hero-desc": "We're preparing great food and drinks for you at Baan OuadChum.",
         "card-badge": "Coming Soon",
@@ -2578,31 +2819,31 @@ const langData = {
         "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-articles": "สื่อ",
         "btn-reserve": "ติดต่อ",
         "page-sub": "สินค้าของเรา", "page-title": "สินค้าชุมชน",
-        "page-desc": "ผลิตภัณฑ์จากชุมชนท้องถิ่นรอบบ้านต้นไม้อวดชุม ส่วนหนึ่งของแนวคิด Business to Help ที่สนับสนุนคนในพื้นที่ รายการสินค้ากำลังทยอยเพิ่มเข้ามา",
+        "page-desc": "ผลิตภัณฑ์จากชุมชนท้องถิ่นจังหวัดชุมพร ส่วนหนึ่งของแนวคิด Business to Help",
         "menu-product": "สินค้า",
         "product-sub": "สินค้าชุมชน", "product-title": "สินค้าชุมชน",
         "product-desc": "เรากำลังรวบรวมสินค้าจากชุมชนมาให้เลือกชม รายละเอียดจะเพิ่มเข้ามาเร็วๆ นี้",
         "btn-product-details": "ดูรายละเอียด", "ws-tab-details": "รายละเอียด", "ws-tab-collab": "ความร่วมมือ",
-        "filter-product-all": "ทั้งหมด", "filter-product-sweets": "ของหวาน", "filter-product-seasonings": "เครื่องปรุง", "filter-product-honey": "น้ำผึ้ง", "filter-product-seafood": "ทะเลและงานฝีมือ",
-        "product-dim-1": "อาชีพ", "product-dim-2": "สุขภาพ", "product-dim-3": "สังคม", "product-dim-4": "สิ่งแวดล้อม", "product-dim-5": "การศึกษา",
-        "btn-shop-now": "ช้อปเลย", "shop-bubble-text": "ทักไลน์เพื่อสั่งซื้อ", "product-suggestions-title": "สินค้าที่คุณอาจสนใจ",
-        "product-modal-soon": "เรากำลังเตรียมรายละเอียดของสินค้านี้อยู่ ทักไลน์หรือโทรหาเราได้เลย ยินดีให้ข้อมูลเพิ่มเติมครับ",
+        "filter-product-all": "ทั้งหมด", "filter-product-sweets": "ของหวาน", "filter-product-seasonings": "เครื่องปรุง", "filter-product-honey": "น้ำผึ้ง", "filter-product-seafood": "ทะเล", "filter-product-household": "เครื่องใช้",
+        "product-dim-1": "มิติเศรษฐกิจ", "product-dim-2": "มิติสุขภาพ", "product-dim-3": "มิติสังคม", "product-dim-4": "มิติสิ่งแวดล้อม", "product-dim-5": "มิติการศึกษา",
+        "btn-shop-now": "ช้อปเลย", "product-suggestions-title": "สินค้าที่คุณอาจสนใจ",
         "product-group0-kicker": "หมวดเครื่องปรุง", "product-group0-title": "เครื่องปรุงพื้นบ้าน", "product-group0-desc": "รสชาติดั้งเดิมจากภูมิปัญญาชาวประมงและครัวเรือนท้องถิ่นรอบบ้านอวดชุม",
-        "product-group1-kicker": "หมวดของหวาน", "product-group1-title": "ขนมหวานและน้ำตาล", "product-group1-desc": "โกโก้และน้ำตาลจากสวนชุมชน แปรรูปโดยกลุ่มเกษตรกรในพื้นที่ปะทิว",
+        "product-group1-kicker": "หมวดของหวาน", "product-group1-title": "ขนมหวาน", "product-group1-desc": "โกโก้และน้ำตาลจากสวนชุมชน แปรรูปโดยกลุ่มเกษตรกรในพื้นที่ปะทิว",
         "product-group2-kicker": "หมวดน้ำผึ้ง", "product-group2-title": "น้ำผึ้ง", "product-group2-desc": "น้ำผึ้งแท้จากป่าและจากโครงการเลี้ยงผึ้งร่วมกับโรงเรียนในพื้นที่",
-        "product-group3-kicker": "หมวดอาหารทะเลและงานฝีมือ", "product-group3-title": "อาหารทะเลแปรรูปและงานฝีมือ", "product-group3-desc": "ปลาเค็มตากแดดและผ้าไขผึ้งทำมือ ส่วนหนึ่งของแนวคิด Business to Help",
-        "kapi-title": "กะปิ", "kapi-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "kapi-price": "เร็วๆ นี้",
-        "chocbar-title": "ช็อคแท่ง", "chocbar-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "chocbar-price": "เร็วๆ นี้",
-        "chocpowder-title": "ช็อคผง", "chocpowder-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "chocpowder-price": "เร็วๆ นี้",
-        "napalmsyrup-title": "ไซรัปจาก", "napalmsyrup-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "napalmsyrup-price": "เร็วๆ นี้",
-        "namkoei-title": "น้ำเคย", "namkoei-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "namkoei-price": "เร็วๆ นี้",
-        "sugarblock-title": "น้ำตาลจากแบบปึก", "sugarblock-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "sugarblock-price": "เร็วๆ นี้",
-        "coconutsugar-title": "น้ำตาลมะพร้าว", "coconutsugar-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "coconutsugar-price": "เร็วๆ นี้",
-        "wildhoney-title": "น้ำผึ้งป่า", "wildhoney-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "wildhoney-price": "เร็วๆ นี้",
-        "honeythairat-title": "น้ำผึ้ง รร.ไทยรัฐ", "honeythairat-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "honeythairat-price": "เร็วๆ นี้",
-        "honeyhinkop-title": "น้ำผึ้ง รร.หินกบ", "honeyhinkop-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "honeyhinkop-price": "เร็วๆ นี้",
-        "saltedfish-title": "ปลากุเลาเค็ม", "saltedfish-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "saltedfish-price": "เร็วๆ นี้",
-        "beeswaxwrap-title": "ผ้าไขผึ้ง", "beeswaxwrap-desc": "รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้", "beeswaxwrap-price": "เร็วๆ นี้",
+        "product-group3-kicker": "หมวดอาหารทะเล", "product-group3-title": "อาหารทะเลแปรรูป", "product-group3-desc": "ปลาเค็มตากแดด ส่วนหนึ่งของแนวคิด Business to Help",
+        "product-group4-kicker": "หมวดเครื่องใช้", "product-group4-title": "เครื่องใช้", "product-group4-desc": "ผ้าไขผึ้งทำมือ ส่วนหนึ่งของแนวคิด Business to Help",
+        "kapi-title": "กะปิ-เคยขัดน้ำ", "kapi-desc": "ผลิตจากกุ้งเคยสดๆ อัดจนแน่น และขัดด้วยไม้ไผ่ในโหล หมักไว้ 5-6 เดือน ไม่ให้อากาศเข้า เป็นภูมิปัญญาโบราณที่ช่วยไล่น้ำเคยออกจากกะปิ ทำให้หอม เนื้อเหนียว *น้ำเคยใช้ปรุงอาหารแทนน้ำปลาได้", "kapi-price": "250 g. / 190 บาท, 500 g. / 250 บาท, 1 kg. / 400 บาท",
+        "chocbardurian-title": "ช็อกโกแลตทุเรียน", "chocbardurian-desc": "ช็อกโกแลตนมผสมทุเรียนหมอนทอง", "chocbardurian-price": "65 g. / 160 บาท", "chocbardark60-title": "ช็อกโกแลตดาร์ก 60%", "chocbardark60-desc": "ดาร์กช็อกโกแลต 60% เคคาโอ", "chocbardark60-price": "65 g. / 150 บาท", "chocbardark85-title": "ช็อกโกแลตดาร์ก 85%", "chocbardark85-desc": "ดาร์กช็อกโกแลต 85% เคคาโอ", "chocbardark85-price": "65 g. / 200 บาท", "chocbarbanana-title": "ช็อกโกแลตกล้วยเล็บมือนาง", "chocbarbanana-desc": "คาเคาผสมกล้วยเล็บมือนาง", "chocbarbanana-price": "65 g. / 150 บาท", "chocbarpalm-title": "ช็อกโกแลตน้ำตาลจาก", "chocbarpalm-desc": "คาเคาผสมน้ำตาลจาก", "chocbarpalm-price": "65 g. / 150 บาท",
+        "chocpowder-title": "ผงดาร์คคาเคาแมส 100%", "chocpowder-desc": "ผงช็อกโกแลตสำหรับชง จากช็อกโกแลต 100%", "chocpowder-price": "100 g. / 250 บาท",
+        "napalmsyrup-title": "ไซรัปจากสด", "napalmsyrup-desc": "น้ำตาลสุขภาพแบบโบราณจาก 'ต้นจาก' รสคล้ายคาราเมล มาในขวดบีบ ทานง่าย", "napalmsyrup-price": "360 ml. / 200 บาท",
+        "namkoei-title": "น้ำเคยชุมพร", "namkoei-desc": "น้ำที่ได้จากกะปิ-เคยขัดน้ำ นำมาต้มและหมักตามสูตรโบราณ เป็นสุดยอดน้ำปลา หอมล้ำ หาทานยาก ใช้ปรุงรสแทนน้ำปลา นำไปผัด ต้ม หรือแค่บีบมะนาว สับพริก รับรองตรึงใจ", "namkoei-price": "120 ml. / 100 บาท",
+        "sugarblock-title": "น้ำตาลจาก ชนิดปึก", "sugarblock-desc": "น้ำตาลสุขภาพแบบโบราณที่หาทานยาก รสคล้ายคาราเมล ผลิตจาก 'ต้นจาก' ริมคลองบางสน", "sugarblock-price": "500 g. / 200 บาท",
+        "coconutsugar-title": "น้ำตาลดอกมะพร้าว เคี่ยวเตาปืน", "coconutsugar-desc": "นำน้ำหวานจากดอกมะพร้าวมาเคี่ยวจนได้เป็นเนื้อน้ำตาลด้วยกระบวนการดั้งเดิม ไม่ใช้สารเคมีหรือวัตถุกันเสีย", "coconutsugar-price": "500 g. / 150 บาท",
+        "wildhoney-title": "น้ำผึ้งดอกไม้ป่า", "wildhoney-desc": "น้ำหวานจากป่าเบญจพรรณ รสชาติซับซ้อน ละมุน หวานอมเปรี้ยว ไม่ผ่านความร้อน ทำให้คงสรรพคุณไว้ครบ", "wildhoney-price": "360 ml. / 360 บาท",
+        "honeythairat-title": "น้ำผึ้งดอกเสม็ดขาว จากนักธุรกิจน้อย รร. ไทยรัฐ๗๘ (วัดสามัคคีชัย)", "honeythairat-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeythairat-price": "330 ml. / 400 บาท",
+        "honeyhinkop-title": "น้ำผึ้งดอกมังเคร จากนักธุรกิจน้อย รร.บ้านหินกบ", "honeyhinkop-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeyhinkop-price": "330 ml. / 400 บาท",
+        "saltedfish-title": "ปลากุเลาเค็มหอม", "saltedfish-desc": "ปลากุเลาอ่อนเค็มจากเรือประมงชายฝั่ง จับและหมักทันที ทำให้เนื้อแน่น ชมพู หอม ชุ่มไขมัน (ทุกตัวหั่นชิ้นแล้ว)", "saltedfish-price": "ขีดละ 120 บาท",
+        "beeswaxwrap-title": "ผ้าไขผึ้งถนอมอาหารจากนักธุรกิจน้อย", "beeswaxwrap-desc": "ผ้าชุบไขผึ้งธรรมชาติ ห่อผักผลไม้ ห่ออาหาร ช่วยคงความสด เก็บกลิ่น ใช้ซ้ำได้ 2-3 ปี", "beeswaxwrap-price": "25x25 ซม. / 90 บาท, 30x30 ซม. / 100 บาท",
         "filter-menu-all": "ทั้งหมด", "filter-menu-food": "อาหาร", "filter-menu-drink": "เครื่องดื่ม",
         "hero-badge": "เร็วๆ นี้", "hero-title": "เมนูกำลังจะมาเร็วๆ นี้", "hero-desc": "เรากำลังเตรียมเมนูอาหารและเครื่องดื่มดีๆ ไว้ให้คุณที่บ้านอวดชุม",
         "card-badge": "เร็วๆ นี้",
@@ -2690,6 +2931,10 @@ function switchLanguage(lang) {
 
     updateGuestDropdowns(lang);
     applyAttrTranslations(lang);
+
+    if (currentProductModalId && document.getElementById("productModal").classList.contains("active")) {
+        openProductModal(currentProductModalId);
+    }
 }
 
 // aria-label lives on attributes, which the innerHTML sweep above never touches -
@@ -2744,18 +2989,22 @@ function closeReserveModal() {
 }
 
 const productMeta = {
-    kapi: { icon: 'jar' },
-    chocbar: { icon: 'chocbar' },
-    chocpowder: { icon: 'chocpowder' },
-    napalmsyrup: { icon: 'bottle' },
-    namkoei: { icon: 'bottle2' },
-    sugarblock: { icon: 'sugarblock' },
-    coconutsugar: { icon: 'coconut' },
-    wildhoney: { icon: 'honey' },
-    honeythairat: { icon: 'honeycomb' },
-    honeyhinkop: { icon: 'honeycomb' },
-    saltedfish: { icon: 'fish' },
-    beeswaxwrap: { icon: 'wrap' }
+    kapi: { icon: 'jar', photos: ['Product/kapi.webp', 'Product/kapi-lifestyle.webp', 'Product/kapi-dishes.webp', 'Product/kapi-process.webp', 'Product/kapi-wisdom.webp'] },
+    chocbardurian: { icon: 'chocbar', photo: 'Product/chocbardurian.webp' },
+    chocbardark60: { icon: 'chocbar', photo: 'Product/chocbardark60.webp' },
+    chocbardark85: { icon: 'chocbar', photo: 'Product/chocbardark85.webp' },
+    chocbarbanana: { icon: 'chocbar', photo: 'Product/chocbarbanana.webp' },
+    chocbarpalm: { icon: 'chocbar', photo: 'Product/chocbarpalm.webp' },
+    chocpowder: { icon: 'chocpowder', photo: 'Product/chocpowder.webp' },
+    napalmsyrup: { icon: 'bottle', photo: 'Product/napalmsyrup.webp' },
+    namkoei: { icon: 'bottle2', photo: 'Product/namkoei.webp' },
+    sugarblock: { icon: 'sugarblock', photo: 'Product/sugarblock.webp' },
+    coconutsugar: { icon: 'coconut', photo: 'Product/coconutsugar.webp' },
+    wildhoney: { icon: 'honey', photo: 'Product/wildhoney.webp' },
+    honeythairat: { icon: 'honeycomb', photo: 'Product/honeythairat.webp' },
+    honeyhinkop: { icon: 'honeycomb', photo: 'Product/honeyhinkop.webp' },
+    saltedfish: { icon: 'fish', photo: 'Product/saltedfish.webp' },
+    beeswaxwrap: { icon: 'wrap', photo: 'Product/beeswaxwrap.webp' }
 };
 const PRODUCT_ICONS = {
     jar: '<path d="M6 10h12v9a2 2 0 01-2 2H8a2 2 0 01-2-2v-9z"/><path d="M5 10h14M9 10V6a3 3 0 016 0v4"/>',
@@ -2779,12 +3028,16 @@ const DIMENSION_ICONS = [
     '<path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/>'
 ];
 
-function renderProductDimensions() {
+const PRODUCT_DIMENSIONS = {
+    beeswaxwrap: [1, 4]
+};
+function renderProductDimensions(id) {
     const lang = langData[currentLang] || {};
+    const dims = PRODUCT_DIMENSIONS[id] || [1];
     const strip = document.getElementById("productDimensionsStrip");
-    strip.innerHTML = [1, 2, 3, 4, 5].map((n, i) => `
+    strip.innerHTML = dims.map(n => `
         <span class="product-dimension-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${DIMENSION_ICONS[i]}</svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${DIMENSION_ICONS[n - 1]}</svg>
             ${lang[`product-dim-${n}`] || ""}
         </span>`).join("");
 }
@@ -2794,44 +3047,62 @@ function renderProductSuggestions(currentId) {
     const others = PRODUCT_ID_LIST.filter(pid => pid !== currentId);
     const startIndex = PRODUCT_ID_LIST.indexOf(currentId);
     const picks = [];
-    for (let i = 1; picks.length < 4 && i <= others.length; i++) {
+    for (let i = 1; picks.length < 8 && i <= others.length; i++) {
         picks.push(PRODUCT_ID_LIST[(startIndex + i) % PRODUCT_ID_LIST.length]);
     }
-    document.getElementById("productSuggestionsGrid").innerHTML = picks.map(pid => `
+    document.getElementById("productSuggestionsGrid").innerHTML = picks.map(pid => {
+        const pMeta = productMeta[pid];
+        const pPhoto = pMeta.photo || (pMeta.photos && pMeta.photos[0]);
+        const photoHtml = pPhoto
+            ? `<img src="${pPhoto}" alt="">`
+            : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[pMeta.icon]}</svg>`;
+        return `
         <button type="button" class="product-suggestion-tile" onclick="openProductModal('${pid}')">
-            <div class="product-suggestion-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[productMeta[pid].icon]}</svg></div>
+            <div class="product-suggestion-photo">${photoHtml}</div>
             <span class="product-suggestion-name">${lang[`${pid}-title`] || ""}</span>
-        </button>`).join("");
+        </button>`;
+    }).join("");
 }
 
 function filterProductType(type, btnEl) {
     document.querySelectorAll('.product-group').forEach(group => {
         group.style.display = (type === 'all' || group.dataset.productType === type) ? '' : 'none';
     });
+    document.getElementById('product').classList.toggle('products-flat', type === 'all');
     btnEl.closest('.product-type-filter').querySelectorAll('.product-type-btn').forEach(b => b.classList.remove('active'));
     btnEl.classList.add('active');
 }
 
+let currentProductModalId = null;
 function openProductModal(id) {
     const meta = productMeta[id];
     if (!meta) return;
+    currentProductModalId = id;
     const lang = langData[currentLang] || {};
     const productTitle = lang[`${id}-title`] || "";
-    document.getElementById("productModalIcon").innerHTML =
-        `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[meta.icon]}</svg>`;
+    const photos = meta.photos || (meta.photo ? [meta.photo] : []);
+    document.getElementById("productModalIcon").innerHTML = photos.length
+        ? `<div class="product-detail-photo-scroll" id="productModalPhotoScroll">${photos.map((src, i) => `<img src="${src}" alt="${productTitle}" onclick="openProductLightbox('${id}', ${i})">`).join("")}</div>`
+        : `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[meta.icon]}</svg>`;
+    const photoCount = document.getElementById("productModalPhotoCount");
+    if (photos.length > 1) {
+        photoCount.style.display = "";
+        photoCount.textContent = `1 / ${photos.length}`;
+        const scrollEl = document.getElementById("productModalPhotoScroll");
+        scrollEl.onscroll = () => {
+            const i = Math.round(scrollEl.scrollLeft / scrollEl.clientWidth);
+            photoCount.textContent = `${i + 1} / ${photos.length}`;
+        };
+    } else {
+        photoCount.style.display = "none";
+    }
     document.getElementById("productModalTitle").textContent = productTitle;
     document.getElementById("productModalDesc").textContent = lang[`${id}-desc`] || "";
     document.getElementById("productModalPrice").textContent = lang[`${id}-price`] || "";
-    renderProductDimensions();
     renderProductSuggestions(id);
     const body = document.getElementById("productModalBody");
     const details = lang[`${id}-details`];
-    if (details) {
-        body.innerHTML = details;
-    } else {
-        const soonText = lang["product-modal-soon"] || "";
-        body.innerHTML = `<div class="workshop-modal-soon"><p>${soonText}</p><a href="https://line.me/R/ti/p/%40ouadchum" target="_blank" rel="noopener">LINE @ouadchum →</a></div>`;
-    }
+    body.innerHTML = details || "";
 
     const tabsBar = document.getElementById("productModalTabs");
     const tabPages = body.querySelectorAll(".ws-tab-page");
@@ -2846,8 +3117,11 @@ function openProductModal(id) {
         body.removeAttribute("data-tab-page");
     }
 
-    document.getElementById("productModal").classList.add("active");
-    lockBodyScroll();
+    const modalEl = document.getElementById("productModal");
+    if (!modalEl.classList.contains("active")) {
+        lockBodyScroll();
+    }
+    modalEl.classList.add("active");
 }
 function switchProductTab(page) {
     const body = document.getElementById("productModalBody");
@@ -2859,7 +3133,57 @@ function switchProductTab(page) {
 }
 function closeProductModal() {
     document.getElementById("productModal").classList.remove("active");
+    currentProductModalId = null;
     unlockBodyScroll();
+}
+
+// Full-screen photo viewer, opened from a product's photo(s). Supports
+// stepping between photos for products with more than one (e.g. kapi).
+let productLightboxPhotos = [];
+let productLightboxIndex = 0;
+function renderProductLightbox() {
+    const img = document.getElementById("productLightboxImage");
+    img.src = productLightboxPhotos[productLightboxIndex];
+    const arrows = document.querySelectorAll(".product-lightbox-arrow");
+    const countEl = document.getElementById("productLightboxCount");
+    if (productLightboxPhotos.length > 1) {
+        arrows.forEach(a => a.style.display = "");
+        countEl.style.display = "";
+        countEl.textContent = `${productLightboxIndex + 1} / ${productLightboxPhotos.length}`;
+    } else {
+        arrows.forEach(a => a.style.display = "none");
+        countEl.style.display = "none";
+    }
+}
+function openProductLightbox(id, index) {
+    const meta = productMeta[id];
+    if (!meta) return;
+    const photos = meta.photos || (meta.photo ? [meta.photo] : []);
+    if (!photos.length) return;
+    productLightboxPhotos = photos;
+    productLightboxIndex = index;
+    renderProductLightbox();
+    document.getElementById("productLightboxOverlay").classList.add("active");
+    lockBodyScroll();
+    document.addEventListener("keydown", handleProductLightboxKeydown);
+}
+function closeProductLightbox() {
+    document.getElementById("productLightboxOverlay").classList.remove("active");
+    document.removeEventListener("keydown", handleProductLightboxKeydown);
+    unlockBodyScroll();
+}
+function productLightboxStep(delta) {
+    const n = productLightboxPhotos.length;
+    productLightboxIndex = (productLightboxIndex + delta + n) % n;
+    renderProductLightbox();
+}
+function handleProductLightboxBackdropClick(event) {
+    if (event.target.id === "productLightboxOverlay") closeProductLightbox();
+}
+function handleProductLightboxKeydown(event) {
+    if (event.key === "Escape") closeProductLightbox();
+    else if (event.key === "ArrowRight") productLightboxStep(1);
+    else if (event.key === "ArrowLeft") productLightboxStep(-1);
 }
 
 function openBookingDrawer() {

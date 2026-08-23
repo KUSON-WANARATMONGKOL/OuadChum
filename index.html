@@ -12,17 +12,18 @@
 <meta property="og:title" content="บ้านต้นไม้อวดชุม ชุมพร | Baan OuadChum Coastal Treehouse">
 <meta property="og:description" content="บ้านต้นไม้ริมทะเลเพื่อการพัฒนาชุมชน และเชื่อมโยงภูมิปัญญาท้องถิ่นสู่การท่องเที่ยว ปะทิว ชุมพร">
 <meta property="og:url" content="https://ouadchum.com/">
-<meta property="og:image" content="https://ouadchum.com/ogimage.jpg">
+<meta property="og:image" content="https://ouadchum.com/Branding/ogimage.jpg">
 <meta property="og:locale" content="th_TH">
 <meta property="og:locale:alternate" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="บ้านต้นไม้อวดชุม ชุมพร | Baan OuadChum Coastal Treehouse">
 <meta name="twitter:description" content="บ้านต้นไม้ริมทะเลเพื่อการพัฒนาชุมชน และเชื่อมโยงภูมิปัญญาท้องถิ่นสู่การท่องเที่ยว ปะทิว ชุมพร">
-<meta name="twitter:image" content="https://ouadchum.com/ogimage.jpg">
+<meta name="twitter:image" content="https://ouadchum.com/Branding/ogimage.jpg">
 
-<link rel="icon" href="logo-old.webp" type="image/webp">
-<link rel="apple-touch-icon" href="logo-old.webp">
+<link rel="icon" href="Branding/logo-old.webp" type="image/webp">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <link rel="preload" as="image" href="Background/background.webp" imagesrcset="Background/background-mobile.webp 800w, Background/background.webp 1600w" imagesizes="100vw" fetchpriority="high">
 
@@ -39,8 +40,8 @@
   "name": "Baan OuadChum Coastal Treehouse",
   "description": "A 10-room treehouse resort, cafe, and community space by the sea in Pathio, Chumphon, Thailand.",
   "url": "https://ouadchum.com/",
-  "image": "https://ouadchum.com/ogimage.jpg",
-  "logo": "https://ouadchum.com/logo.webp",
+  "image": "https://ouadchum.com/Branding/ogimage.jpg",
+  "logo": "https://ouadchum.com/Branding/logo.webp",
   "telephone": "+66821166905",
   "priceRange": "$$",
   "address": {
@@ -108,6 +109,28 @@ body{
     /* New block formatting context so .hero's negative margin-top (below)
        shifts only .hero, not collapse upward into body's own position. */
     display: flow-root;
+}
+
+/* Custom scrollbar - replaces the plain browser default with one that
+   matches the site's tan/green palette. */
+::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+::-webkit-scrollbar-track {
+    background: var(--gray-light);
+}
+::-webkit-scrollbar-thumb {
+    background: #bdaa8a;
+    border-radius: 999px;
+    border: 3px solid var(--gray-light);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #bdaa8a var(--gray-light);
 }
 
 body.modal-locked {
@@ -349,6 +372,25 @@ nav{
 }
 
 /* HERO SECTION (แก้ไข: จัดหน้าแรกให้อยู่ตรงกลาง และรองรับโลโก้ตรงกลาง) */
+.hero-corner-graphic {
+    position: absolute;
+    top: calc(var(--nav-h) + 12px);
+    width: 150px;
+    height: auto;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.92;
+}
+.hero-corner-graphic-left { left: -20px; top: calc(var(--nav-h) - 20px); }
+.hero-corner-graphic-right {
+    right: 80px;
+    top: calc(var(--nav-h) - 20px);
+    width: 190px;
+}
+@media (max-width: 700px) {
+    .hero-corner-graphic { width: 85px; }
+    .hero-corner-graphic-right { width: 105px; }
+}
 .hero{
     position: relative;
     overflow: hidden;
@@ -2367,17 +2409,92 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 #stay > .container { position: relative; z-index: 1; }
 .stay-bg-graphic {
     position: absolute;
-    top: -30px;
+    top: -80px;
     width: 640px;
     height: auto;
     pointer-events: none;
     z-index: 0;
     opacity: 0.5;
 }
-.stay-bg-graphic-left { left: -420px; }
+.stay-bg-graphic-left { left: -80px; top: 1150px; transform: scaleX(-1); }
 .stay-bg-graphic-right { right: -20px; }
 @media (max-width: 700px) {
     .stay-bg-graphic { display: none; }
+}
+.stay-village-scene {
+    position: absolute;
+    top: 1180px;
+    width: 520px;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+}
+.stay-village-scene-left { left: -80px; }
+.stay-village-scene-right { right: -20px; transform: scaleX(-1); }
+@media (max-width: 700px) {
+    .stay-village-scene { display: none; }
+}
+.stay-logo-wrap {
+    position: relative;
+    width: 150px;
+    margin: 0 auto 16px auto;
+}
+.stay-logo-img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+.stay-logo-hornbill {
+    position: absolute;
+    bottom: -30px;
+    left: -100px;
+    width: 190px;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+.stay-logo-eagle {
+    position: absolute;
+    top: -55px;
+    right: -85px;
+    width: 130px;
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+}
+@media (max-width: 700px) {
+    .stay-logo-hornbill { width: 120px; left: -60px; bottom: -18px; }
+    .stay-logo-eagle { width: 85px; top: -35px; right: -50px; }
+}
+#about { position: relative; overflow: hidden; }
+#about > .container { position: relative; z-index: 1; }
+.philosophy-heading-wrap { position: relative; }
+.philosophy-bee {
+    position: absolute;
+    top: -18px;
+    left: 460px;
+    width: 65px;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+.philosophy-fish-edge {
+    position: absolute;
+    top: 60px;
+    width: 200px;
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.9;
+}
+.philosophy-fish-edge-left { left: -60px; }
+.philosophy-fish-edge-right { right: -50px; }
+@media (max-width: 900px) {
+    .philosophy-fish-edge { display: none; }
+    .philosophy-bee { width: 48px; top: -14px; left: 292px; }
 }
 
 /* MEDIA QUERIES FOR SMALLER DEVICES */
@@ -2460,7 +2577,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 <nav id="navbar">
 <div class="container nav-inner">
 <a href="#" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0, behavior:'smooth'});">
-    <img src="logo-icon.webp" alt="Baan OuadChum Logo" class="logo-icon" width="220" height="220">
+    <img src="Branding/logo-icon.webp" alt="Baan OuadChum Logo" class="logo-icon" width="220" height="220">
     <span class="logo-word">OuadChum</span>
 </a>
 
@@ -2468,7 +2585,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 <div class="nav-menu-wrapper" id="navMenuWrapper">
     <div class="nav-links">
         <a href="#" data-key="menu-about" onclick="event.preventDefault(); closeMenu(); window.scrollTo({top:0, behavior:'smooth'});">หน้าแรก</a>
-        <a href="#stayTitle" data-key="menu-stay" onclick="jumpToSection(event, 'stayTitle', 1466)">ห้องพัก</a>
+        <a href="#stayTitle" data-key="menu-stay" onclick="jumpToSection(event, 'stayTitle', 1367.878662109375)">ห้องพัก</a>
         <a href="workshop.html" data-key="menu-workshop" onclick="closeMenu()">เวิร์คช็อป</a>
         <a href="menu.html" data-key="menu-menu" onclick="closeMenu()">เมนู</a>
         <a href="product.html" data-key="menu-product" onclick="closeMenu()">สินค้า</a>
@@ -2493,13 +2610,15 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 <section class="hero" id="heroSection">
 <div class="hero-slides" id="heroSlides"></div>
 <div class="hero-overlay"></div>
+<img src="Background/hornbill-berries.webp" alt="" aria-hidden="true" class="hero-corner-graphic hero-corner-graphic-left">
+<img src="Background/eagle-pair.webp" alt="" aria-hidden="true" class="hero-corner-graphic hero-corner-graphic-right">
 <button class="hero-arrow prev" onclick="heroPrev()" aria-label="Previous background">&#10094;</button>
 <button class="hero-arrow next" onclick="heroNext()" aria-label="Next background">&#10095;</button>
 <div class="container">
     <div class="hero-content">
-        <img src="vdo-logo.webp" alt="Baan OuadChum Logo" class="hero-logo" width="600" height="600" fetchpriority="high">
+        <img src="Branding/vdo-logo.webp" alt="Baan OuadChum Logo" class="hero-logo" width="600" height="600" fetchpriority="high">
 
-        <h1 data-key="hero-title">พักผ่อนบนบ้านต้นไม้ริมทะเล พร้อมเรียนรู้แนวคิดการพัฒนาเชิงพื้นที่กับอวดชุม อ.ปะทิว จ.ชุมพร (เว็ปหลัก)</h1>
+        <h1 data-key="hero-title">พักผ่อนบนบ้านต้นไม้ริมทะเล พร้อมเรียนรู้แนวคิดการพัฒนาเชิงพื้นที่กับอวดชุม อ.ปะทิว จ.ชุมพร</h1>
         <p data-key="hero-desc">บ้านต้นไม้ . คาเฟ่ . ร้านอาหาร . เวิร์กช็อป . ของฝากจากภูมิปัญญาท้องถิ่น</p>
 
         <button class="btn" style="background: var(--accent); color: var(--dark); font-weight:600; margin-top: 10px;" data-key="hero-btn" onclick="jumpToSection(event, 'stay')">จองห้องพัก</button>
@@ -2508,9 +2627,12 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 </section>
 
 <section id="about">
+<img src="Background/fish-drying.webp" alt="" aria-hidden="true" class="philosophy-fish-edge philosophy-fish-edge-left">
+<img src="Background/fisherman-boat.webp" alt="" aria-hidden="true" class="philosophy-fish-edge philosophy-fish-edge-right">
 <div class="container">
     <div class="grid grid-2 impact" style="margin-bottom: 45px;">
-        <div>
+        <div class="philosophy-heading-wrap">
+            <img src="Background/bee-graphic.webp" alt="" aria-hidden="true" class="philosophy-bee">
             <span class="subtitle" data-key="about-sub" style="color: #7d6748;">Our Philosophy</span>
             <h2 class="section-title" style="margin-bottom: 20px; text-align: left; color: #333;" data-key="about-title">OuadChum Philosophy: Business to Help</h2>
             <p style="font-size:1rem; color: #444; margin-bottom: 15px;" data-key="about-desc1">Business to Help means building a business that helps communities make the most of the resources and support they already have.</p>
@@ -2552,14 +2674,18 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 </section>
 
 <section id="stay" class="section-muted">
-<img src="BG graphic 1.PNG" class="stay-bg-graphic stay-bg-graphic-left" alt="" aria-hidden="true">
-<img src="BG graphic 2.PNG" class="stay-bg-graphic stay-bg-graphic-right" alt="" aria-hidden="true">
+<img src="Background/BG graphic 2.PNG" class="stay-bg-graphic stay-bg-graphic-left" alt="" aria-hidden="true">
+<img src="Background/BG graphic 2.PNG" class="stay-bg-graphic stay-bg-graphic-right" alt="" aria-hidden="true">
+<img src="Background/village-scene.webp" class="stay-village-scene stay-village-scene-right" alt="" aria-hidden="true">
 <div class="container container-wide">
     
     <div class="section-title-container section-title-center">
-        <img src="logo-old.webp" alt="Baan OuadChum Logo" width="150" height="150" style="width:150px; height:150px; margin: 0 auto 16px auto; display:block;" loading="lazy">
-        <span class="subtitle" data-key="stay-sub" style="color: #7d6748; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px;">Accommodation</span>
-        <h2 class="section-title" id="stayTitle" data-key="stay-title" style="font-size: 2.2rem; color: #2c3536; font-weight: 700; margin-bottom: 15px;">Treehouse Rooms</h2>
+        <div class="stay-logo-wrap">
+            <img src="Background/eagle-graphic.webp" alt="" aria-hidden="true" class="stay-logo-eagle">
+            <img src="Branding/logo-old.webp" alt="Baan OuadChum Logo" width="150" height="150" class="stay-logo-img" loading="lazy">
+            <img src="Background/hornbill-flying.webp" alt="" aria-hidden="true" class="stay-logo-hornbill">
+        </div>
+        <h2 class="section-title" id="stayTitle" data-key="stay-title" style="font-size: 2.2rem; color: #bdaa8a; font-weight: 700; margin-bottom: 15px;">Treehouse Rooms</h2>
         <p data-key="stay-desc-nav" style="color: #666; max-width: 600px; margin: 0 auto; line-height: 1.6;">Select and filter the perfect height tier for your custom wilderness sanctuary experience.</p>
     </div>
 
@@ -3604,9 +3730,9 @@ function updateCarouselArrows(track) {
 
 <footer id="contact">
 <div class="footer-bg-slideshow" id="footerBgSlideshow">
-    <div class="footer-bg-slide active" style="background-image:url('C1.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('C2.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('C3.JPG')"></div>
+    <div class="footer-bg-slide active" style="background-image:url('Background/C1.JPG')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C2.JPG')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C3.JPG')"></div>
 </div>
 <div class="footer-bg-overlay"></div>
 <div class="container">
@@ -3744,7 +3870,7 @@ function updateCarouselArrows(track) {
     <div class="modal-content reserve-modal-content">
         <button class="close-modal" onclick="closeReserveModal()">&times;</button>
         <div class="reserve-modal-banner">
-            <div class="reserve-modal-banner-icon"><img src="logo-icon.webp" alt="Baan OuadChum Logo"></div>
+            <div class="reserve-modal-banner-icon"><img src="Branding/logo-icon.webp" alt="Baan OuadChum Logo"></div>
             <h2 data-key="reserve-modal-title">Reserve Your Stay</h2>
             <p data-key="reserve-modal-desc">Contact us directly with LINE or phone to check availability and book.</p>
         </div>
@@ -3927,7 +4053,7 @@ const langData = {
     th: {
         "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-product": "สินค้า", "menu-articles": "สื่อ", "menu-shop": "ติดต่อ",
         "btn-reserve": "ติดต่อ",
-        "hero-title": "พักผ่อนบนบ้านต้นไม้ริมทะเล พร้อมเรียนรู้แนวคิดการพัฒนาเชิงพื้นที่กับอวดชุม อ.ปะทิว จ.ชุมพร (เว็ปหลัก)", "hero-desc": "บ้านต้นไม้ . คาเฟ่ . ร้านอาหาร . เวิร์กช็อป . ของฝากจากภูมิปัญญาท้องถิ่น", "hero-btn": "จองห้องพัก",
+        "hero-title": "พักผ่อนบนบ้านต้นไม้ริมทะเล พร้อมเรียนรู้แนวคิดการพัฒนาเชิงพื้นที่กับอวดชุม อ.ปะทิว จ.ชุมพร", "hero-desc": "บ้านต้นไม้ . คาเฟ่ . ร้านอาหาร . เวิร์กช็อป . ของฝากจากภูมิปัญญาท้องถิ่น", "hero-btn": "จองห้องพัก",
         "about-sub": "ปรัชญาของเรา", "about-title": "ปรัชญาของอวดชุม : ธุรกิจ เพื่อช่วย", 
         "about-desc1": "ธุรกิจ เพื่อช่วย คือการสร้างธุรกิจที่ช่วยให้ชุมชนใช้ทรัพยากรที่มีอยู่แล้ว ทั้งของตนเองและจากภาครัฐ ให้เกิดประโยชน์สูงสุด",
         "about-desc2": "เราทำงานร่วมกับมหาวิทยาลัยและหน่วยงานภาครัฐ เพื่อนำงานวิจัยและเครือข่ายชุมชนมาสู่การปฏิบัติจริง โดยเริ่มต้นที่ชุมพร",
@@ -4945,7 +5071,6 @@ function jumpToSection(event, targetId, scrollY) {
 
 // HERO BACKGROUND SLIDER
 const heroMedia = [
-    { type: "youtube", id: "O-NpuUy0SsM" },
     { type: "image", src: "Background/background.jpg" },
     { type: "image", src: "Background/DSC00072.JPG" },
     { type: "image", src: "Background/DSC00096.JPG" },
@@ -4962,7 +5087,8 @@ const heroMedia = [
     { type: "image", src: "Background/IMG_7814.JPG" },
     { type: "image", src: "Background/IMG_8826.JPG" },
     { type: "image", src: "Background/IMG_9531.JPG" },
-    { type: "image", src: "Background/IMG_9533.JPG" }
+    { type: "image", src: "Background/IMG_9533.JPG" },
+    { type: "youtube", id: "O-NpuUy0SsM" }
 ];
 let heroIndex = 0;
 let heroTimer = null;
