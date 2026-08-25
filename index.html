@@ -2050,7 +2050,7 @@ nav{
 }
 .weather-daily-row {
     display: grid;
-    grid-template-columns: 84px 30px 1fr auto;
+    grid-template-columns: 98px 30px 1fr auto;
     align-items: center;
     gap: 12px;
     padding: 11px 4px;
@@ -2058,9 +2058,20 @@ nav{
 }
 .weather-daily-row:last-child { border-bottom: none; }
 .weather-daily-day {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    line-height: 1.25;
+}
+.weather-daily-day-name {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--dark);
+}
+.weather-daily-day-date {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #7d8b89;
 }
 .weather-daily-icon svg { width: 24px; height: 24px; color: #2c7d73; }
 .weather-daily-precip {
@@ -2093,8 +2104,9 @@ nav{
     .weather-current-icon svg { width: 46px; height: 46px; }
     .weather-current-stats { gap: 14px; margin-left: 0; width: 100%; }
     .weather-hour-card { min-width: 64px; padding: 12px 10px; }
-    .weather-daily-row { grid-template-columns: 64px 26px 1fr auto; gap: 8px; padding: 9px 2px; }
-    .weather-daily-day { font-size: 0.76rem; }
+    .weather-daily-row { grid-template-columns: 78px 26px 1fr auto; gap: 8px; padding: 9px 2px; }
+    .weather-daily-day-name { font-size: 0.76rem; }
+    .weather-daily-day-date { font-size: 0.6rem; }
     .weather-daily-icon svg { width: 20px; height: 20px; }
     .weather-daily-temps { font-size: 0.8rem; min-width: 60px; }
 }
@@ -2419,7 +2431,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 .stay-bg-graphic-left { left: -80px; top: 1150px; transform: scaleX(-1); }
 .stay-bg-graphic-right { right: -20px; }
 @media (max-width: 700px) {
-    .stay-bg-graphic { display: none; }
+    .stay-bg-graphic { display: block; }
 }
 .stay-village-scene {
     position: absolute;
@@ -2433,7 +2445,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 .stay-village-scene-left { left: -80px; }
 .stay-village-scene-right { right: -20px; transform: scaleX(-1); }
 @media (max-width: 700px) {
-    .stay-village-scene { display: none; }
+    .stay-village-scene { display: block; }
 }
 .stay-logo-wrap {
     position: relative;
@@ -4930,9 +4942,12 @@ function weatherHourLabel(iso, lang, isFirst) {
 }
 
 function weatherDayLabel(dateStr, lang, isFirst) {
-    if (isFirst) return lang === "th" ? "วันนี้" : "Today";
-    const weekday = new Date(dateStr + "T00:00:00").getDay();
-    return AVAILABILITY_WEEKDAYS[lang][weekday];
+    const d = new Date(dateStr + "T00:00:00");
+    const weekday = AVAILABILITY_WEEKDAYS[lang][d.getDay()];
+    const month = AVAILABILITY_MONTH_NAMES[lang][d.getMonth()];
+    const dayName = isFirst ? (lang === "th" ? "วันนี้" : "Today") + ` (${weekday})` : weekday;
+    const dateLine = lang === "th" ? `${d.getDate()} ${month} ${d.getFullYear()}` : `${month} ${d.getDate()}, ${d.getFullYear()}`;
+    return `<span class="weather-daily-day-name">${dayName}</span><span class="weather-daily-day-date">${dateLine}</span>`;
 }
 
 async function loadWeather() {

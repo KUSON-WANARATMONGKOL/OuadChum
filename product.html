@@ -483,12 +483,14 @@ nav{
 .menu-category-section {
     margin-top: 60px;
 }
-/* "All" filter view: hide each category's own heading, and flatten the
-   group/section/grid wrappers with display:contents so every product
-   card becomes a direct item of one shared grid - cards from different
-   categories line up together (เรียงกัน) instead of each category
-   starting its own new row. */
-#product.products-flat .menu-category-header { display: none; }
+/* Category headings duplicate the active filter chip label above them
+   (e.g. selecting "เครื่องใช้" already shows that name in the filter bar),
+   so they're hidden in every filtered view, not just "All". In "All" view
+   this also lets the group/section/grid wrappers flatten with
+   display:contents so every product card becomes a direct item of one
+   shared grid - cards from different categories line up together
+   (เรียงกัน) instead of each category starting its own new row. */
+#product .menu-category-header { display: none; }
 #product.products-flat .product-group,
 #product.products-flat .menu-category-section,
 #product.products-flat .product-grid {
@@ -2507,6 +2509,17 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 </div>
             </div>
         </button>
+        <button type="button" class="card product-card" onclick="openProductModal('beeplate')">
+            <div class="product-card-photo"><img src="Product/beeplate.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="beeplate-title">จานลายการอนุรักษ์ผึ้ง</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="beeplate-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="beeplate-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
         </div>
     </div>
     </div>
@@ -2755,7 +2768,7 @@ const langData = {
         "menu-about": "Home", "menu-stay": "Stay", "menu-workshop": "Workshop", "menu-menu": "Menu", "menu-articles": "Articles",
         "btn-reserve": "Reserve",
         "page-sub": "Our Products", "page-title": "Community Products",
-        "page-desc": "Products from the local community around Baan OuadChum, part of our Business to Help approach. Items are being added little by little.",
+        "page-desc": "Products from the local community around Baan OuadChum, part of our Business to Help approach.",
         "menu-product": "Product",
         "product-sub": "Community Products", "product-title": "Community Products",
         "product-desc": "We're gathering products from the community to showcase here. Details coming soon.",
@@ -2780,6 +2793,7 @@ const langData = {
         "honeyhinkop-title": "Mangkrai Flower Honey — Hinkop School", "honeyhinkop-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeyhinkop-price": "330 ml / 400 THB",
         "saltedfish-title": "Fragrant Salted Kulao Fish", "saltedfish-desc": "Young kulao fish, salted fresh off coastal fishing boats and cured immediately - firm, pink, fragrant, and rich in natural oil. (Pre-sliced)", "saltedfish-price": "120 THB per 100g",
         "beeswaxwrap-title": "Beeswax Food Wrap by Young Entrepreneurs", "beeswaxwrap-desc": "Natural beeswax-coated cloth for wrapping fruit, vegetables, and food - keeps it fresh, seals in aroma, and can be reused for 2-3 years.", "beeswaxwrap-price": "25x25 cm / 90 THB, 30x30 cm / 100 THB",
+        "beeplate-title": "Bee Conservation Pattern Plate", "beeplate-desc": "A ceramic plate depicting the conservation-style honey harvesting method, hand-painted using the 'needle-pricking' technique invented by Khun Jongkoy.", "beeplate-price": "28 x 41 x 3 cm (W x L x H) / 590 THB",
         "filter-menu-all": "All", "filter-menu-food": "Food", "filter-menu-drink": "Drink",
         "hero-badge": "Coming Soon", "hero-title": "Our Menu Is Coming Soon", "hero-desc": "We're preparing great food and drinks for you at Baan OuadChum.",
         "card-badge": "Coming Soon",
@@ -2844,6 +2858,7 @@ const langData = {
         "honeyhinkop-title": "น้ำผึ้งดอกมังเคร จากนักธุรกิจน้อย รร.บ้านหินกบ", "honeyhinkop-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeyhinkop-price": "330 ml. / 400 บาท",
         "saltedfish-title": "ปลากุเลาเค็มหอม", "saltedfish-desc": "ปลากุเลาอ่อนเค็มจากเรือประมงชายฝั่ง จับและหมักทันที ทำให้เนื้อแน่น ชมพู หอม ชุ่มไขมัน (ทุกตัวหั่นชิ้นแล้ว)", "saltedfish-price": "ขีดละ 120 บาท",
         "beeswaxwrap-title": "ผ้าไขผึ้งถนอมอาหารจากนักธุรกิจน้อย", "beeswaxwrap-desc": "ผ้าชุบไขผึ้งธรรมชาติ ห่อผักผลไม้ ห่ออาหาร ช่วยคงความสด เก็บกลิ่น ใช้ซ้ำได้ 2-3 ปี", "beeswaxwrap-price": "25x25 ซม. / 90 บาท, 30x30 ซม. / 100 บาท",
+        "beeplate-title": "จานลายการอนุรักษ์ผึ้ง", "beeplate-desc": "จานเซรามิกบอกเล่าวิธีการเก็บน้ำผึ้งแบบอนุรักษ์ด้วยเทคนิคแทงเข็ม คิดค้นโดยคุณจงโกย", "beeplate-price": "กว้าง 28 x ยาว 41 x สูง 3 ซม. / 590 บาท",
         "filter-menu-all": "ทั้งหมด", "filter-menu-food": "อาหาร", "filter-menu-drink": "เครื่องดื่ม",
         "hero-badge": "เร็วๆ นี้", "hero-title": "เมนูกำลังจะมาเร็วๆ นี้", "hero-desc": "เรากำลังเตรียมเมนูอาหารและเครื่องดื่มดีๆ ไว้ให้คุณที่บ้านอวดชุม",
         "card-badge": "เร็วๆ นี้",
@@ -3004,7 +3019,8 @@ const productMeta = {
     honeythairat: { icon: 'honeycomb', photo: 'Product/honeythairat.webp' },
     honeyhinkop: { icon: 'honeycomb', photo: 'Product/honeyhinkop.webp' },
     saltedfish: { icon: 'fish', photo: 'Product/saltedfish.webp' },
-    beeswaxwrap: { icon: 'wrap', photo: 'Product/beeswaxwrap.webp' }
+    beeswaxwrap: { icon: 'wrap', photo: 'Product/beeswaxwrap.webp' },
+    beeplate: { icon: 'plate', photo: 'Product/beeplate.webp' }
 };
 const PRODUCT_ICONS = {
     jar: '<path d="M6 10h12v9a2 2 0 01-2 2H8a2 2 0 01-2-2v-9z"/><path d="M5 10h14M9 10V6a3 3 0 016 0v4"/>',
@@ -3017,7 +3033,8 @@ const PRODUCT_ICONS = {
     honey: '<path d="M12 3c-4 4-6 9-6 12a6 6 0 0012 0c0-3-2-8-6-12z"/>',
     honeycomb: '<path d="M12 3l7 4v10l-7 4-7-4V7l7-4z"/><path d="M12 8.2l3.3 1.9v3.8L12 15.8l-3.3-1.9V10.1L12 8.2z"/>',
     fish: '<path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/>',
-    wrap: '<path d="M4 8c4-3 12-3 16 0v9c-4 3-12 3-16 0V8z"/><path d="M4 8c4 3 12 3 16 0"/>'
+    wrap: '<path d="M4 8c4-3 12-3 16 0v9c-4 3-12 3-16 0V8z"/><path d="M4 8c4 3 12 3 16 0"/>',
+    plate: '<ellipse cx="12" cy="12" rx="9" ry="6"/><ellipse cx="12" cy="12" rx="4.2" ry="2.8"/>'
 };
 const PRODUCT_ID_LIST = Object.keys(productMeta);
 const DIMENSION_ICONS = [
