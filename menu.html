@@ -1520,6 +1520,7 @@ nav{
     pointer-events: none;
 }
 .avail-cell:not(.out-of-month) {
+    cursor: pointer;
     transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), box-shadow 0.18s ease;
 }
 .avail-cell:not(.out-of-month):hover {
@@ -1533,11 +1534,11 @@ nav{
 .avail-cell.is-today:hover {
     box-shadow: inset 0 0 0 2px #fff, 0 0 0 2px var(--dark), 0 6px 12px rgba(35,43,40,0.14);
 }
-/* Bold, solid brand colors - the site's own green for open, an equally strong red
-   for full - rather than a soft tint, per the "make it very green / red as hard
-   as the green" request. */
-.avail-cell.status-open { background: var(--primary); color: #fff; }
-.avail-cell.status-limited { background: #b3413e; color: #fff; }
+/* Softer, warmer status colors than a stark alert-green/red - still an easy
+   open-vs-full read at a glance, without feeling harsh. Shared with the
+   all-rooms bar view below so both calendars read as one consistent system. */
+.avail-cell.status-open { background: #5fa25a; color: #fff; }
+.avail-cell.status-limited { background: #c26b60; color: #fff; }
 .avail-cell.status-unknown { background: var(--gray-light); color: #b8bfbd; font-weight: 500; }
 /* All-rooms view: one horizontal status bar per room (a booking-timeline style
    strip) instead of a per-day table, so the whole month reads at a glance in a
@@ -1545,7 +1546,31 @@ nav{
 .availability-bars-wrap {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+}
+/* Every day gets its own labeled column, so on a narrow phone the row set is
+   wider than the modal - this scrolls horizontally instead of thinning the
+   day labels out, with the room-name column pinned via position:sticky so it
+   stays put as the days scroll underneath it. */
+.availability-grid-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* CSS-only "scroll shadow": two opaque covers scroll with the content and
+       fade to transparent at each edge, while two soft shadows stay fixed to
+       the viewport underneath them - so a hint of shadow only shows on the
+       side that still has more days to reveal, no scroll-position JS needed. */
+    background:
+        linear-gradient(to right, var(--white) 50%, rgba(255,255,255,0)),
+        linear-gradient(to left, var(--white) 50%, rgba(255,255,255,0)) 100% 0,
+        linear-gradient(to right, rgba(35,43,40,0.10), rgba(35,43,40,0)),
+        linear-gradient(to left, rgba(35,43,40,0.10), rgba(35,43,40,0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 24px 100%, 24px 100%, 10px 100%, 10px 100%;
+    background-attachment: local, local, scroll, scroll;
+}
+.availability-grid-scroll-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 .availability-bar-axis-row, .availability-bar-row {
     display: grid;
@@ -1555,17 +1580,27 @@ nav{
 }
 .availability-bar-axis {
     position: relative;
-    height: 16px;
+    height: 18px;
 }
 .availability-bar-axis span {
     position: absolute;
     transform: translateX(-50%);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: #a3aca9;
+    color: #8b9591;
+}
+.availability-bar-axis-spacer {
+    position: sticky;
+    left: 0;
+    background: var(--white);
+    z-index: 2;
+    height: 100%;
 }
 .availability-bar-label {
-    background: none;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--white);
     border: none;
     padding: 0;
     text-align: left;
@@ -1582,15 +1617,33 @@ nav{
 .availability-bar-track {
     position: relative;
     display: flex;
-    height: 26px;
+    /* A soft gap between segments (the track's own gray shows through) turns
+       the bar into a row of distinct, gently rounded day cells instead of one
+       color smear - lines each cell up with its axis number so a day reads
+       at a glance. */
+    gap: 2px;
+    height: 28px;
     border-radius: 8px;
     overflow: hidden;
     background: var(--gray-light);
 }
-.availability-bar-seg { flex: 1 1 0; }
-.availability-bar-seg.status-open { background: #5c9c57; }
-.availability-bar-seg.status-limited { background: #eeba4d; }
-.availability-bar-seg.status-unknown { background: var(--gray-light); }
+/* Every other room gets a faint tint behind its track, so the eye can follow
+   one room's row across many day-columns without losing its place. */
+.availability-bar-row:nth-child(even) .availability-bar-track,
+.availability-bar-row:nth-child(even) .availability-bar-label {
+    background: #ececee;
+}
+.availability-bar-seg { flex: 1 1 0; border-radius: 4px; cursor: pointer; }
+.availability-bar-seg.status-open { background: #5fa25a; }
+/* Softer, warmer red than a stark alert tone - still unmistakably "full" next
+   to the open green, matching the single-room month view's palette. */
+.availability-bar-seg.status-limited { background: #c26b60; }
+/* Transparent (not a flat gray fill) so the row's own tint/zebra stripe still
+   shows through where there's simply no data yet. */
+.availability-bar-seg.status-unknown { background: transparent; }
+.availability-bar-seg.status-unknown.is-weekend { background: rgba(35,43,40,0.05); }
+.availability-bar-seg.status-today { background: var(--dark); opacity: 0.55; }
+.availability-bar-axis span.is-weekend { color: var(--dark); font-weight: 800; }
 .availability-bar-today {
     position: absolute;
     top: -3px;
@@ -1600,6 +1653,32 @@ nav{
     border-radius: 2px;
     pointer-events: none;
 }
+/* Sticks to the bottom of the scrolling modal body so once a guest has found
+   an open day/room they always have a one-tap way to actually go book it,
+   instead of the calendar being a dead end they have to back out of first. */
+.availability-reserve-cta {
+    position: sticky;
+    bottom: 0;
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding: 13px 20px;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(62,114,59,0.28);
+    transition: var(--transition);
+}
+.availability-reserve-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(62,114,59,0.36);
+}
+.availability-reserve-cta svg { flex-shrink: 0; }
 .availability-day-tooltip {
     position: fixed;
     z-index: 3000;
@@ -1635,12 +1714,12 @@ nav{
     margin-top: 5px;
     flex-shrink: 0;
 }
-.availability-day-tooltip-dot.open { background: #5c9c57; }
-.availability-day-tooltip-dot.limited { background: #eeba4d; }
+.availability-day-tooltip-dot.open { background: #5fa25a; }
+.availability-day-tooltip-dot.limited { background: #c26b60; }
 .availability-legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 18px;
     padding-bottom: 16px;
     border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -1648,25 +1727,25 @@ nav{
 .availability-legend-item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.76rem;
+    gap: 7px;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #666;
     background: var(--gray-light);
-    padding: 5px 12px 5px 7px;
+    padding: 6px 14px 6px 8px;
     border-radius: 999px;
 }
 .availability-legend-swatch.avail-cell {
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     flex-shrink: 0;
     box-shadow: none;
 }
 .availability-legend-swatch.availability-bar-seg {
     flex: none;
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
 }
 .availability-skeleton {
@@ -1727,17 +1806,22 @@ nav{
         padding: 18px 14px 20px;
     }
     .availability-bar-axis-row, .availability-bar-row {
-        grid-template-columns: 62px 1fr;
+        grid-template-columns: 64px 1fr;
         gap: 8px;
     }
     .availability-bar-label {
-        font-size: 0.68rem;
+        font-size: 0.72rem;
     }
     .availability-bar-track {
-        height: 20px;
+        height: 24px;
+        gap: 1.5px;
     }
     .availability-bar-axis span {
-        font-size: 0.6rem;
+        font-size: 0.66rem;
+    }
+    .availability-legend-item {
+        font-size: 0.74rem;
+        padding: 5px 12px 5px 7px;
     }
     .avail-cell {
         border-radius: 7px;
@@ -3811,6 +3895,10 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="availability-days" id="availabilityDays"></div>
                 </div>
                 <div class="availability-bars-wrap" id="availabilityGridEl" style="display:none;"></div>
+                <a href="#" target="_blank" rel="noopener" class="availability-reserve-cta" id="availabilityReserveCta">
+                    <span id="availabilityReserveCtaText">Reserve Now</span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                </a>
             </div>
         </div>
     </div>
@@ -4283,10 +4371,11 @@ const AVAILABILITY_MONTH_LEGEND = [
 ];
 const AVAILABILITY_GRID_LEGEND = [
     { status: "open", th: "ว่าง", en: "Available" },
-    { status: "limited", th: "เต็ม / ไม่ว่าง", en: "Unavailable" }
+    { status: "limited", th: "เต็ม / ไม่ว่าง", en: "Unavailable" },
+    { status: "today", th: "วันนี้", en: "Today" }
 ];
 
-let availabilityState = { roomId: null, requestToken: 0 };
+let availabilityState = { roomId: null, requestToken: 0, tooltipTarget: null };
 
 // Always tries the real /api/availability call first (works locally too, via
 // `netlify dev`, and always on the deployed site). Only on localhost/file, if
@@ -4444,14 +4533,31 @@ async function loadAvailability(roomId, monthStartDate) {
     prevBtn.onclick = () => loadAvailability(roomId, data.prevDate);
     nextBtn.onclick = () => loadAvailability(roomId, data.nextDate);
 
+    // A specific room (with a known RoomScope type id) deep-links straight to
+    // that room's real booking calendar; "all rooms" falls back to the
+    // general reservation page since RoomScope has no single "all types" URL.
+    const reserveCta = document.getElementById("availabilityReserveCta");
+    const reserveCtaText = document.getElementById("availabilityReserveCtaText");
+    if (roomId !== "all" && data.typeId) {
+        reserveCta.href = `https://reservation.roomscope.com/2698/${lang}/rsvn/availability?SelectedRoomTypes%5B0%5D=${data.typeId}`;
+        reserveCtaText.textContent = lang === "th" ? "จองห้องนี้เลย" : "Reserve This Room";
+    } else {
+        reserveCta.href = `https://reservation.roomscope.com/2698/${lang}`;
+        reserveCtaText.textContent = lang === "th" ? "จองเลย" : "Reserve Now";
+    }
+
+    // Shown (display set) before rendering, not after - renderAvailabilityGridView
+    // measures its axis's real width to decide day-tick spacing, which reads as 0
+    // while this ancestor is still display:none.
+    const contentEl = document.getElementById("availabilityContent");
+    contentEl.style.display = "";
+
     if (data.rooms) {
         renderAvailabilityGridView(data);
     } else {
         renderAvailabilityMonthView(data);
     }
 
-    const contentEl = document.getElementById("availabilityContent");
-    contentEl.style.display = "";
     contentEl.classList.remove("visible");
     requestAnimationFrame(() => contentEl.classList.add("visible"));
 }
@@ -4473,7 +4579,10 @@ function renderAvailabilityMonthView(data) {
         let sub = "";
         if (bucket === "open") sub = `<span class="avail-cell-sub">${lang === "th" ? "ว่าง" : "Available"}</span>`;
         else if (bucket === "limited") sub = `<span class="avail-cell-sub">${lang === "th" ? "เต็ม" : "Full"}</span>`;
-        return `<div class="avail-cell ${statusClass} ${todayClass}">${dot}${dayNum}${sub}</div>`;
+        // data-date/data-status let a tap reveal the same info the desktop
+        // sub-label already shows inline - mobile hides that label to save
+        // space, so tapping is how a phone user confirms a day's status.
+        return `<div class="avail-cell ${statusClass} ${todayClass}" data-date="${d.date}" data-status="${bucket || ''}">${dot}${dayNum}${sub}</div>`;
     }).join("");
 
     document.getElementById("availabilityGridEl").style.display = "none";
@@ -4487,11 +4596,6 @@ function renderAvailabilityGridView(data) {
     const totalDays = inMonthDays.length;
     const todayStr = new Date().toISOString().slice(0, 10);
     const todayIndex = inMonthDays.findIndex(d => d.date === todayStr);
-
-    const tickDays = [...new Set([1, 5, 10, 15, 20, 25, totalDays])].filter(d => d <= totalDays);
-    const axisTicks = tickDays.map(dayNum =>
-        `<span style="left:${((dayNum - 0.5) / totalDays) * 100}%">${dayNum}</span>`
-    ).join("");
 
     const todayMarker = todayIndex >= 0
         ? `<div class="availability-bar-today" style="left:${(todayIndex / totalDays) * 100}%; width:${(1 / totalDays) * 100}%;"></div>`
@@ -4510,7 +4614,8 @@ function renderAvailabilityGridView(data) {
             if (bucket === "open") dayRoomLists[i].open.push(label);
             else if (bucket === "limited") dayRoomLists[i].limited.push(label);
             const cls = bucket ? `status-${bucket}` : "status-unknown";
-            return `<span class="availability-bar-seg ${cls}" data-day-index="${i}"></span>`;
+            const weekendCls = headerDay.weekend ? " is-weekend" : "";
+            return `<span class="availability-bar-seg ${cls}${weekendCls}" data-day-index="${i}"></span>`;
         }).join("");
         return `
             <div class="availability-bar-row">
@@ -4522,15 +4627,45 @@ function renderAvailabilityGridView(data) {
     availabilityState.gridDayData = dayRoomLists;
     availabilityState.gridMonth = data.month;
 
-    document.getElementById("availabilityGridEl").innerHTML = `
-        <div class="availability-bar-axis-row">
-            <div></div>
-            <div class="availability-bar-axis">${axisTicks}</div>
-        </div>
-        ${rows}`;
+    // Every day gets a labeled column - 1, 2, 3, 4, 5... all the way through
+    // the month, never thinned to every-5th. On a wide screen that fits
+    // naturally; on a narrow one the row set below just becomes wider than
+    // the modal and scrolls horizontally instead of dropping labels. Weekend
+    // numbers are bolded so guests can spot Sat/Sun at a glance, not just by
+    // counting columns from the 1st.
+    const axisTicks = inMonthDays.map((headerDay, i) => {
+        const dayNum = i + 1;
+        const weekendCls = headerDay.weekend ? " is-weekend" : "";
+        return `<span class="${weekendCls.trim()}" style="left:${((dayNum - 0.5) / totalDays) * 100}%">${dayNum}</span>`;
+    }).join("");
+
+    const gridEl = document.getElementById("availabilityGridEl");
+    gridEl.innerHTML = `
+        <div class="availability-grid-scroll">
+            <div class="availability-grid-scroll-inner" id="availabilityGridScrollInner">
+                <div class="availability-bar-axis-row">
+                    <div class="availability-bar-axis-spacer"></div>
+                    <div class="availability-bar-axis">${axisTicks}</div>
+                </div>
+                ${rows}
+            </div>
+        </div>`;
 
     document.getElementById("availabilityCalendarEl").style.display = "none";
-    document.getElementById("availabilityGridEl").style.display = "";
+    gridEl.style.display = ""; // must be visible before measuring its width below
+
+    // Force each day column to a fixed minimum width (enough for a 2-digit
+    // label) so the numbers never crowd together - if that makes the row set
+    // wider than the visible modal, .availability-grid-scroll picks up a
+    // horizontal scrollbar rather than squeezing the labels.
+    const scrollEl = document.querySelector("#availabilityGridEl .availability-grid-scroll");
+    const scrollWidth = scrollEl.clientWidth;
+    const LABEL_COL_PX = window.innerWidth <= 600 ? 62 : 84;
+    const GAP_PX = window.innerWidth <= 600 ? 8 : 12;
+    const MIN_DAY_COL_PX = 26;
+    const minInnerWidth = LABEL_COL_PX + GAP_PX + totalDays * MIN_DAY_COL_PX;
+    document.getElementById("availabilityGridScrollInner").style.width =
+        `${Math.max(scrollWidth, minInnerWidth)}px`;
 }
 
 // Hovering a day segment (any room's row) shows every room's status for that
