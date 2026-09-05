@@ -805,21 +805,31 @@ nav{
     align-items: stretch;
 }
 .product-detail-info {
-    flex: 1.15;
+    flex: 1;
     min-width: 0;
     padding: 36px 34px;
     display: flex;
     flex-direction: column;
 }
 .product-detail-photo {
-    flex: 0.85;
+    flex: 1;
     min-width: 0;
+    align-self: flex-start;
+    aspect-ratio: 4 / 5;
+    max-height: 560px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background: #fff;
+}
+.product-detail-photo #productModalIcon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .product-detail-photo img {
     width: 100%;
@@ -868,24 +878,25 @@ nav{
 }
 .product-detail-info h2 {
     color: var(--primary-dark);
-    margin-bottom: 10px;
+    font-size: 1.85rem;
+    margin-bottom: 14px;
 }
 .product-detail-desc {
     color: #666;
-    font-size: 0.92rem;
-    line-height: 1.6;
-    margin-bottom: 12px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
 }
 .product-detail-price {
     display: inline-block;
     align-self: flex-start;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: var(--ws-accent, #8a6d3b);
     background: var(--menu-accent-soft, #f3ead9);
-    padding: 5px 14px;
+    padding: 7px 18px;
     border-radius: 999px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 .product-shop-now-btn {
     display: inline-flex;
@@ -895,10 +906,10 @@ nav{
     background: var(--ws-accent, var(--primary));
     color: #fff;
     border: none;
-    padding: 13px 30px;
+    padding: 16px 38px;
     border-radius: 999px;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -1067,6 +1078,25 @@ nav{
 .product-lightbox-arrow:hover { background: rgba(255, 255, 255, 0.3); }
 .product-lightbox-prev { left: 16px; }
 .product-lightbox-next { right: 16px; }
+.product-detail-photo-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    z-index: 2;
+}
+.product-detail-photo-arrow:hover { background: rgba(0, 0, 0, 0.55); }
+.product-detail-photo-prev { left: 12px; }
+.product-detail-photo-next { right: 12px; }
 .product-lightbox-count {
     position: absolute;
     bottom: 20px;
@@ -1087,7 +1117,7 @@ nav{
 }
 @media (max-width: 700px) {
     .product-detail-top { flex-direction: column; }
-    .product-detail-photo { order: -1; min-height: 200px; }
+    .product-detail-photo { order: -1; align-self: stretch; aspect-ratio: 4 / 3; max-height: 320px; min-height: 200px; }
     .product-detail-info { padding: 28px 22px; }
     .product-dimensions-strip { padding: 14px 22px; justify-content: flex-start; }
     .product-suggestions { padding: 22px 22px 28px; }
@@ -2628,6 +2658,8 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
             <div class="product-detail-photo">
                 <div id="productModalIcon"></div>
+                <button type="button" class="product-detail-photo-arrow product-detail-photo-prev" id="productModalPhotoPrev" onclick="productModalPhotoStep(-1)" aria-label="Previous photo" style="display:none;">&#8249;</button>
+                <button type="button" class="product-detail-photo-arrow product-detail-photo-next" id="productModalPhotoNext" onclick="productModalPhotoStep(1)" aria-label="Next photo" style="display:none;">&#8250;</button>
                 <span class="product-detail-photo-count" id="productModalPhotoCount" style="display:none;"></span>
             </div>
         </div>
@@ -3178,21 +3210,57 @@ function filterProductType(type, btnEl) {
     btnEl.classList.add('active');
 }
 
-let currentProductModalId = null;
-function openProductModal(id) {
+const PRODUCT_PHOTO_EXTS = ['webp', 'jpg', 'jpeg', 'png'];
+const productPhotoCache = {};
+function probeImage(src) {
+    return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = src;
+    });
+}
+async function resolveProductPhotos(id) {
+    if (productPhotoCache[id]) return productPhotoCache[id];
+    const found = [];
+    for (let i = 1; i <= 20; i++) {
+        let hit = null;
+        for (const ext of PRODUCT_PHOTO_EXTS) {
+            const src = `Product/${id}/${i}.${ext}`;
+            if (await probeImage(src)) { hit = src; break; }
+        }
+        if (!hit) break;
+        found.push(hit);
+    }
     const meta = productMeta[id];
-    if (!meta) return;
-    currentProductModalId = id;
-    const lang = langData[currentLang] || {};
-    const productTitle = lang[`${id}-title`] || "";
-    const photos = meta.photos || (meta.photo ? [meta.photo] : []);
+    const thumb = meta.photo || (meta.photos && meta.photos[0]);
+    let photos;
+    if (found.length) {
+        photos = thumb ? [thumb, ...found] : found;
+    } else {
+        photos = meta.photos || (thumb ? [thumb] : []);
+    }
+    productPhotoCache[id] = photos;
+    return photos;
+}
+function productModalPhotoStep(delta) {
+    const scrollEl = document.getElementById("productModalPhotoScroll");
+    if (!scrollEl) return;
+    scrollEl.scrollBy({ left: delta * scrollEl.clientWidth, behavior: "smooth" });
+}
+function renderProductModalPhotos(id, photos, productTitle) {
+    const meta = productMeta[id];
     document.getElementById("productModalIcon").innerHTML = photos.length
         ? `<div class="product-detail-photo-scroll" id="productModalPhotoScroll">${photos.map((src, i) => `<img src="${src}" alt="${productTitle}" onclick="openProductLightbox('${id}', ${i})">`).join("")}</div>`
         : `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[meta.icon]}</svg>`;
     const photoCount = document.getElementById("productModalPhotoCount");
+    const prevBtn = document.getElementById("productModalPhotoPrev");
+    const nextBtn = document.getElementById("productModalPhotoNext");
     if (photos.length > 1) {
         photoCount.style.display = "";
         photoCount.textContent = `1 / ${photos.length}`;
+        prevBtn.style.display = "";
+        nextBtn.style.display = "";
         const scrollEl = document.getElementById("productModalPhotoScroll");
         scrollEl.onscroll = () => {
             const i = Math.round(scrollEl.scrollLeft / scrollEl.clientWidth);
@@ -3200,7 +3268,22 @@ function openProductModal(id) {
         };
     } else {
         photoCount.style.display = "none";
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
     }
+}
+let currentProductModalId = null;
+function openProductModal(id) {
+    const meta = productMeta[id];
+    if (!meta) return;
+    currentProductModalId = id;
+    const lang = langData[currentLang] || {};
+    const productTitle = lang[`${id}-title`] || "";
+    const fallbackPhotos = meta.photos || (meta.photo ? [meta.photo] : []);
+    renderProductModalPhotos(id, productPhotoCache[id] || fallbackPhotos, productTitle);
+    resolveProductPhotos(id).then(photos => {
+        if (currentProductModalId === id) renderProductModalPhotos(id, photos, productTitle);
+    });
     document.getElementById("productModalTitle").textContent = productTitle;
     document.getElementById("productModalDesc").textContent = lang[`${id}-desc`] || "";
     document.getElementById("productModalPrice").textContent = lang[`${id}-price`] || "";
@@ -3263,7 +3346,7 @@ function renderProductLightbox() {
 function openProductLightbox(id, index) {
     const meta = productMeta[id];
     if (!meta) return;
-    const photos = meta.photos || (meta.photo ? [meta.photo] : []);
+    const photos = productPhotoCache[id] || meta.photos || (meta.photo ? [meta.photo] : []);
     if (!photos.length) return;
     productLightboxPhotos = photos;
     productLightboxIndex = index;

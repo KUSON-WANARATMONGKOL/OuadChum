@@ -1,0 +1,21 @@
+How to add photos to a product's detail gallery
+=================================================
+
+Each product has its own folder here, e.g. Product/kapi/, Product/wildhoney/, etc.
+Folder names match the product id used in product.html (see productMeta).
+
+To add photos to a product's popup gallery, just drop image files into its
+folder named in order, starting at 1:
+
+    Product/kapi/1.webp
+    Product/kapi/2.webp
+    Product/kapi/3.jpg
+    ...
+
+- Supported extensions: .webp, .jpg, .jpeg, .png (checked in that order per number)
+- Numbers must be sequential starting at 1 with no gaps (1, 2, 3, ...) -
+  the site stops looking as soon as a number is missing.
+- No code changes needed - the website automatically finds and shows
+  whatever numbered photos exist in a product's folder next time it loads.
+- If a product's folder is empty, its single card thumbnail
+  (Product/<name>.webp) is used instead.
