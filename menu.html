@@ -1249,6 +1249,87 @@ nav{
     .menu-story-chapter .menu-story-frame--gallery,
     .menu-story-chapter--reverse .menu-story-frame--gallery { aspect-ratio: auto; max-width: 420px; }
 }
+.menu-story-gallery-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.menu-story-gallery-grid--12 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 560px) {
+    .menu-story-gallery-grid--12 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* MENU DRINK STORY: extends the "Behind Every Meal" chapter/gallery pieces
+   above into the Drink book itself - a short farm photo strip under the
+   Robusta intro, then a "meet the maker" chapter for Robusta's own
+   collaboration and for each local partner behind the Non-Coffee menu.
+   Everything here is wrapped in column-span:all so it escapes the
+   two-column dish layout of .menu-book-category it's placed inside, and
+   .menu-story-copy is forced back to left-aligned text on wide screens
+   since .menu-book-box otherwise centers everything by default. */
+.menu-drink-photostrip {
+    column-span: all;
+    width: 100%;
+    max-width: 620px;
+    margin: 26px auto 4px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--menu-shadow);
+}
+.menu-drink-photostrip img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.menu-drink-photostrip img:hover { transform: scale(1.06); }
+.menu-drink-story {
+    column-span: all;
+    width: 100%;
+    margin: 30px 0 4px;
+}
+.menu-drink-partners-head {
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto 8px;
+}
+.menu-drink-partners-eyebrow {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 0.74rem;
+    color: var(--menu-price);
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+.menu-drink-partners-title {
+    font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.7rem);
+    color: var(--menu-fg);
+    margin: 0;
+}
+@media (min-width: 821px) {
+    .menu-drink-story .menu-story-copy { text-align: left; }
+}
+.menu-partner-eyebrow {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    font-size: 0.72rem;
+    color: var(--story-accent);
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+.menu-partner-title { display: flex; align-items: center; gap: 10px; }
+.menu-partner-title img { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+.menu-story-chapter--robusta { --story-accent: #7a5030; }
+.menu-story-chapter--robusta .menu-story-frame { background: linear-gradient(155deg, #f7ede0 0%, #e3c9a6 100%); }
+.menu-story-chapter--honey { --story-accent: #c8952c; }
+.menu-story-chapter--honey .menu-story-frame { background: linear-gradient(155deg, #fdf3dd 0%, #f2dfa8 100%); }
+.menu-story-chapter--syrup { --story-accent: #a9752f; }
+.menu-story-chapter--syrup .menu-story-frame { background: linear-gradient(155deg, #f8efdf 0%, #e9d3ac 100%); }
+.menu-story-chapter--cacao { --story-accent: #6b3f2a; }
+.menu-story-chapter--cacao .menu-story-frame { background: linear-gradient(155deg, #f2e2d8 0%, #d7b9a4 100%); }
+.menu-story-chapter--coconut { --story-accent: #5f7d3f; }
+.menu-story-chapter--coconut .menu-story-frame { background: linear-gradient(155deg, #f1f6ea 0%, #d8e7c5 100%); }
 
 /* "Get to know our fence-side greens" - a full-width vignette appended
    below the From Ground Up row, spanning both text columns instead of
@@ -2682,8 +2763,8 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-all-day-breakfast'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.2M12 18.8V21M4.2 12H2M22 12h-2.2M5.8 5.8l1.5 1.5M16.7 16.7l1.5 1.5M18.2 5.8l-1.5 1.5M7.3 16.7l-1.5 1.5"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-all-day-breakfast">All Day Breakfast</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-must-try'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-must-try">Must Try</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-coffee-and-soda', 'subcat-classic'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><circle cx="9" cy="5" r="0.8" fill="currentColor" stroke="none"/><circle cx="12.2" cy="3.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="14.7" cy="5.2" r="0.7" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="chip-coffee">Coffee</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-honey-lover'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0012 0c0-4.5-6-12-6-12z"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-honey-lover">Honey Lover</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-cacao-lover'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-5 3-8 8-8 12a4 4 0 008 0 4 4 0 008 0c0-4-3-9-8-12z"/><path d="M12 5v14"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-cacao-lover">Cacao Lover</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-honey-lover'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/honey-lover.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-honey-lover">Honey Lover</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-cacao-lover'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/cacao-lover.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-cacao-lover">Cacao Lover</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-tea', 'subcat-milk', 'subcat-matcha', 'subcat-other'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-other">Other</span></button>
             </div>
         </div>
@@ -3698,7 +3779,49 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 <h3 data-key="robusta-title">กาแฟโรบัสต้า</h3>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><path d="M8 4.5c0 1-1 1-1 2M12 4.5c0 1-1 1-1 2"/></svg>
             </div>
-            <p class="menu-book-category-desc" data-key="robusta-desc">กาแฟโรบัสต้ารสเข้มข้น ชงในสไตล์ของเรา รายการเมนูจะทยอยเพิ่มเข้ามาเร็วๆ นี้</p>
+            <p class="menu-book-category-desc" data-key="robusta-desc">ชุมพร มหานครแห่งโรบัสต้าคุณภาพ ทุกเมล็ดมาจากเกษตรกรท้องถิ่นที่แปรรูปอย่างพิถีพิถัน ดึงเอาความหอมและเสน่ห์ของโรบัสต้าออกมาได้อย่างอัศจรรย์</p>
+
+            <div class="menu-drink-photostrip">
+                <div class="menu-story-gallery-grid">
+                    <img src="Story/robusta-1.webp" alt="Farmer sorting freshly picked Chumphon robusta coffee cherries by hand" loading="lazy">
+                    <img src="Story/robusta-2.webp" alt="A handful of ripe and unripe robusta coffee cherries" loading="lazy">
+                    <img src="Story/robusta-3.webp" alt="Hand-picking ripe red robusta coffee cherries from the branch" loading="lazy">
+                </div>
+            </div>
+
+            <div class="menu-drink-story">
+                <div class="menu-story-chapters">
+                    <article class="menu-story-chapter menu-story-chapter--robusta">
+                        <div class="menu-story-frame menu-story-frame--gallery">
+                            <div class="menu-story-gallery-grid menu-story-gallery-grid--12">
+                                <img src="Story/robusta-collab-1.webp" alt="Robusta coffee blossoms flowering on the branch" loading="lazy">
+                                <img src="Story/robusta-collab-2.webp" alt="Freshly picked robusta cherries poured onto a sorting tray" loading="lazy">
+                                <img src="Story/robusta-collab-3.webp" alt="Ripe red robusta cherries being poured out for sorting" loading="lazy">
+                                <img src="Story/robusta-collab-4.webp" alt="Farmers hand-sorting fresh robusta cherries on a mat" loading="lazy">
+                                <img src="Story/robusta-collab-5.webp" alt="A hand holding a mix of ripe and unripe robusta cherries" loading="lazy">
+                                <img src="Story/robusta-collab-6.webp" alt="Roasted robusta coffee beans inside the roasting drum" loading="lazy">
+                                <img src="Story/robusta-collab-7.webp" alt="Freshly roasted coffee beans tumbling out of the roaster" loading="lazy">
+                                <img src="Story/robusta-collab-8.webp" alt="Two iced Baan OuadChum coffee drinks on a wooden tray" loading="lazy">
+                                <img src="Story/robusta-collab-9.webp" alt="Two iced coffee drinks served on a wooden board outdoors" loading="lazy">
+                                <img src="Story/robusta-collab-10.webp" alt="Iced cacao latte served with fresh cacao pods and beans" loading="lazy">
+                                <img src="Story/robusta-collab-11.webp" alt="Iced coffee served with wildflower honey and fresh calamansi" loading="lazy">
+                                <img src="Story/robusta-collab-12.webp" alt="Iced coffee served with fresh coconut sugar" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="menu-story-spine" aria-hidden="true">
+                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                            <span class="menu-story-spine-node">01</span>
+                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                        </div>
+                        <div class="menu-story-copy">
+                            <span class="menu-partner-eyebrow" data-key="robustacollab-eyebrow">Grown by a New Generation of Farmers</span>
+                            <h3 class="menu-story-chapter-title" data-key="robustacollab-title">Chumphon Robusta</h3>
+                            <p class="menu-story-chapter-text" data-key="robustacollab-text">Robusta doesn&rsquo;t need arabica to taste good &mdash; it can shine entirely on its own. Meet the robusta grown and processed right here in Chumphon by a new generation of young farmers, who have reinvented every step &mdash; growing, drying, sorting, and roasting &mdash; to draw out an aroma that&rsquo;s nothing short of extraordinary.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
             <div class="menu-book-divider-line"></div>
             <div class="menu-book-subcat" id="subcat-must-try">
                 <div class="menu-book-subcat-title">
@@ -3935,13 +4058,105 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 <h3 data-key="noncoffee-title">Non-Coffee</h3>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-6 5-10 15-10-1 9-6 15-15 15z"/><path d="M4 19c3-3 7-6 10-9"/></svg>
             </div>
-            <p class="menu-book-category-desc" data-key="noncoffee-desc">เมนูดีๆ สำหรับคนที่ไม่ได้มาเพื่อกาแฟ รายการเมนูจะทยอยเพิ่มเข้ามาเร็วๆ นี้</p>
+            <p class="menu-book-category-desc" data-key="noncoffee-desc">เมนูเครื่องดื่มจากวัตถุดิบท้องถิ่นในจังหวัดชุมพร เราเลือกใช้น้ำผึ้งดอกไม้ป่า น้ำตาลมะพร้าว น้ำตาลจาก ในการให้ความหวาน จึงได้เครื่องดื่มที่ละมุน ชื่นใจ และดีต่อสุขภาพ</p>
+
+            <div class="menu-drink-story">
+                <div class="menu-drink-partners-head">
+                    <span class="menu-drink-partners-eyebrow" data-key="drinkpartners-eyebrow">Local Ingredients</span>
+                    <h3 class="menu-drink-partners-title" data-key="drinkpartners-title">Behind Every Cup</h3>
+                </div>
+                <div class="menu-story-chapters">
+
+                    <article class="menu-story-chapter menu-story-chapter--honey">
+                        <div class="menu-story-frame menu-story-frame--gallery">
+                            <div class="menu-story-gallery-grid">
+                                <img src="Story/honey-collab-1.webp" alt="Portrait of beekeeper Pi Jongkoy holding a bottle of wildflower honey near the hives" loading="lazy">
+                                <img src="Story/honey-collab-2.webp" alt="A hand holding a fresh piece of wild honeycomb dripping with honey" loading="lazy">
+                                <img src="Story/honey-collab-3.webp" alt="Beekeeper Pi Jongkoy at the wooden hive box" loading="lazy">
+                                <img src="Story/honey-collab-4.webp" alt="Fresh coconut sugar and an iced drink hanging from a palm tree" loading="lazy">
+                                <img src="Story/honey-collab-5.webp" alt="Wildflower honey drink, honeycomb, hive box, and honey bottle on a wooden table" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="menu-story-spine" aria-hidden="true">
+                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                            <span class="menu-story-spine-node">01</span>
+                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                        </div>
+                        <div class="menu-story-copy">
+                            <span class="menu-partner-eyebrow" data-key="honeycollab-eyebrow">Pi Jongkoy</span>
+                            <h3 class="menu-story-chapter-title" data-key="honeycollab-title">Wildflower Honey</h3>
+                            <p class="menu-story-chapter-text" data-key="honeycollab-text">Wild honey from the South, harvested from a mixed-fruit orchard. This tunnel-hive honey carries a complex flavor &mdash; sweet with a hint of sourness. Uncle Jongkoy harvests it the conservation way, without harming the young bees, and we use his honey to add gentle sweetness across our entire Non-Coffee menu.</p>
+                        </div>
+                    </article>
+
+                    <article class="menu-story-chapter menu-story-chapter--syrup menu-story-chapter--reverse">
+                        <div class="menu-story-frame menu-story-frame--gallery">
+                            <div class="menu-story-gallery-grid menu-story-gallery-grid--2">
+                                <img src="Story/syrup-collab-1.webp" alt="Nipa palm syrup being slow-stirred as it cooks down in the pan" loading="lazy">
+                                <img src="Story/syrup-collab-2.webp" alt="Jak Jai Group member harvesting nipa palm sap in the wetlands" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="menu-story-spine" aria-hidden="true">
+                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                            <span class="menu-story-spine-node">02</span>
+                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                        </div>
+                        <div class="menu-story-copy">
+                            <span class="menu-partner-eyebrow" data-key="syrupcollab-eyebrow">Jak Jai Group</span>
+                            <h3 class="menu-story-chapter-title menu-partner-title"><img src="Icons/nipa-syrup.png" alt="" loading="lazy"><span data-key="syrupcollab-title">Nipa Palm Syrup</span></h3>
+                            <p class="menu-story-chapter-text" data-key="syrupcollab-text">A rare, old-style healthy sugar made from the sweet sap of nipa palm flower clusters &mdash; fragrant, with a hint of salt and caramel. It&rsquo;s the healthy sweetener behind our Es-Yen (Thai-style iced coffee).</p>
+                        </div>
+                    </article>
+
+                    <article class="menu-story-chapter menu-story-chapter--cacao">
+                        <div class="menu-story-frame menu-story-frame--gallery">
+                            <div class="menu-story-gallery-grid menu-story-gallery-grid--2">
+                                <img src="Story/cacao-collab-1.webp" alt="Two iced J&amp;O cacao drinks on a wooden table overlooking the beach" loading="lazy">
+                                <img src="Story/cacao-collab-2.webp" alt="J&amp;O Cacao farmers holding fresh cacao pods among the trees" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="menu-story-spine" aria-hidden="true">
+                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                            <span class="menu-story-spine-node">03</span>
+                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                        </div>
+                        <div class="menu-story-copy">
+                            <span class="menu-partner-eyebrow" data-key="cacaocollab-eyebrow">A New Generation of Farmers</span>
+                            <h3 class="menu-story-chapter-title" data-key="cacaocollab-title">J&amp;O Cacao</h3>
+                            <p class="menu-story-chapter-text" data-key="cacaocollab-text">J&amp;O crafts premium chocolate using only the Chumphon Hybrid 1 variety, rich in good fats extracted through cold-pressing with no added palm oil &mdash; better for your health. It carries a fragrant white-flower aroma, grown and processed 100% in Pathio, for an intensely rich flavor with just a hint of tartness.</p>
+                        </div>
+                    </article>
+
+                    <article class="menu-story-chapter menu-story-chapter--coconut menu-story-chapter--reverse">
+                        <div class="menu-story-frame menu-story-frame--gallery">
+                            <div class="menu-story-gallery-grid menu-story-gallery-grid--4">
+                                <img src="Story/coconut-collab-1.webp" alt="Portrait of Uncle Kanchit holding coconut palm fronds" loading="lazy">
+                                <img src="Story/coconut-collab-2.webp" alt="Fresh coconut sugar and an iced drink hanging on a coconut palm trunk" loading="lazy">
+                                <img src="Story/coconut-collab-3.webp" alt="Iced coconut sugar coffee served with the coconut sugar packaging and fresh cacao pods" loading="lazy">
+                                <img src="Story/coconut-collab-4.webp" alt="Close-up of golden coconut palm blossom clusters, the source of the sap" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="menu-story-spine" aria-hidden="true">
+                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                            <span class="menu-story-spine-node">04</span>
+                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                        </div>
+                        <div class="menu-story-copy">
+                            <span class="menu-partner-eyebrow" data-key="coconutcollab-eyebrow">Uncle Kanchit</span>
+                            <h3 class="menu-story-chapter-title menu-partner-title"><img src="Icons/coconut-sugar.png" alt="" loading="lazy"><span data-key="coconutcollab-title">Coconut Sugar</span></h3>
+                            <p class="menu-story-chapter-text" data-key="coconutcollab-text">Sweet sap tapped from coconut palm blossoms, slow-simmered over a wood fire until it thickens into sugar. Uncle Kanchit makes it entirely by hand using traditional methods from start to finish &mdash; this sweetness is a key ingredient throughout Baan OuadChum.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
             <div class="menu-book-divider-line"></div>
             <div class="menu-book-subcat" id="subcat-honey-lover">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0012 0c0-4.5-6-12-6-12z"/></svg>
+                    <img src="Icons/honey-lover.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-honey-lover">Honey Lover</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0012 0c0-4.5-6-12-6-12z"/></svg>
+                    <img src="Icons/honey-lover.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -4006,9 +4221,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="menu-book-subcat" id="subcat-cacao-lover">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-5 3-8 8-8 12a4 4 0 008 0 4 4 0 008 0c0-4-3-9-8-12z"/><path d="M12 5v14"/></svg>
+                    <img src="Icons/cacao-lover.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-cacao-lover">Cacao Lover</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-5 3-8 8-8 12a4 4 0 008 0 4 4 0 008 0c0-4-3-9-8-12z"/><path d="M12 5v14"/></svg>
+                    <img src="Icons/cacao-lover.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -4046,9 +4261,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="menu-book-subcat" id="subcat-tea">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-6 5-10 15-10-1 9-6 15-15 15z"/><path d="M4 19c3-3 7-6 10-9"/></svg>
+                    <img src="Icons/tea.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-tea">Tea</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-6 5-10 15-10-1 9-6 15-15 15z"/><path d="M4 19c3-3 7-6 10-9"/></svg>
+                    <img src="Icons/tea.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -4208,9 +4423,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="menu-book-subcat" id="subcat-matcha">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 6a4 4 0 01-4 3.2h-5a4 4 0 01-4-3.2L4 10z"/><path d="M12 10V4M9.5 5.5L12 4l2.5 1.5"/></svg>
+                    <img src="Icons/matcha.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-matcha">Matcha</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 6a4 4 0 01-4 3.2h-5a4 4 0 01-4-3.2L4 10z"/><path d="M12 10V4M9.5 5.5L12 4l2.5 1.5"/></svg>
+                    <img src="Icons/matcha.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -4567,10 +4782,21 @@ const langData = {
         "card-desc": "Check back here soon for our latest menu.",
 
         "food-sub": "Food", "food-title": "Food", "food-desc": "Authentic Southern Thai dishes from Baan OuadChum's kitchen, cooked fresh to order.",
-        "robusta-sub": "Coffee", "robusta-title": "Robusta Coffee", "robusta-desc": "Bold, homegrown robusta beans, brewed our way. Full menu items coming soon.",
+        "robusta-sub": "Coffee", "robusta-title": "Robusta Coffee", "robusta-desc": "Chumphon is Thailand's capital of quality robusta. Every bean comes from local farmers who process it with painstaking care, drawing out robusta's aroma and character in the most wonderful way.",
         "robusta-cat-musttry": "Must Try", "robusta-cat-coffeesoda": "Coffee & Soda", "robusta-cat-classic": "Classic",
-        "noncoffee-sub": "Non-Coffee", "noncoffee-title": "Non-Coffee", "noncoffee-desc": "Something for everyone who isn't here for the coffee. Full menu items coming soon.",
+        "robustacollab-eyebrow": "Grown by a New Generation of Farmers", "robustacollab-title": "Chumphon Robusta",
+        "robustacollab-text": "Robusta doesn't need arabica to taste good — it can shine entirely on its own. Meet the robusta grown and processed right here in Chumphon by a new generation of young farmers, who have reinvented every step — growing, drying, sorting, and roasting — to draw out an aroma that's nothing short of extraordinary.",
+        "noncoffee-sub": "Non-Coffee", "noncoffee-title": "Non-Coffee", "noncoffee-desc": "Drinks made from local ingredients found right here in Chumphon. We sweeten every glass with wildflower honey, coconut sugar, and nipa palm sugar — for drinks that are gentle, refreshing, and good for you.",
         "noncoffee-cat-honey": "Honey Lover", "noncoffee-cat-cacao": "Cacao Lover", "noncoffee-cat-tea": "Tea", "noncoffee-cat-milk": "Milk", "noncoffee-cat-matcha": "Matcha", "noncoffee-cat-other": "Other",
+        "drinkpartners-eyebrow": "Local Ingredients", "drinkpartners-title": "Behind Every Cup",
+        "honeycollab-eyebrow": "Pi Jongkoy", "honeycollab-title": "Wildflower Honey",
+        "honeycollab-text": "Wild honey from the South, harvested from a mixed-fruit orchard. This tunnel-hive honey carries a complex flavor — sweet with a hint of sourness. Uncle Jongkoy harvests it the conservation way, without harming the young bees, and we use his honey to add gentle sweetness across our entire Non-Coffee menu.",
+        "syrupcollab-eyebrow": "Jak Jai Group", "syrupcollab-title": "Nipa Palm Syrup",
+        "syrupcollab-text": "A rare, old-style healthy sugar made from the sweet sap of nipa palm flower clusters — fragrant, with a hint of salt and caramel. It's the healthy sweetener behind our Es-Yen (Thai-style iced coffee).",
+        "cacaocollab-eyebrow": "A New Generation of Farmers", "cacaocollab-title": "J&O Cacao",
+        "cacaocollab-text": "J&O crafts premium chocolate using only the Chumphon Hybrid 1 variety, rich in good fats extracted through cold-pressing with no added palm oil — better for your health. It carries a fragrant white-flower aroma, grown and processed 100% in Pathio, for an intensely rich flavor with just a hint of tartness.",
+        "coconutcollab-eyebrow": "Uncle Kanchit", "coconutcollab-title": "Coconut Sugar",
+        "coconutcollab-text": "Sweet sap tapped from coconut palm blossoms, slow-simmered over a wood fire until it thickens into sugar. Uncle Kanchit makes it entirely by hand using traditional methods from start to finish — this sweetness is a key ingredient throughout Baan OuadChum.",
 
         "footer-sub": "Pathio, Chumphon, Thailand<br>Cafe, Restaurant, 10-Room Treehouse-Style Accommodation<br><br>Open Daily 8:00 AM - 8:00 PM",
         "footer-copy": "© 2026 Baan OuadChum Coastal Treehouse. All Rights Reserved.",
@@ -4669,10 +4895,21 @@ const langData = {
         "card-desc": "ติดตามเมนูของเราได้ที่นี่เร็วๆ นี้",
 
         "food-sub": "อาหาร", "food-title": "อาหาร", "food-desc": "อาหารใต้แท้จากครัวบ้านอวดชุม ปรุงสดใหม่ทุกจาน",
-        "robusta-sub": "กาแฟ", "robusta-title": "กาแฟโรบัสต้า", "robusta-desc": "กาแฟโรบัสต้ารสเข้มข้น ชงในสไตล์ของเรา รายการเมนูจะทยอยเพิ่มเข้ามาเร็วๆ นี้",
+        "robusta-sub": "กาแฟ", "robusta-title": "กาแฟโรบัสต้า", "robusta-desc": "ชุมพร มหานครแห่งโรบัสต้าคุณภาพ ทุกเมล็ดมาจากเกษตรกรท้องถิ่นที่แปรรูปอย่างพิถีพิถัน ดึงเอาความหอมและเสน่ห์ของโรบัสต้าออกมาได้อย่างอัศจรรย์",
         "robusta-cat-musttry": "ต้องลอง", "robusta-cat-coffeesoda": "กาแฟโซดา", "robusta-cat-classic": "คลาสสิก",
-        "noncoffee-sub": "ไม่ใช่กาแฟ", "noncoffee-title": "Non-Coffee", "noncoffee-desc": "เมนูดีๆ สำหรับคนที่ไม่ได้มาเพื่อกาแฟ รายการเมนูจะทยอยเพิ่มเข้ามาเร็วๆ นี้",
+        "robustacollab-eyebrow": "ผลิตโดยเกษตรกรรุ่นใหม่", "robustacollab-title": "Chumphon Robusta",
+        "robustacollab-text": "โรบัสต้าไม่จำเป็นต้องผสมกับอาราบิก้าก็อร่อยได้ด้วยตัวเอง ขอนำเสนอโรบัสต้าที่ปลูกและแปรรูปในชุมพรโดยกลุ่มเกษตรกรรุ่นใหม่ ที่เปลี่ยนโฉมกระบวนการปลูก การตาก การคัดเมล็ด การคั่ว จนสามารถดึงเอาความหอมออกมาได้อย่างอัศจรรย์",
+        "noncoffee-sub": "ไม่ใช่กาแฟ", "noncoffee-title": "Non-Coffee", "noncoffee-desc": "เมนูเครื่องดื่มจากวัตถุดิบท้องถิ่นในจังหวัดชุมพร เราเลือกใช้น้ำผึ้งดอกไม้ป่า น้ำตาลมะพร้าว น้ำตาลจาก ในการให้ความหวาน จึงได้เครื่องดื่มที่ละมุน ชื่นใจ และดีต่อสุขภาพ",
         "noncoffee-cat-honey": "คนรักน้ำผึ้ง", "noncoffee-cat-cacao": "คนรักโกโก้", "noncoffee-cat-tea": "ชา", "noncoffee-cat-milk": "นม", "noncoffee-cat-matcha": "มัทฉะ", "noncoffee-cat-other": "อื่นๆ",
+        "drinkpartners-eyebrow": "วัตถุดิบท้องถิ่น", "drinkpartners-title": "เบื้องหลังทุกแก้ว",
+        "honeycollab-eyebrow": "พี่จงโกย", "honeycollab-title": "น้ำผึ้งป่า",
+        "honeycollab-text": "น้ำผึ้งป่าแดนใต้ จากสวนผสมผสาน น้ำผึ้งโพรง มีรสซับซ้อน อม เปรี้ยว ลุงจงโกยเก็บน้ำแบบอนุรักษ์ ไม่ทำร้ายตัวอ่อน เราใช้น้ำผึ้งของลุงเพิ่มความละมุน ในเมนู non-coffee ทั้งหมด",
+        "syrupcollab-eyebrow": "กลุ่มจากใจ", "syrupcollab-title": "ไซรัปจากสด",
+        "syrupcollab-text": "น้ำตาลสุขภาพแบบโบราณที่หาทานยาก ผลิตจากน้ำหวานจากพวงจาก หอมคล้ายติดเค็มนิดๆ คาราเมล เป็นน้ำตาลสุขภาพในเมนูเอสเย็น",
+        "cacaocollab-eyebrow": "เกษตรกรรุ่นใหม่", "cacaocollab-title": "J&O Cacao",
+        "cacaocollab-text": "J&O ผู้รังสรรค์ช็อกโกแลตพรีเมี่ยม เลือกเฉพาะสายพันธุ์ Chumphon Hybrid 1 ที่อุดมด้วยไขมันดีด้วยวิธีสกัดเย็น และไม่เติมน้ำมันปาล์ม ดีต่อสุขภาพ ให้กลิ่นหอมดอกไม้ขาว ปลูกและแปรรูปที่ปะทิว 100% ได้รสสุดเข้มข้น อมเปรี้ยวนิดๆ",
+        "coconutcollab-eyebrow": "ลุงครรชิต", "coconutcollab-title": "น้ำตาลมะพร้าว",
+        "coconutcollab-text": "นำน้ำหวานจากดอกมะพร้าวมาเคี่ยวเตาฟืนจนได้เป็นเนื้อน้ำตาล คุณลุงผลิตด้วยกระบวนการดั้งเดิมทั้งหมด ความหวานนี้ถูกใช้เป็นวัตถุดิบหลัก ณ บ้านอวดชุม",
 
         "footer-sub": "ปะทิว ชุมพร ประเทศไทย<br>คาเฟ่ ร้านอาหาร ที่พักสไตล์บ้านต้นไม้ 10 ห้อง<br><br>เปิดทุกวัน 8:00-20:00",
         "footer-copy": "© 2026 บ้านต้นไม้อวดชุม สงวนลิขสิทธิ์ทั้งหมด",
