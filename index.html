@@ -2482,8 +2482,9 @@ footer{
 .footer-bg-slide {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
     transition: opacity 1.4s ease;
 }
@@ -2816,8 +2817,8 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 </section>
 
 <section id="stay" class="section-muted">
-<img src="Background/BG graphic 2.PNG" class="stay-bg-graphic stay-bg-graphic-left" alt="" aria-hidden="true">
-<img src="Background/BG graphic 2.PNG" class="stay-bg-graphic stay-bg-graphic-right" alt="" aria-hidden="true">
+<img src="Background/bg-graphic-2.webp" class="stay-bg-graphic stay-bg-graphic-left" alt="" aria-hidden="true" loading="lazy">
+<img src="Background/bg-graphic-2.webp" class="stay-bg-graphic stay-bg-graphic-right" alt="" aria-hidden="true" loading="lazy">
 <img src="Background/village-scene.webp" class="stay-village-scene stay-village-scene-right" alt="" aria-hidden="true">
 <div class="container container-wide">
     
@@ -3874,9 +3875,9 @@ function updateCarouselArrows(track) {
 <footer id="contact">
 <img src="Background/mermaid-graphic.webp" alt="" aria-hidden="true" class="footer-mermaid" loading="lazy">
 <div class="footer-bg-slideshow" id="footerBgSlideshow">
-    <div class="footer-bg-slide active" style="background-image:url('Background/C1.webp')"></div>
-    <div class="footer-bg-slide" style="background-image:url('Background/C2.webp')"></div>
-    <div class="footer-bg-slide" style="background-image:url('Background/C3.webp')"></div>
+    <img src="Background/C1.webp" class="footer-bg-slide active" alt="" loading="lazy">
+    <img src="Background/C2.webp" class="footer-bg-slide" alt="" loading="lazy">
+    <img src="Background/C3.webp" class="footer-bg-slide" alt="" loading="lazy">
 </div>
 <div class="footer-bg-overlay"></div>
 <div class="container">
