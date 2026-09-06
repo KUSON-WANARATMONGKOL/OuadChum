@@ -2515,12 +2515,30 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 .stay-bg-graphic-left { left: -80px; top: 1150px; transform: scaleX(-1); }
 .stay-bg-graphic-right { right: -20px; }
 @media (max-width: 700px) {
-    .stay-bg-graphic { display: block; }
-    /* On mobile the room filter buttons stack into several rows, so the
-       right-side graphic's default top:-80px (tuned for desktop) would sit
-       behind the title/filter instead of the room cards - push it down to
-       start right where the filters end. */
-    .stay-bg-graphic-right { top: 700px; }
+    /* The desktop sizing/position here is tuned for a wide multi-column
+       layout with room to breathe - at mobile widths a 640px-wide graphic
+       is bigger than the screen itself and, anchored mid-content, ends up
+       smeared across several room cards instead of sitting in the margins.
+       There's only ~350px of clear space above the intro paragraph and a
+       bare ~80px below the last room card, so rather than force a
+       desktop-sized image into either spot (which only trades "overlapping
+       the text" for "mostly faded out and looking empty"), size the one
+       flourish that fits - the top-left corner, by the logo - to actually
+       fill its space at full opacity like the desktop version does, and
+       drop the bottom-right one since there's no room for it to read as
+       anything more than a sliver. */
+    .stay-bg-graphic { width: 200px; opacity: 0.5; }
+    /* Fully opaque behind the logo/eagle area (nothing there for it to
+       clash with), then a gentle fade starting right where the "ห้องพัก..."
+       title begins and finishing before the intro paragraph, so it never
+       has to compete with body text or bleed into the room cards below. */
+    .stay-bg-graphic-left {
+        top: 12px;
+        left: -20px;
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 83%);
+        mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 83%);
+    }
+    .stay-bg-graphic-right { display: none; }
 }
 .stay-village-scene {
     position: absolute;
@@ -2534,7 +2552,11 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 .stay-village-scene-left { left: -80px; }
 .stay-village-scene-right { right: -20px; transform: scaleX(-1); }
 @media (max-width: 700px) {
-    .stay-village-scene { display: block; }
+    /* With .stay-bg-graphic already anchoring the section's top/bottom
+       corners on mobile, this second large illustration stacked mid-content
+       is the other half of the clutter - simplest fix is to let the section
+       keep just the one flourish at this width instead of layering two. */
+    .stay-village-scene { display: none; }
 }
 .stay-logo-wrap {
     position: relative;
@@ -2669,7 +2691,25 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
     transition: opacity 0.3s ease;
 }
 .nav-backdrop.active { opacity: 1; pointer-events: auto; }
+
+/* Footer mermaid - a small hand-drawn brand mascot signature, tucked into
+   the corner of the footer on every page (paints above the footer's photo
+   background/overlay, below the actual contact-info text). */
+.footer-mermaid {
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+    width: 120px;
+    height: auto;
+    opacity: 0.95;
+    z-index: 1;
+    pointer-events: none;
+}
+@media (max-width: 700px) {
+    .footer-mermaid { width: 78px; right: 2%; }
+}
 </style>
+
 </head>
 <body>
 
@@ -2707,6 +2747,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 </div>
 </div>
 </nav>
+<main>
 
 <section class="hero" id="heroSection">
 <div class="hero-slides" id="heroSlides"></div>
@@ -3829,11 +3870,13 @@ function updateCarouselArrows(track) {
 
 </script>
 
+</main>
 <footer id="contact">
+<img src="Background/mermaid-graphic.webp" alt="" aria-hidden="true" class="footer-mermaid" loading="lazy">
 <div class="footer-bg-slideshow" id="footerBgSlideshow">
-    <div class="footer-bg-slide active" style="background-image:url('Background/C1.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('Background/C2.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('Background/C3.JPG')"></div>
+    <div class="footer-bg-slide active" style="background-image:url('Background/C1.webp')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C2.webp')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C3.webp')"></div>
 </div>
 <div class="footer-bg-overlay"></div>
 <div class="container">
@@ -3888,7 +3931,7 @@ function updateCarouselArrows(track) {
 <div class="container booking-inner">
     <div class="booking-fields">
         <div class="field-group">
-            <label data-key="book-guests">Guests</label>
+            <label for="guest-select" data-key="book-guests">Guests</label>
             <select id="guest-select">
                 <option value="1">1 Guest</option>
                 <option value="2">2 Guests</option>
@@ -3912,7 +3955,7 @@ function updateCarouselArrows(track) {
     </div>
     <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
         <div class="field-group">
-            <label data-key="book-guests">Guests</label>
+            <label for="guest-select-mob" data-key="book-guests">Guests</label>
             <select id="guest-select-mob" aria-label="Number of guests"></select>
         </div>
     </div>

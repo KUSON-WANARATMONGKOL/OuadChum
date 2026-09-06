@@ -1008,6 +1008,7 @@ nav{
 
 /* FOOTER */
 footer{
+    position: relative;
     background: #3E723B;
     color: var(--white);
     text-align:center;
@@ -1091,7 +1092,25 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     transition: opacity 0.3s ease;
 }
 .nav-backdrop.active { opacity: 1; pointer-events: auto; }
+
+/* Footer mermaid - a small hand-drawn brand mascot signature, tucked into
+   the corner of the footer on every page (paints above the footer's photo
+   background/overlay, below the actual contact-info text). */
+.footer-mermaid {
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+    width: 120px;
+    height: auto;
+    opacity: 0.95;
+    z-index: 1;
+    pointer-events: none;
+}
+@media (max-width: 700px) {
+    .footer-mermaid { width: 78px; right: 2%; }
+}
 </style>
+
 </head>
 <body>
 
@@ -1127,6 +1146,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 </div>
 </div>
 </nav>
+<main>
 
 <section id="project" class="news-page-section" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
 <div class="container">
@@ -1181,7 +1201,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 </div>
 </section>
 
+</main>
 <footer id="contact">
+<img src="Background/mermaid-graphic.webp" alt="" aria-hidden="true" class="footer-mermaid" loading="lazy">
 <div class="container">
 <h3 data-key="footer-title">Baan OuadChum Coastal Treehouse</h3>
 <p style="margin-bottom: 30px;" data-key="footer-sub">Pathio, Chumphon, Thailand<br>คาเฟ่ ร้านอาหาร ที่พักสไตล์บ้านต้นไม้ 10 ห้อง<br><br>เปิดทุกวัน 8:00-20:00</p>
@@ -1234,7 +1256,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 <div class="container booking-inner">
     <div class="booking-fields">
         <div class="field-group">
-            <label data-key="book-guests">Guests</label>
+            <label for="guest-select" data-key="book-guests">Guests</label>
             <select id="guest-select">
                 <option value="1">1 Guest</option>
                 <option value="2">2 Guests</option>
@@ -1258,7 +1280,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
     <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
         <div class="field-group">
-            <label data-key="book-guests">Guests</label>
+            <label for="guest-select-mob" data-key="book-guests">Guests</label>
             <select id="guest-select-mob"></select>
         </div>
     </div>

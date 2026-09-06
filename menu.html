@@ -537,12 +537,13 @@ nav{
 }
 .menu-subcat-chip-icon {
     display: flex;
-    width: 20px;
-    height: 20px;
+    width: 46px;
+    height: 46px;
     color: var(--accent);
     transition: var(--transition);
 }
 .menu-subcat-chip-icon svg { width: 100%; height: 100%; }
+.menu-subcat-chip-icon img { width: 100%; height: 100%; object-fit: contain; }
 .menu-subcat-chip:hover {
     border-color: rgba(197,168,128,0.6);
     color: #fff;
@@ -621,57 +622,112 @@ nav{
 .menu-hero-video-zone .menu-book-header .subtitle { color: var(--accent); }
 .menu-hero-video-zone .menu-book-header .section-title { color: #fff; }
 .menu-book-box {
+    /* Themeable via custom properties so Food and Drink can look like two
+       different menu boards while sharing every other rule below - override
+       these on .menu-book-box--drink instead of duplicating the rules. */
+    --menu-bg-start: var(--primary);
+    --menu-bg-end: var(--primary-dark);
+    --menu-fg: rgba(255,255,255,0.92);
+    --menu-fg-soft: rgba(255,255,255,0.72);
+    --menu-fg-mute: rgba(255,255,255,0.58);
+    --menu-label: rgba(255,255,255,0.55);
+    --menu-line: rgba(255,255,255,0.15);
+    --menu-line-soft: rgba(255,255,255,0.3);
+    --menu-dotted: rgba(255,255,255,0.35);
+    --menu-dotted-soft: rgba(255,255,255,0.3);
+    --menu-price: var(--accent);
+    --menu-thumb-border: rgba(255,255,255,0.3);
+    --menu-thumb-border-photo: rgba(255,255,255,0.12);
+    --menu-thumb-bg: rgba(255,255,255,0.06);
+    --menu-thumb-icon: rgba(255,255,255,0.35);
+    --menu-shadow: 0 25px 60px -20px rgba(35,43,40,0.35);
+    --menu-hover-bg: rgba(255,255,255,0.05);
+    --menu-subcat-bg: rgba(255,255,255,0.08);
+    --menu-subcat-border: rgba(255,255,255,0.14);
     position: relative;
     z-index: 1;
-    background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
-    border-radius: 0;
+    background: linear-gradient(160deg, var(--menu-bg-start) 0%, var(--menu-bg-end) 100%);
+    border-radius: 26px;
     padding: 48px 40px 60px;
     max-width: 1140px;
     margin: 0 auto;
-    color: #fff;
+    color: var(--menu-fg);
     text-align: center;
-    box-shadow: 0 25px 60px -20px rgba(35,43,40,0.35);
+    box-shadow: var(--menu-shadow);
 }
+.menu-book-box + .menu-book-box { margin-top: 44px; }
+/* DRINK theme: a warm, light "coffeehouse chalkboard" card that reads as a
+   deliberately different menu from Food's dark forest-green one, while
+   still pulling from the same brand palette (cream/tan + espresso brown,
+   with the price picked out in the site's primary green as a mirror of
+   Food's gold-on-green price). */
+.menu-book-box--drink {
+    --menu-bg-start: #fbf3e2;
+    --menu-bg-end: #ecd9b3;
+    --menu-fg: rgba(61,42,26,0.92);
+    --menu-fg-soft: rgba(61,42,26,0.72);
+    --menu-fg-mute: rgba(61,42,26,0.58);
+    --menu-label: rgba(61,42,26,0.55);
+    --menu-line: rgba(61,42,26,0.15);
+    --menu-line-soft: rgba(61,42,26,0.25);
+    --menu-dotted: rgba(61,42,26,0.32);
+    --menu-dotted-soft: rgba(61,42,26,0.25);
+    --menu-price: var(--primary-dark);
+    --menu-thumb-border: rgba(61,42,26,0.28);
+    --menu-thumb-border-photo: rgba(61,42,26,0.14);
+    --menu-thumb-bg: rgba(61,42,26,0.05);
+    --menu-thumb-icon: rgba(61,42,26,0.32);
+    --menu-shadow: 0 25px 55px -22px rgba(120,86,40,0.4);
+    --menu-hover-bg: rgba(61,42,26,0.045);
+    --menu-subcat-bg: rgba(61,42,26,0.05);
+    --menu-subcat-border: rgba(61,42,26,0.1);
+    border: 1px solid rgba(61,42,26,0.08);
+}
+/* Subcategories flow through two newspaper-style columns (not a CSS Grid
+   with paired rows) precisely so a short subcategory never gets locked to
+   the height of a much longer sibling - each column just keeps filling
+   independently instead of leaving a dead gap under the shorter one. */
 .menu-book-category {
     margin-top: 44px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    column-count: 2;
     column-gap: 48px;
 }
 .menu-book-category:first-of-type { margin-top: 0; }
 .menu-book-category + .menu-book-category {
-    border-top: 1px solid rgba(255,255,255,0.15);
+    border-top: 1px solid var(--menu-line);
     padding-top: 44px;
 }
 .menu-book-category-title {
-    grid-column: 1 / -1;
+    column-span: all;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     margin-bottom: 8px;
 }
-.menu-book-category-title svg { width: 22px; height: 22px; flex-shrink: 0; opacity: 0.9; }
+.menu-book-category-title svg { width: 40px; height: 40px; flex-shrink: 0; opacity: 0.9; }
+.menu-book-category-title img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
 .menu-book-category-title h3 {
-    font-size: 1.3rem;
-    color: #fff;
-    letter-spacing: 0.4px;
+    font-size: clamp(1.6rem, 1.4rem + 0.8vw, 1.9rem);
+    color: var(--menu-fg);
+    letter-spacing: 0.5px;
     margin: 0;
 }
 .menu-book-category-desc {
-    grid-column: 1 / -1;
+    column-span: all;
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.72);
+    color: var(--menu-fg-soft);
     max-width: 440px;
     margin: 0 auto;
     line-height: 1.6;
 }
 .menu-book-divider-line {
-    grid-column: 1 / -1;
+    column-span: all;
     width: 46px;
     height: 2px;
-    background: rgba(255,255,255,0.3);
+    background: var(--menu-price);
     margin: 22px auto;
+    opacity: 0.7;
 }
 .menu-book-items {
     display: grid;
@@ -694,22 +750,40 @@ nav{
     .menu-book-items { grid-template-columns: 1fr; }
 }
 .menu-book-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.85; }
-.menu-book-subcat { margin-top: 26px; }
+.menu-book-subcat {
+    margin-top: 26px;
+}
 .menu-book-subcat:first-of-type { margin-top: 22px; }
+/* A short subcategory keeps break-inside:avoid (nothing lost by keeping it
+   whole), but a long one is allowed to spill its later dishes into the
+   next column - forcing a 10-item subcat to stay in one column just
+   because its neighbour is short recreates the exact dead-space problem
+   this layout was changed to avoid. Either way the title itself is never
+   left stranded alone at the bottom of a column (break-after: avoid). */
 .menu-book-subcat-title {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
+    padding: 9px 22px;
+    border-radius: 999px;
+    background: var(--menu-subcat-bg);
+    border: 1px solid var(--menu-subcat-border);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    break-after: avoid;
 }
-.menu-book-subcat-title svg { width: 17px; height: 17px; flex-shrink: 0; opacity: 0.85; }
+.menu-book-subcat-title svg { width: 34px; height: 34px; flex-shrink: 0; opacity: 0.85; }
+.menu-book-subcat-title img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
 .menu-book-subcat-title h4 {
-    font-size: 1rem;
-    color: #fff;
-    letter-spacing: 0.6px;
+    font-size: 1.02rem;
+    color: var(--menu-fg);
+    letter-spacing: 0.7px;
     text-transform: uppercase;
-    opacity: 0.95;
+    font-weight: 800;
+    opacity: 1;
     margin: 0;
 }
 .menu-book-dishes {
@@ -719,44 +793,105 @@ nav{
     text-align: left;
 }
 /* When a filter narrows the menu down to a single subcategory, that
-   subcategory is the only thing left in the outer 2-column grid, so it
+   subcategory is the only thing left in the outer 2-column flow, so it
    would otherwise sit lopsided in one column with the other side blank.
    Let it span both columns and lay its own dishes out two-across instead,
-   filling the space the way the full "All" view does. */
+   filling the space the way the full "All" view does. Also plain columns
+   here rather than a grid, for the same independent-height reason as the
+   category-level layout above. */
 .menu-book-subcat.subcat-solo {
-    grid-column: 1 / -1;
+    column-span: all;
 }
 .menu-book-subcat.subcat-solo .menu-book-dishes {
-    grid-template-columns: 1fr 1fr;
+    display: block;
+    columns: 2;
     column-gap: 48px;
 }
 @media (max-width: 700px) {
-    .menu-book-subcat.subcat-solo .menu-book-dishes { grid-template-columns: 1fr; }
+    .menu-book-subcat.subcat-solo .menu-book-dishes { columns: 1; }
 }
 @media (max-width: 700px) {
-    .menu-book-category { grid-template-columns: 1fr; }
+    .menu-book-category { column-count: 1; }
 }
 .menu-book-dish {
     font-size: 0.9rem;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 8px;
+    margin: -8px;
+    border-radius: 12px;
+    break-inside: avoid;
+    transition: var(--transition);
+}
+.menu-book-dish:hover {
+    background: var(--menu-hover-bg);
 }
 .menu-book-dish-thumb {
+    position: relative;
     flex-shrink: 0;
     width: 100%;
     height: 260px;
     border-radius: 10px;
-    border: 1.5px dashed rgba(255,255,255,0.3);
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.35);
+    border: 1.5px dashed var(--menu-thumb-border);
+    background: var(--menu-thumb-bg);
+    color: var(--menu-thumb-icon);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
-.menu-book-dish-thumb.has-photo { border-style: solid; border-color: rgba(255,255,255,0.12); background: none; }
+.menu-book-dish-thumb.has-photo { border-style: solid; border-color: var(--menu-thumb-border-photo); background: none; }
 .menu-book-dish-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.menu-book-dish-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px 6px 8px;
+    border-radius: 12px;
+    background: #fffbf2;
+    border: 1px solid rgba(197,168,128,0.5);
+    color: #7a4a1f;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    box-shadow: 0 6px 16px rgba(20,20,10,0.3);
+    white-space: nowrap;
+}
+.menu-book-dish-badge svg { width: 26px; height: 26px; flex-shrink: 0; }
+.menu-book-dish-badge img { width: 26px; height: 26px; object-fit: contain; flex-shrink: 0; }
+.menu-book-dish-badge--inline {
+    position: static;
+    display: inline-flex;
+    margin-bottom: 2px;
+    padding: 4px 10px 4px 6px;
+    box-shadow: none;
+}
+.menu-book-dish-badge--inline img,
+.menu-book-dish-badge--inline svg {
+    width: 22px;
+    height: 22px;
+}
+.menu-book-dish-spicy {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin-left: 5px;
+    vertical-align: -6px;
+    flex-shrink: 0;
+}
+.menu-book-category-desc .menu-book-dish-spicy {
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+    vertical-align: -5px;
+}
 .menu-book-dish-info { min-width: 0; }
 .menu-book-dish-top {
     display: flex;
@@ -764,7 +899,7 @@ nav{
     gap: 6px;
 }
 .menu-book-dish-name {
-    color: rgba(255,255,255,0.92);
+    color: var(--menu-fg);
     font-weight: 500;
 }
 .menu-book-dish-leader {
@@ -772,17 +907,17 @@ nav{
     min-width: 10px;
     height: 0.5em;
     margin: 0 2px;
-    border-bottom: 1px dotted rgba(255,255,255,0.35);
+    border-bottom: 1px dotted var(--menu-dotted);
 }
 .menu-book-dish-price {
-    color: var(--accent);
+    color: var(--menu-price);
     font-weight: 700;
     font-size: 0.86rem;
     white-space: nowrap;
 }
 .menu-book-dish-desc {
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.58);
+    color: var(--menu-fg-mute);
     font-style: italic;
     margin: 2px 0 0;
     line-height: 1.4;
@@ -800,7 +935,7 @@ nav{
     font-size: 0.82rem;
 }
 .price-label {
-    color: rgba(255,255,255,0.55);
+    color: var(--menu-label);
     text-transform: uppercase;
     font-size: 0.68rem;
     font-weight: 700;
@@ -811,19 +946,377 @@ nav{
     align-items: center;
     gap: 3px;
 }
-.price-label svg { flex-shrink: 0; }
+.price-label svg { width: 32px; height: 32px; flex-shrink: 0; }
+.price-label img { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
 .price-leader {
     flex: 1;
     min-width: 6px;
     height: 0.5em;
-    border-bottom: 1px dotted rgba(255,255,255,0.3);
+    border-bottom: 1px dotted var(--menu-dotted-soft);
     margin: 0 2px;
 }
 .price-val {
-    color: var(--accent);
+    color: var(--menu-price);
     font-weight: 700;
     font-size: 0.84rem;
     white-space: nowrap;
+}
+
+/* MENU STORY: "Behind Every Meal" - three editorial chapters that read like
+   pages of a recipe book before the actual menu book begins below. Each
+   chapter reuses an icon and accent color already established elsewhere on
+   the page (fork/knife = Food, veggie bowl = the dip-with-veggies chip,
+   fish = the catch-of-the-day chip) so the story visually hands off into
+   the menu that follows it instead of feeling like a bolted-on intro. */
+.menu-story {
+    padding: 10px 0 64px;
+    position: relative;
+}
+.menu-story-head {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 56px;
+}
+.menu-story-eyebrow {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #7d6748;
+    margin-bottom: 12px;
+}
+.menu-story-title {
+    font-size: clamp(1.9rem, 1.55rem + 1.5vw, 2.5rem);
+    color: var(--dark);
+    margin-bottom: 16px;
+}
+.menu-story-intro {
+    color: #5a655f;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+.menu-story-chapters {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.menu-story-chapter {
+    --story-accent: var(--accent);
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    align-items: start;
+    column-gap: 32px;
+    padding: 26px 0;
+}
+.menu-story-chapter--dish { --story-accent: #b3946b; }
+.menu-story-chapter--ground { --story-accent: #3E723B; }
+.menu-story-chapter--sea { --story-accent: #2d6e7a; }
+.menu-story-chapter--dish .menu-story-frame { background: linear-gradient(155deg, #faf3e6 0%, #f0e0c0 100%); }
+.menu-story-chapter--ground .menu-story-frame { background: linear-gradient(155deg, #f2f7ee 0%, #dcebd4 100%); }
+.menu-story-chapter--sea .menu-story-frame { background: linear-gradient(155deg, #eaf4f5 0%, #cfe6e9 100%); }
+.menu-story-frame {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--story-accent) 40%, transparent);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.4s ease, box-shadow 0.4s ease;
+}
+.menu-story-chapter.is-visible .menu-story-frame {
+    opacity: 1;
+}
+.menu-story-chapter:hover .menu-story-frame {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+.menu-story-frame::before {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border: 1px solid color-mix(in srgb, var(--story-accent) 55%, transparent);
+    border-radius: 10px;
+    pointer-events: none;
+}
+.menu-story-frame-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.menu-story-frame-motif {
+    position: absolute;
+    width: 78%;
+    bottom: -8%;
+    right: -12%;
+    opacity: 0.16;
+    pointer-events: none;
+}
+.menu-story-frame-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px;
+    text-align: center;
+}
+.menu-story-frame-inner svg {
+    width: 52px;
+    height: 52px;
+    color: var(--story-accent);
+    opacity: 0.85;
+}
+.menu-story-frame-caption {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    color: var(--story-accent);
+    opacity: 0.75;
+}
+.menu-story-spine {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+}
+.menu-story-spine-line {
+    flex: 1;
+    width: 2px;
+    min-height: 24px;
+    background: linear-gradient(var(--story-accent), var(--story-accent)) center/2px 10px repeat-y;
+    opacity: 0.4;
+}
+.menu-story-chapter:first-child .menu-story-spine-line--top,
+.menu-story-chapter:last-child .menu-story-spine-line--bottom {
+    visibility: hidden;
+}
+.menu-story-spine-node {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    font-family: 'Baloo 2', 'Mitr', serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    background: #fff;
+    border: 2px solid var(--story-accent);
+    color: var(--story-accent);
+    box-shadow: var(--shadow-sm);
+    transform: scale(0.6);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s, opacity 0.4s ease 0.2s;
+}
+.menu-story-chapter.is-visible .menu-story-spine-node {
+    transform: scale(1);
+    opacity: 1;
+}
+.menu-story-copy {
+    grid-column: 3;
+    grid-row: 1;
+    max-width: 460px;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1) 0.12s, transform 0.85s cubic-bezier(0.22,1,0.36,1) 0.12s;
+}
+.menu-story-chapter.is-visible .menu-story-copy {
+    opacity: 1;
+    transform: none;
+}
+.menu-story-chapter--reverse .menu-story-frame { grid-column: 3; }
+.menu-story-chapter--reverse .menu-story-copy { grid-column: 1; }
+.menu-story-chapter-title {
+    font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.6rem);
+    color: var(--dark);
+    margin-bottom: 14px;
+    position: relative;
+    display: inline-block;
+}
+.menu-story-chapter-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--story-accent);
+    transition: width 0.7s cubic-bezier(0.22,1,0.36,1) 0.35s;
+}
+.menu-story-chapter.is-visible .menu-story-chapter-title::after {
+    width: 52px;
+}
+.menu-story-chapter-text {
+    color: #5a655f;
+    font-size: 0.97rem;
+    line-height: 1.85;
+}
+.menu-story-end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+.menu-story-end span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+}
+.menu-story-end span:nth-child(2) {
+    width: 9px;
+    height: 9px;
+    opacity: 0.9;
+}
+@media (max-width: 820px) {
+    .menu-story-chapter,
+    .menu-story-chapter--reverse {
+        grid-template-columns: 1fr;
+        row-gap: 18px;
+        padding: 18px 0;
+    }
+    .menu-story-chapter .menu-story-frame,
+    .menu-story-chapter--reverse .menu-story-frame { grid-column: 1; grid-row: auto; width: 100%; max-width: 340px; margin: 0 auto; aspect-ratio: 16/11; }
+    .menu-story-chapter .menu-story-spine,
+    .menu-story-chapter--reverse .menu-story-spine { grid-column: 1; grid-row: auto; flex-direction: row; min-height: 0; align-self: auto; }
+    .menu-story-spine-line { display: none; }
+    .menu-story-spine-node { margin: 0; }
+    .menu-story-chapter .menu-story-copy,
+    .menu-story-chapter--reverse .menu-story-copy { grid-column: 1; grid-row: auto; max-width: 100%; text-align: center; }
+    .menu-story-chapter-title { display: block; }
+    .menu-story-chapter-title::after { left: 50%; transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .menu-story-chapter,
+    .menu-story-spine-node,
+    .menu-story-frame,
+    .menu-story-copy,
+    .menu-story-chapter-title::after {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        width: 52px !important;
+    }
+}
+
+/* Photo galleries for the "From Ground Up" / "From The Sea" chapters -
+   these replace the single placeholder frame once real photos exist for a
+   chapter. Reuses .menu-story-frame for outer position/shadow/radius, but
+   swaps its single-image styling for a tight mosaic of square tiles, which
+   reads as one wide "long square" block rather than a tall portrait photo. */
+.menu-story-frame--gallery {
+    aspect-ratio: auto;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+.menu-story-frame--gallery::before { display: none; }
+.menu-story-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+.menu-story-gallery-grid--4 { grid-template-columns: repeat(2, 1fr); }
+.menu-story-gallery-grid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.menu-story-gallery-grid img:hover { transform: scale(1.07); }
+@media (max-width: 820px) {
+    .menu-story-chapter .menu-story-frame--gallery,
+    .menu-story-chapter--reverse .menu-story-frame--gallery { aspect-ratio: auto; max-width: 420px; }
+}
+
+/* "Get to know our fence-side greens" - a full-width vignette appended
+   below the From Ground Up row, spanning both text columns instead of
+   living inside the narrow frame/copy split above it. */
+.menu-story-veggie-id {
+    grid-column: 1 / -1;
+    margin-top: 36px;
+    padding-top: 32px;
+    border-top: 1px dashed rgba(62,114,59,0.25);
+    text-align: center;
+}
+.menu-story-veggie-title {
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+    color: var(--dark);
+    margin-bottom: 12px;
+}
+.menu-story-veggie-text {
+    max-width: 640px;
+    margin: 0 auto 26px;
+    color: #5a655f;
+    font-size: 0.92rem;
+    line-height: 1.8;
+}
+.menu-story-veggie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 760px;
+    margin: 0 auto;
+}
+.menu-story-veggie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 16px 8px;
+    border-radius: 14px;
+    background: #f2f7ee;
+    border: 1px solid rgba(62,114,59,0.15);
+    transition: var(--transition);
+}
+.menu-story-veggie-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+    border-color: rgba(62,114,59,0.35);
+}
+.menu-story-veggie-card svg {
+    width: 28px;
+    height: 28px;
+    color: var(--primary);
+    opacity: 0.8;
+}
+.menu-story-veggie-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--dark);
+    text-align: center;
+    line-height: 1.3;
+}
+.menu-story-veggie-gloss {
+    font-size: 0.68rem;
+    font-style: italic;
+    color: #677063;
+    text-align: center;
+}
+.menu-story-veggie-gloss:empty { display: none; }
+@media (max-width: 700px) {
+    .menu-story-veggie-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* The top story is a full-bleed, dramatic image banner with overlaid
@@ -1988,7 +2481,25 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     transition: opacity 0.3s ease;
 }
 .nav-backdrop.active { opacity: 1; pointer-events: auto; }
+
+/* Footer mermaid - a small hand-drawn brand mascot signature, tucked into
+   the corner of the footer on every page (paints above the footer's photo
+   background/overlay, below the actual contact-info text). */
+.footer-mermaid {
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+    width: 120px;
+    height: auto;
+    opacity: 0.95;
+    z-index: 1;
+    pointer-events: none;
+}
+@media (max-width: 700px) {
+    .footer-mermaid { width: 78px; right: 2%; }
+}
 </style>
+
 </head>
 <body>
 
@@ -2025,9 +2536,129 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 </div>
 </div>
 </nav>
+<main>
 
 <section id="menu" class="news-page-section" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
 <div class="container">
+
+    <div class="menu-story" id="menuStory">
+        <div class="menu-story-head">
+            <span class="menu-story-eyebrow" data-key="story-eyebrow">Our Story</span>
+            <h2 class="menu-story-title" data-key="story-title">Behind Every Meal</h2>
+            <p class="menu-story-intro" data-key="story-intro">Every dish on the pages that follow starts long before it reaches the table.</p>
+        </div>
+
+        <div class="menu-story-chapters">
+
+            <article class="menu-story-chapter menu-story-chapter--dish">
+                <div class="menu-story-frame">
+                    <img src="Story/dish-1.webp" alt="Fresh local ingredients - squid, shrimp, winged beans, and herbs - laid out for cooking" class="menu-story-frame-photo" loading="lazy">
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">01</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <h3 class="menu-story-chapter-title" data-key="story-ch1-title">Behind Every Dish</h3>
+                    <p class="menu-story-chapter-text" data-key="story-ch1-text">At our kitchen, we use only locally sourced ingredients &mdash; kapi (fermented krill paste) from Aunty Phin and her local network, and seafood from the fishermen at Bang Son pier for freshness every day. Vegetables come from our own garden and neighboring farmers whenever we can, and we use quality pork, chicken, and eggs from Betagro.</p>
+                </div>
+            </article>
+
+            <article class="menu-story-chapter menu-story-chapter--ground menu-story-chapter--reverse">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--6">
+                        <img src="Story/ground-1.webp" alt="Baan OuadChum staff holding freshly picked garden vegetables" loading="lazy">
+                        <img src="Story/ground-2.webp" alt="Students from Ban Hin Kop School holding freshly picked vegetables" loading="lazy">
+                        <img src="Story/ground-3.webp" alt="Fresh local vegetables served with nam prik" loading="lazy">
+                        <img src="Story/ground-4.webp" alt="Staff member holding freshly picked herbs from the garden" loading="lazy">
+                        <img src="Story/ground-5.webp" alt="Staff sorting fresh vegetables into bowls" loading="lazy">
+                        <img src="Story/ground-6.webp" alt="Fresh herbs and chili being prepared" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">02</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <h3 class="menu-story-chapter-title" data-key="story-ch2-title">From Ground Up</h3>
+                    <p class="menu-story-chapter-text" data-key="story-ch2-text">Our pesticide-free vegetables started small &mdash; just enough to feed ourselves &mdash; before growing into every spare patch of land on the property, tended by hand by our housekeepers. We compost our own food scraps and fallen leaves for fertilizer, and buy the rest from the community and Ban Hin Kop School. They may not look picture-perfect, but they're completely chemical-free &mdash; sweet, crisp, and full of flavor.</p>
+                </div>
+
+                <div class="menu-story-veggie-id">
+                    <h4 class="menu-story-veggie-title" data-key="story-veggie-title">รู้จักผักเหมือดรอบรั้ว</h4>
+                    <p class="menu-story-veggie-text" data-key="story-veggie-text">ผักเหมือด หรือผักแนม คือผักเคียงที่เสิร์ฟพร้อมกับน้ำพริก และอาหารใต้รสจัด เพื่อลดความเผ็ดเพิ่มรสชาติในการกิน และยังมีคุณประโยชน์มากมาย ซึ่งผักพื้นบ้านหลายชนิดยังมีสรรพคุณทางยาและเป็นสมุนไพรอีกด้วย ตามคำที่กล่าวไว้ว่า "กินอาหารให้เป็นยา"</p>
+                    <div class="menu-story-veggie-grid">
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">ผักชีล้อม</span>
+                            <span class="menu-story-veggie-gloss">Wild Dill</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">ดอกชมจันทร์</span>
+                            <span class="menu-story-veggie-gloss">Moonflower</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">ยอดอ่อนมะม่วง</span>
+                            <span class="menu-story-veggie-gloss">Young Mango Shoot</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">หินมะพาน</span>
+                            <span class="menu-story-veggie-gloss">Hin Ma Phan</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">ถั่วพู</span>
+                            <span class="menu-story-veggie-gloss">Winged Bean</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">ลูกเหนียงเพาะ</span>
+                            <span class="menu-story-veggie-gloss">Sprouted Djenkol Bean</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">ยอดมันปู</span>
+                            <span class="menu-story-veggie-gloss">Man Pu Shoot</span>
+                        </div>
+                        <div class="menu-story-veggie-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
+                            <span class="menu-story-veggie-name">สะตอ / ยอดสะตอ</span>
+                            <span class="menu-story-veggie-gloss">Sator Bean &amp; Shoot</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="menu-story-chapter menu-story-chapter--sea">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--4">
+                        <img src="Story/sea-1.webp" alt="Fresh small catch from local fishermen" loading="lazy">
+                        <img src="Story/sea-2.webp" alt="Fresh shrimp and squid on banana leaf plates" loading="lazy">
+                        <img src="Story/sea-3.webp" alt="Local fisherman with the day's catch aboard his boat" loading="lazy">
+                        <img src="Story/sea-4.webp" alt="Baan OuadChum team at the local fishing pier" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">03</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <h3 class="menu-story-chapter-title" data-key="story-ch3-title">From The Sea</h3>
+                    <p class="menu-story-chapter-text" data-key="story-ch3-text">Baan OuadChum's seafood comes straight from local small-scale fishermen &mdash; small boats, caught day by day &mdash; so every ingredient stays fresh and full of flavor, true to the local way of life. We buy by the season and never stockpile until the taste fades, cooking everything simply so the main ingredient can speak for itself.</p>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="menu-story-end" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
     <div class="menu-hero-video-zone" id="menuHeroVideoZone">
         <div class="menu-hero-video-wrap" id="menuHeroVideoWrap"></div>
         <div class="menu-hero-video-overlay"></div>
@@ -2039,17 +2670,17 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
 
             <div class="menu-subcat-filter" id="menuSubcatFilter">
-                <button type="button" class="menu-subcat-chip active" data-menu-type="food" onclick="filterBySubcat(['subcat-recommended'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.7-4.3 4.1 1 5.9L12 16l-5.2 3.1 1-5.9-4.3-4.1 5.9-.7L12 3z"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-recommended">Recommended</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-dip-with-fresh-veggies'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13h16a8 8 0 01-16 0z"/><path d="M8 13V8.5c0-1 .8-1.8 1.8-1.8M15 13V9c0-1.7-1.3-3-3-3"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-dip-with-fresh-veggies">Dip with Fresh Veggies</span></button>
+                <button type="button" class="menu-subcat-chip active" data-menu-type="food" onclick="filterBySubcat(['subcat-recommended'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-recommended">Recommended</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-dip-with-fresh-veggies'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/vegetable-1.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-dip-with-fresh-veggies">Dip with Fresh Veggies</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-appetizer'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.3"/><circle cx="12" cy="12" r="3.8"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-appetizer">Appetizer</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-spicy-salad-and-steamed'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5c2.5 0 6 1.5 8 4.5 2.5 3.8.5 9-4 10.2-4 .8-7.5-2-8-6C3.6 10 5 5.5 8 5z"/><path d="M8 5c-.8-1-1.8-1.7-3-2"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-spicy-salad-and-steamed">Spicy Salad & Steamed</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-spicy-salad-and-steamed'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/spicy-chilli.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-spicy-salad-and-steamed">Spicy Salad & Steamed</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-stir-fried'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 01-18 0z"/><path d="M3 11l-2.3-1.3M21 11l2.3-1.3"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-stir-fried">Stir-Fried</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-soup'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><path d="M2 12h20"/><path d="M9 5c0 1-1 1-1 2M13 4c0 1-1 1-1 2M17 5c0 1-1 1-1 2"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-soup">Soup</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-deep-fried-catch-of-the-day'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-deep-fried-catch-of-the-day">Deep-Fried Catch of the Day</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-deep-fried-catch-of-the-day'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/fish.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-deep-fried-catch-of-the-day">Deep-Fried Catch of the Day</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-rice'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-rice">Rice</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-quick-meal-served-with-rice'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-quick-meal-served-with-rice">Quick Meal — Served with Rice</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-all-day-breakfast'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.2M12 18.8V21M4.2 12H2M22 12h-2.2M5.8 5.8l1.5 1.5M16.7 16.7l1.5 1.5M18.2 5.8l-1.5 1.5M7.3 16.7l-1.5 1.5"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-all-day-breakfast">All Day Breakfast</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-must-try'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.7-4.3 4.1 1 5.9L12 16l-5.2 3.1 1-5.9-4.3-4.1 5.9-.7L12 3z"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-must-try">Must Try</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-must-try'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-must-try">Must Try</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-coffee-and-soda', 'subcat-classic'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><circle cx="9" cy="5" r="0.8" fill="currentColor" stroke="none"/><circle cx="12.2" cy="3.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="14.7" cy="5.2" r="0.7" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="chip-coffee">Coffee</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-honey-lover'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0012 0c0-4.5-6-12-6-12z"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-honey-lover">Honey Lover</span></button>
                 <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-cacao-lover'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-5 3-8 8-8 12a4 4 0 008 0 4 4 0 008 0c0-4-3-9-8-12z"/><path d="M12 5v14"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-cacao-lover">Cacao Lover</span></button>
@@ -2058,7 +2689,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         </div>
     </div>
 
-    <div class="menu-book-box">
+    <div class="menu-book-box menu-book-box--food" data-menu-type="food">
 
         <div class="menu-book-category" id="menu-food" data-menu-type="food">
             <div class="menu-book-category-title">
@@ -2070,9 +2701,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <div class="menu-book-divider-line"></div>
             <div class="menu-book-subcat" id="subcat-recommended">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.7-4.3 4.1 1 5.9L12 16l-5.2 3.1 1-5.9-4.3-4.1 5.9-.7L12 3z"/></svg>
+                    <img src="Icons/recommended.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-recommended">Recommended</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.7-4.3 4.1 1 5.9L12 16l-5.2 3.1 1-5.9-4.3-4.1 5.9-.7L12 3z"/></svg>
+                    <img src="Icons/recommended.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -2086,7 +2717,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/sweet-stirfried-squid.webp" alt="Sweet Stir-Fried Squid" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/sweet-stirfried-squid.webp" alt="Sweet Stir-Fried Squid" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-sweet-stir-fried-squid">Sweet Stir-Fried Squid</span>
@@ -2106,17 +2737,17 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/spicy-shrimp-paste-set.webp" alt="Spicy Shrimp Paste Set" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/spicy-shrimp-paste-set.webp" alt="Spicy Shrimp Paste Set" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
-                            <span class="menu-book-dish-name" data-key="dish-spicy-shrimp-paste-set">Spicy Shrimp Paste Set</span>
+                            <span class="menu-book-dish-name" data-key="dish-spicy-shrimp-paste-set">Spicy Shrimp Paste Set</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                             <span class="menu-book-dish-leader"></span>
                             <span class="menu-book-dish-price">280฿</span>
                         </div>
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/malindjo-egg.webp" alt="Stir-Fried Malindjo with Egg" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/malindjo-egg.webp" alt="Stir-Fried Malindjo with Egg" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-stir-fried-malindjo-with-egg">Stir-Fried Malindjo with Egg</span>
@@ -2129,7 +2760,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/paco-fern-salad.webp" alt="Spicy and Sour Seafood Paco Salad" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
-                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-seafood-paco-salad">Spicy and Sour Seafood Paco Salad</span>
+                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-seafood-paco-salad">Spicy and Sour Seafood Paco Salad</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                             <span class="menu-book-dish-leader"></span>
                             <span class="menu-book-dish-price">280฿</span>
                         </div>
@@ -2167,15 +2798,15 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="menu-book-subcat" id="subcat-dip-with-fresh-veggies">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13h16a8 8 0 01-16 0z"/><path d="M8 13V8.5c0-1 .8-1.8 1.8-1.8M15 13V9c0-1.7-1.3-3-3-3"/></svg>
+                    <img src="Icons/vegetable-1.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-dip-with-fresh-veggies">Dip with Fresh Veggies</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13h16a8 8 0 01-16 0z"/><path d="M8 13V8.5c0-1 .8-1.8 1.8-1.8M15 13V9c0-1.7-1.3-3-3-3"/></svg>
+                    <img src="Icons/vegetable-2.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/spicy-shrimp-paste.webp" alt="Spicy Shrimp Paste" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/spicy-shrimp-paste.webp" alt="Spicy Shrimp Paste" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-spicy-shrimp-paste">Spicy Shrimp Paste</span>
+                        <span class="menu-book-dish-name" data-key="dish-spicy-shrimp-paste">Spicy Shrimp Paste</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
                                 <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"/></svg><span data-key="opt-small">Small</span></span>
@@ -2211,7 +2842,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/ouadchum-salad.webp" alt="OuadChum Salad (Local Greens, Pounded Dried Fish, Grilled Coconut Dressing)" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/ouadchum-salad.webp" alt="OuadChum Salad (Local Greens, Pounded Dried Fish, Grilled Coconut Dressing)" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-ouadchum-salad-local-greens-pounded-dried-fish-grilled-cocon">OuadChum Salad (Local Greens, Pounded Dried Fish, Grilled Coconut Dressing)</span>
@@ -2295,17 +2926,17 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-deep-fried-thai-omelet">Deep-Fried Thai Omelet</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="7.5"/></svg><span data-key="opt-egg">Egg</span></span>
+                                <span class="price-label"><img src="Icons/egg.png" alt="" loading="lazy"><span data-key="opt-egg">Egg</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">100฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><span data-key="opt-pork">Pork</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><span data-key="opt-pork">Pork</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">140฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13.5" rx="6" ry="4"/><path d="M6.5 11.5l-3-2.3M17.5 11.5l3-2.3M6.5 15.5l-3 2.3M17.5 15.5l3 2.3"/><circle cx="9.3" cy="12.5" r=".6" fill="currentColor" stroke="none"/><circle cx="14.7" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-crab-and-shrimp">Crab & Shrimp</span></span>
+                                <span class="price-label"><img src="Icons/crab.png" alt="" loading="lazy"><img src="Icons/shrimp.png" alt="" loading="lazy"><span data-key="opt-crab-and-shrimp">Crab & Shrimp</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">160฿</span>
                             </div>
@@ -2340,23 +2971,23 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="menu-book-subcat" id="subcat-spicy-salad-and-steamed">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5c2.5 0 6 1.5 8 4.5 2.5 3.8.5 9-4 10.2-4 .8-7.5-2-8-6C3.6 10 5 5.5 8 5z"/><path d="M8 5c-.8-1-1.8-1.7-3-2"/></svg>
+                    <img src="Icons/spicy-chilli.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-spicy-salad-and-steamed">Spicy Salad & Steamed</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5c2.5 0 6 1.5 8 4.5 2.5 3.8.5 9-4 10.2-4 .8-7.5-2-8-6C3.6 10 5 5.5 8 5z"/><path d="M8 5c-.8-1-1.8-1.7-3-2"/></svg>
+                    <img src="Icons/spicy-chilli.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/paco-fern-salad.webp" alt="Spicy and Sour Prawn Paco Salad" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-prawn-paco-salad">Spicy and Sour Prawn Paco Salad</span>
+                        <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-prawn-paco-salad">Spicy and Sour Prawn Paco Salad</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><span data-key="opt-pork">Pork</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><span data-key="opt-pork">Pork</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">250฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-seafood">Seafood</span></span>
+                                <span class="price-label"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-seafood">Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">280฿</span>
                             </div>
@@ -2367,7 +2998,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/sundried-squid-salad.webp" alt="Spicy and Sour Fried Squid Salad" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
-                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-fried-squid-salad">Spicy and Sour Fried Squid Salad</span>
+                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-fried-squid-salad">Spicy and Sour Fried Squid Salad</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                             <span class="menu-book-dish-leader"></span>
                             <span class="menu-book-dish-price">150฿</span>
                         </div>
@@ -2377,7 +3008,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/seafood-salad.webp" alt="Spicy and Sour Seafood Salad" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
-                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-seafood-salad">Spicy and Sour Seafood Salad</span>
+                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-seafood-salad">Spicy and Sour Seafood Salad</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                             <span class="menu-book-dish-leader"></span>
                             <span class="menu-book-dish-price">220฿</span>
                         </div>
@@ -2386,15 +3017,15 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/steamed-seafood-lime.webp" alt="Steamed Seafood with Lime, Garlic, Chilies" loading="lazy" style="transform: scale(1.6);"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-steamed-seafood-with-lime-garlic-chilies">Steamed Seafood with Lime, Garlic, Chilies</span>
+                        <span class="menu-book-dish-name" data-key="dish-steamed-seafood-with-lime-garlic-chilies">Steamed Seafood with Lime, Garlic, Chilies</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-sea-bass">Sea Bass</span></span>
+                                <span class="price-label"><img src="Icons/fish.png" alt="" loading="lazy"><span data-key="opt-sea-bass">Sea Bass</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">380฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="8.5" rx="3.8" ry="4.7"/><path d="M9 13c-1 2.8-1.8 4.7-.8 6.7M11.3 13c-.1 2.8-.5 4.7 0 6.7M12.7 13c.1 2.8.5 4.7 0 6.7M15 13c1 2.8 1.8 4.7.8 6.7"/></svg><span data-key="opt-squid">Squid</span></span>
+                                <span class="price-label"><img src="Icons/squid.png" alt="" loading="lazy"><span data-key="opt-squid">Squid</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">300฿</span>
                             </div>
@@ -2402,17 +3033,17 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/banana-blossom-salad.webp" alt="Banana Blossom Salad" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/banana-blossom-salad.webp" alt="Banana Blossom Salad" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-banana-blossom-salad">Banana Blossom Salad</span>
+                        <span class="menu-book-dish-name" data-key="dish-banana-blossom-salad">Banana Blossom Salad</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><span data-key="opt-pork">Pork</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><span data-key="opt-pork">Pork</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">200฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-seafood">Seafood</span></span>
+                                <span class="price-label"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-seafood">Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">250฿</span>
                             </div>
@@ -2422,7 +3053,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
-                            <span class="menu-book-dish-name" data-key="dish-spicy-and-sour-fermented-catfish">Spicy and Sour Fermented Catfish</span>
+                            <span class="menu-book-dish-badge menu-book-dish-badge--inline"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><br><span class="menu-book-dish-name" data-key="dish-spicy-and-sour-fermented-catfish">Spicy and Sour Fermented Catfish</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                             <span class="menu-book-dish-leader"></span>
                             <span class="menu-book-dish-price">150฿</span>
                         </div>
@@ -2439,7 +3070,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/hor-mok-fish.webp" alt="Steamed Red Curry Fish Cake (4 pcs.)" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/hor-mok-fish.webp" alt="Steamed Red Curry Fish Cake (4 pcs.)" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-steamed-red-curry-fish-cake-4-pcs">Steamed Red Curry Fish Cake (4 pcs.)</span>
@@ -2461,15 +3092,15 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/stir-fried-curry-paste.webp" alt="Thai Red Curry Stir-Fried" loading="lazy" style="object-position: center 80%;"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-thai-red-curry-stir-fried">Thai Red Curry Stir-Fried</span>
+                        <span class="menu-book-dish-name" data-key="dish-thai-red-curry-stir-fried">Thai Red Curry Stir-Fried</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4c3 2.5 2.5 7.5-.5 9.8-2 1.5-4 1-4.3-1.2C3.8 10.5 4.2 8.3 6 6.5c1-1 2-1.7 3-2.5z"/><circle cx="16" cy="17" r="3"/></svg><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><img src="Icons/chicken.png" alt="" loading="lazy"><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">220฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-seafood">Seafood</span></span>
+                                <span class="price-label"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-seafood">Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">280฿</span>
                             </div>
@@ -2489,15 +3120,15 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/pad-cha.webp" alt="Stir-Fried with Galangal" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-stir-fried-with-galangal">Stir-Fried with Galangal</span>
+                        <span class="menu-book-dish-name" data-key="dish-stir-fried-with-galangal">Stir-Fried with Galangal</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5c0-5 3.5-9.5 8-9.5s8 4.5 8 9.5c-2.5 2-5.5 3-8 3s-5.5-1-8-3z"/><path d="M12 5v9.5M8.3 6.5l1 8M15.7 6.5l-1 8"/></svg><span data-key="opt-cockle">Cockle</span></span>
+                                <span class="price-label"><img src="Icons/shellfish.png" alt="" loading="lazy"><span data-key="opt-cockle">Cockle</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">350฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-seafood">Seafood</span></span>
+                                <span class="price-label"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-seafood">Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">280฿</span>
                             </div>
@@ -2505,7 +3136,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/malindjo-egg.webp" alt="Stir-Fried Malindjo Leaves with Egg" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/malindjo-egg.webp" alt="Stir-Fried Malindjo Leaves with Egg" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-stir-fried-malindjo-leaves-with-egg">Stir-Fried Malindjo Leaves with Egg</span>
@@ -2525,7 +3156,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/soft-shell-crab-curry-powder.webp" alt="Stir-Fried Soft-Shell Crab in Curry Powder" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/soft-shell-crab-curry-powder.webp" alt="Stir-Fried Soft-Shell Crab in Curry Powder" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-stir-fried-soft-shell-crab-in-curry-powder">Stir-Fried Soft-Shell Crab in Curry Powder</span>
@@ -2540,12 +3171,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-oyster-sauce-stir-fried-mixed-vegetables">Oyster Sauce Stir-Fried Mixed Vegetables</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 4-14 12-15-1 9-5 13-12 15z"/><path d="M8 16c2-3 5-6 8-9"/></svg><span data-key="opt-veggie">Veggie</span></span>
+                                <span class="price-label"><img src="Icons/vegetable-1.png" alt="" loading="lazy"><span data-key="opt-veggie">Veggie</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">140฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4c3 2.5 2.5 7.5-.5 9.8-2 1.5-4 1-4.3-1.2C3.8 10.5 4.2 8.3 6 6.5c1-1 2-1.7 3-2.5z"/><circle cx="16" cy="17" r="3"/></svg><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><img src="Icons/chicken.png" alt="" loading="lazy"><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">180฿</span>
                             </div>
@@ -2558,12 +3189,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-holy-basil-stir-fried">Holy Basil Stir-Fried</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4c3 2.5 2.5 7.5-.5 9.8-2 1.5-4 1-4.3-1.2C3.8 10.5 4.2 8.3 6 6.5c1-1 2-1.7 3-2.5z"/><circle cx="16" cy="17" r="3"/></svg><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><img src="Icons/chicken.png" alt="" loading="lazy"><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">220฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9c2-3 6-4 9-2s5.5 5 5.5 8-3 5-6.5 5-6-2-7-5-2-4-1-6z"/><path d="M9 10.5l3 3M9 14.5l4-4"/></svg><span data-key="opt-seafood-and-steak">Seafood & Steak</span></span>
+                                <span class="price-label"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><img src="Icons/beef.png" alt="" loading="lazy"><span data-key="opt-seafood-and-steak">Seafood & Steak</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">280฿</span>
                             </div>
@@ -2574,7 +3205,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/choo-chee.webp" alt="Spicy Stir-Fried with Coconut Milk (Seafood)" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
-                            <span class="menu-book-dish-name" data-key="dish-spicy-stir-fried-with-coconut-milk-seafood">Spicy Stir-Fried with Coconut Milk (Seafood)</span>
+                            <span class="menu-book-dish-name" data-key="dish-spicy-stir-fried-with-coconut-milk-seafood">Spicy Stir-Fried with Coconut Milk (Seafood)</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                             <span class="menu-book-dish-leader"></span>
                             <span class="menu-book-dish-price">280฿</span>
                         </div>
@@ -2591,9 +3222,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/yellow-curry.webp" alt="Spicy Southern Yellow Curry (Sea Bass, Shrimp, or Pork Belly)" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/yellow-curry.webp" alt="Spicy Southern Yellow Curry (Sea Bass, Shrimp, or Pork Belly)" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-spicy-southern-yellow-curry-sea-bass-shrimp-or-pork-belly">Spicy Southern Yellow Curry (Sea Bass, Shrimp, or Pork Belly)</span>
+                        <span class="menu-book-dish-name" data-key="dish-spicy-southern-yellow-curry-sea-bass-shrimp-or-pork-belly">Spicy Southern Yellow Curry (Sea Bass, Shrimp, or Pork Belly)</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy"><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
                                 <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5.5"/></svg><span data-key="opt-medium">Medium</span></span>
@@ -2611,7 +3242,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/tom-yum-clear.webp" alt="Tom Yum in Clear Soup (Fish, Shrimp, or Mixed Seafood)" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-tom-yum-in-clear-soup-fish-shrimp-or-mixed-seafood">Tom Yum in Clear Soup (Fish, Shrimp, or Mixed Seafood)</span>
+                        <span class="menu-book-dish-name" data-key="dish-tom-yum-in-clear-soup-fish-shrimp-or-mixed-seafood">Tom Yum in Clear Soup (Fish, Shrimp, or Mixed Seafood)</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
                                 <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5.5"/></svg><span data-key="opt-medium">Medium</span></span>
@@ -2629,7 +3260,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-thumb has-photo"><img src="Menu/tom-yum-coconut.webp" alt="Tom Yum in Coconut Milk Soup (Fish, Shrimp, or Mixed Seafood)" loading="lazy"></div>
                         <div class="menu-book-dish-info">
-                        <span class="menu-book-dish-name" data-key="dish-tom-yum-in-coconut-milk-soup-fish-shrimp-or-mixed-seafood">Tom Yum in Coconut Milk Soup (Fish, Shrimp, or Mixed Seafood)</span>
+                        <span class="menu-book-dish-name" data-key="dish-tom-yum-in-coconut-milk-soup-fish-shrimp-or-mixed-seafood">Tom Yum in Coconut Milk Soup (Fish, Shrimp, or Mixed Seafood)</span><img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy">
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
                                 <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5.5"/></svg><span data-key="opt-medium">Medium</span></span>
@@ -2645,7 +3276,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     </div>
                     </div>
                     <div class="menu-book-dish">
-                        <div class="menu-book-dish-thumb has-photo"><img src="Menu/squid-coconut-sugar-soup.webp" alt="Mama Squid in Sweet Coconut Sugar Soup" loading="lazy"></div>
+                        <div class="menu-book-dish-thumb has-photo"><span class="menu-book-dish-badge"><img src="Icons/recommended.png" alt="" loading="lazy"><span data-key="badge-recommended">Recommended</span></span><img src="Menu/squid-coconut-sugar-soup.webp" alt="Mama Squid in Sweet Coconut Sugar Soup" loading="lazy"></div>
                         <div class="menu-book-dish-info">
                         <div class="menu-book-dish-top">
                             <span class="menu-book-dish-name" data-key="dish-mama-squid-in-sweet-coconut-sugar-soup">Mama Squid in Sweet Coconut Sugar Soup</span>
@@ -2709,9 +3340,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="menu-book-subcat" id="subcat-deep-fried-catch-of-the-day">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg>
+                    <img src="Icons/fish.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-deep-fried-catch-of-the-day">Deep-Fried Catch of the Day</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg>
+                    <img src="Icons/fish.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -2737,12 +3368,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-deep-fried-fish-in-turmeric">Deep-Fried Fish in Turmeric</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-fillet">Fillet</span></span>
+                                <span class="price-label"><img src="Icons/fish.png" alt="" loading="lazy"><span data-key="opt-fillet">Fillet</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">280฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-whole">Whole</span></span>
+                                <span class="price-label"><img src="Icons/fish.png" alt="" loading="lazy"><span data-key="opt-whole">Whole</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">450฿</span>
                             </div>
@@ -2754,12 +3385,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-deep-fried-fish-in-fish-sauce">Deep-Fried Fish in Fish Sauce</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-fillet">Fillet</span></span>
+                                <span class="price-label"><img src="Icons/fish.png" alt="" loading="lazy"><span data-key="opt-fillet">Fillet</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">280฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3.5-4.5 9-5.5 13-2.8-1 2-1 4.6 0 6.6-4 2.7-9.5 1.7-13-2.8z"/><path d="M15.5 9.2l4.5-2.2-1 5 1 5-4.5-2.2"/><circle cx="6.5" cy="11" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-whole">Whole</span></span>
+                                <span class="price-label"><img src="Icons/fish.png" alt="" loading="lazy"><span data-key="opt-whole">Whole</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">450฿</span>
                             </div>
@@ -2878,19 +3509,19 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <h4 data-key="subcattitle-quick-meal-served-with-rice">Quick Meal — Served with Rice</h4>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg>
                 </div>
-                <p class="menu-book-category-desc" style="margin-top:-6px; margin-bottom:14px;">Level of spiciness can be adjusted.</p>
+                <p class="menu-book-category-desc" style="margin-top:-6px; margin-bottom:14px;">Level of spiciness can be adjusted.<img src="Icons/spicy-level.png" alt="Spicy" class="menu-book-dish-spicy" loading="lazy"></p>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
                         <div class="menu-book-dish-info">
                         <span class="menu-book-dish-name" data-key="dish-holy-basil-stir-fried-pad-ka-prow-on-rice">Holy Basil Stir-Fried (Pad Ka Prow) on Rice</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4c3 2.5 2.5 7.5-.5 9.8-2 1.5-4 1-4.3-1.2C3.8 10.5 4.2 8.3 6 6.5c1-1 2-1.7 3-2.5z"/><circle cx="16" cy="17" r="3"/></svg><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><img src="Icons/chicken.png" alt="" loading="lazy"><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">160฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9c2-3 6-4 9-2s5.5 5 5.5 8-3 5-6.5 5-6-2-7-5-2-4-1-6z"/><path d="M9 10.5l3 3M9 14.5l4-4"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-beef-and-seafood">Beef & Seafood</span></span>
+                                <span class="price-label"><img src="Icons/beef.png" alt="" loading="lazy"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-beef-and-seafood">Beef & Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">180฿</span>
                             </div>
@@ -2902,12 +3533,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-boiled-rice-soup">Boiled Rice Soup</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><span data-key="opt-pork">Pork</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><span data-key="opt-pork">Pork</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">160฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-seafood">Seafood</span></span>
+                                <span class="price-label"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-seafood">Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">180฿</span>
                             </div>
@@ -2919,12 +3550,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-thai-red-curry-stir-fried-on-rice">Thai Red Curry Stir-Fried on Rice</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4c3 2.5 2.5 7.5-.5 9.8-2 1.5-4 1-4.3-1.2C3.8 10.5 4.2 8.3 6 6.5c1-1 2-1.7 3-2.5z"/><circle cx="16" cy="17" r="3"/></svg><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><img src="Icons/chicken.png" alt="" loading="lazy"><span data-key="opt-pork-and-chicken">Pork & Chicken</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">160฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9c2-3 6-4 9-2s5.5 5 5.5 8-3 5-6.5 5-6-2-7-5-2-4-1-6z"/><path d="M9 10.5l3 3M9 14.5l4-4"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-beef-and-seafood">Beef & Seafood</span></span>
+                                <span class="price-label"><img src="Icons/beef.png" alt="" loading="lazy"><img src="Icons/mixed-seafood.png" alt="" loading="lazy"><span data-key="opt-beef-and-seafood">Beef & Seafood</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">180฿</span>
                             </div>
@@ -2936,12 +3567,12 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                         <span class="menu-book-dish-name" data-key="dish-deep-fried-thai-omelet-on-rice">Deep-Fried Thai Omelet on Rice</span>
                         <div class="menu-book-dish-prices">
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="6" ry="5.5"/><ellipse cx="9" cy="14" rx="1.2" ry=".9"/><ellipse cx="15" cy="14" rx="1.2" ry=".9"/><path d="M7.5 9c-1-1-1-2 0-2.5M16.5 9c1-1 1-2 0-2.5"/></svg><span data-key="opt-pork">Pork</span></span>
+                                <span class="price-label"><img src="Icons/pork.png" alt="" loading="lazy"><span data-key="opt-pork">Pork</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">120฿</span>
                             </div>
                             <div class="menu-book-price-row">
-                                <span class="price-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13.5" rx="6" ry="4"/><path d="M6.5 11.5l-3-2.3M17.5 11.5l3-2.3M6.5 15.5l-3 2.3M17.5 15.5l3 2.3"/><circle cx="9.3" cy="12.5" r=".6" fill="currentColor" stroke="none"/><circle cx="14.7" cy="12.5" r=".6" fill="currentColor" stroke="none"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17c-2.5-4.5 0-10 5.5-12 4-1.3 8 .3 8.5 3.3"/><path d="M18.5 6l2-1.3M17.3 4l1-2"/><circle cx="8" cy="14.5" r=".7" fill="currentColor" stroke="none"/></svg><span data-key="opt-crab-and-shrimp">Crab & Shrimp</span></span>
+                                <span class="price-label"><img src="Icons/crab.png" alt="" loading="lazy"><img src="Icons/shrimp.png" alt="" loading="lazy"><span data-key="opt-crab-and-shrimp">Crab & Shrimp</span></span>
                                 <span class="price-leader"></span>
                                 <span class="price-val">140฿</span>
                             </div>
@@ -3058,7 +3689,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="menu-book-box menu-book-box--drink" data-menu-type="drink">
         <div class="menu-book-category" id="menu-robusta" data-menu-type="drink">
             <div class="menu-book-category-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><path d="M8 4.5c0 1-1 1-1 2M12 4.5c0 1-1 1-1 2"/></svg>
@@ -3069,9 +3702,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <div class="menu-book-divider-line"></div>
             <div class="menu-book-subcat" id="subcat-must-try">
                 <div class="menu-book-subcat-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.7-4.3 4.1 1 5.9L12 16l-5.2 3.1 1-5.9-4.3-4.1 5.9-.7L12 3z"/></svg>
+                    <img src="Icons/recommended.png" alt="" loading="lazy">
                     <h4 data-key="subcattitle-must-try">Must Try</h4>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4 5.9.7-4.3 4.1 1 5.9L12 16l-5.2 3.1 1-5.9-4.3-4.1 5.9-.7L12 3z"/></svg>
+                    <img src="Icons/recommended.png" alt="" loading="lazy">
                 </div>
                 <div class="menu-book-dishes">
                     <div class="menu-book-dish">
@@ -3703,11 +4336,13 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 </div>
 </section>
 
+</main>
 <footer id="contact">
+<img src="Background/mermaid-graphic.webp" alt="" aria-hidden="true" class="footer-mermaid" loading="lazy">
 <div class="footer-bg-slideshow" id="footerBgSlideshow">
-    <div class="footer-bg-slide active" style="background-image:url('Background/C1.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('Background/C2.JPG')"></div>
-    <div class="footer-bg-slide" style="background-image:url('Background/C3.JPG')"></div>
+    <div class="footer-bg-slide active" style="background-image:url('Background/C1.webp')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C2.webp')"></div>
+    <div class="footer-bg-slide" style="background-image:url('Background/C3.webp')"></div>
 </div>
 <div class="footer-bg-overlay"></div>
 <div class="container">
@@ -3762,7 +4397,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 <div class="container booking-inner">
     <div class="booking-fields">
         <div class="field-group">
-            <label data-key="book-guests">Guests</label>
+            <label for="guest-select" data-key="book-guests">Guests</label>
             <select id="guest-select">
                 <option value="1">1 Guest</option>
                 <option value="2">2 Guests</option>
@@ -3786,7 +4421,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
     <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
         <div class="field-group">
-            <label data-key="book-guests">Guests</label>
+            <label for="guest-select-mob" data-key="book-guests">Guests</label>
             <select id="guest-select-mob"></select>
         </div>
     </div>
@@ -3913,6 +4548,18 @@ const langData = {
         "btn-reserve": "Reserve",
         "page-sub": "Our Menu", "page-title": "Food & Drink",
         "page-desc": "Food and drinks from Baan OuadChum. New menu items are being added little by little — browse by category below.",
+
+        "story-eyebrow": "Our Story", "story-title": "Behind Every Meal",
+        "story-intro": "Every dish on the pages that follow starts long before it reaches the table.",
+        "story-frame-caption": "Photo Coming Soon",
+        "story-ch1-title": "Behind Every Dish",
+        "story-ch1-text": "At our kitchen, we use only locally sourced ingredients — kapi (fermented krill paste) from Aunty Phin and her local network, and seafood from the fishermen at Bang Son pier for freshness every day. Vegetables come from our own garden and neighboring farmers whenever we can, and we use quality pork, chicken, and eggs from Betagro.",
+        "story-ch2-title": "From Ground Up",
+        "story-ch2-text": "Our pesticide-free vegetables started small — just enough to feed ourselves — before growing into every spare patch of land on the property, tended by hand by our housekeepers. We compost our own food scraps and fallen leaves for fertilizer, and buy the rest from the community and Ban Hin Kop School. They may not look picture-perfect, but they're completely chemical-free — sweet, crisp, and full of flavor.",
+        "story-ch3-title": "From The Sea",
+        "story-ch3-text": "Baan OuadChum's seafood comes straight from local small-scale fishermen — small boats, caught day by day — so every ingredient stays fresh and full of flavor, true to the local way of life. We buy by the season and never stockpile until the taste fades, cooking everything simply so the main ingredient can speak for itself.",
+        "story-veggie-title": "Getting to Know Our Fence-Side Greens",
+        "story-veggie-text": "\"Phak Mueat\" (or \"phak naem\") are the side greens served alongside nam prik and the South's boldly-spiced dishes — there to cool the heat and round out the flavor of every bite, while packing in plenty of goodness of their own. Many of these wild, local greens carry medicinal properties and double as herbal remedies, true to the old saying: \"let food be your medicine.\"",
         "filter-menu-all": "All", "filter-menu-food": "Food", "filter-menu-drink": "Drink",
         "hero-badge": "Coming Soon", "hero-title": "Our Menu Is Coming Soon", "hero-desc": "We're preparing great food and drinks for you at Baan OuadChum.",
         "card-badge": "Coming Soon",
@@ -3995,12 +4642,26 @@ const langData = {
         "opt-seafood-and-steak": "Seafood & Steak", "opt-fillet": "Fillet", "opt-whole": "Whole", "opt-plate": "Plate",
         "opt-bowl-7": "Bowl (7)", "opt-beef-and-seafood": "Beef & Seafood", "opt-hot": "Hot", "opt-cold": "Cold",
         "chip-coffee": "Coffee",
+        "badge-recommended": "Recommended",
     },
     th: {
         "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-product": "สินค้า", "menu-articles": "สื่อ",
         "btn-reserve": "ติดต่อ",
         "page-sub": "เมนูของเรา", "page-title": "Food & Drink",
         "page-desc": "อาหารและเครื่องดื่มจากบ้านต้นไม้อวดชุม รายการเมนูกำลังทยอยเพิ่มเข้ามา เลือกดูตามหมวดด้านล่าง",
+
+        "story-eyebrow": "เรื่องราวของเรา", "story-title": "เบื้องหลังทุกมื้ออาหาร",
+        "story-intro": "ทุกจานในหน้าถัดไป เริ่มต้นขึ้นก่อนจะมาถึงโต๊ะของคุณเสียอีก",
+        "story-frame-caption": "ภาพประกอบเร็วๆ นี้",
+        "story-ch1-title": "เบื้องหลังทุกจาน",
+        "story-ch1-text": "ที่ครัวอวดชุม เราใช้วัตถุดิบท้องถิ่นทั้งหมด กะปิเคยขัดน้ำจากป้าพินและเครือข่าย อาหารทะเลจากเครือข่ายประมงพื้นบ้านท่าเรือคลองบางสนเพื่อความสดใหม่ทุกวัน ผักพื้นบ้านจากสวนภายในบ้านอวดชุมและเกษตรกรเพื่อนบ้านรอบรั้วของเรา เนื้อหมู เนื้อไก่ และไข่คุณภาพจากเบทาโกร",
+        "story-ch2-title": "จากผืนดิน",
+        "story-ch2-text": "ผักปลอดสารพิษของเรา เริ่มจากปลูกไว้ทานกันเอง จากนั้นขยายพื้นที่ปลูกในที่ว่างในโครงการ โดยมีแม่บ้านคอยดูแลอย่างพิถีพิถัน เราใช้ปุ๋ยหมักจากเศษอาหารและใบไม้ ผักบางส่วนรับซื้อจากชุมชนและจาก ร.ร.บ้านหินกบ ถึงแม้ผักจะรูปร่างไม่สวย แต่ปลอดจากสารเคมี รสชาติหวานกรอบอร่อย",
+        "story-ch3-title": "จากท้องทะเล",
+        "story-ch3-text": "อาหารทะเลของบ้านอวดชุม เรารับจากชาวบ้านที่ทำประมงพื้นบ้าน ใช้เรือเล็ก จับแบบวันต่อวัน อาหารและวัตถุดิบจึงสดใหม่ รสชาติอร่อย สะท้อนวิถีชีวิตท้องถิ่น เรารับซื้อวัตถุดิบตามฤดูกาล ไม่สต๊อกไว้นานจนเสียรสชาติ ปรุงด้วยความเรียบง่าย เน้นชูวัตถุดิบหลักเป็นสำคัญ",
+        "story-veggie-title": "รู้จักผักเหมือดรอบรั้ว",
+        "story-veggie-text": "ผักเหมือด หรือผักแนม คือผักเคียงที่เสิร์ฟพร้อมกับน้ำพริก และอาหารใต้รสจัด เพื่อลดความเผ็ดเพิ่มรสชาติในการกิน และยังมีคุณประโยชน์มากมาย ซึ่งผักพื้นบ้านหลายชนิดยังมีสรรพคุณทางยาและเป็นสมุนไพรอีกด้วย ตามคำที่กล่าวไว้ว่า \"กินอาหารให้เป็นยา\"",
+
         "filter-menu-all": "ทั้งหมด", "filter-menu-food": "อาหาร", "filter-menu-drink": "เครื่องดื่ม",
         "hero-badge": "เร็วๆ นี้", "hero-title": "เมนูกำลังจะมาเร็วๆ นี้", "hero-desc": "เรากำลังเตรียมเมนูอาหารและเครื่องดื่มดีๆ ไว้ให้คุณที่บ้านอวดชุม",
         "card-badge": "เร็วๆ นี้",
@@ -4083,6 +4744,7 @@ const langData = {
         "opt-seafood-and-steak": "ทะเล/สเต็ก", "opt-fillet": "ฟิลเลต์", "opt-whole": "ทั้งตัว", "opt-plate": "จาน",
         "opt-bowl-7": "ชาม (7 ที่)", "opt-beef-and-seafood": "เนื้อ/ทะเล", "opt-hot": "ร้อน", "opt-cold": "เย็น",
         "chip-coffee": "กาแฟ",
+        "badge-recommended": "แนะนำ",
     }
 };
 
@@ -4206,6 +4868,12 @@ function filterMenuType(type, btnEl) {
     document.querySelectorAll(".menu-book-category").forEach(section => {
         section.style.display = (type === "all" || section.dataset.menuType === type) ? "" : "none";
     });
+    // Food and Drink now live in their own separately-themed boxes - hide
+    // the whole box (not just the categories inside it) when its type isn't
+    // selected, so an empty colored card doesn't linger on screen.
+    document.querySelectorAll(".menu-book-box[data-menu-type]").forEach(box => {
+        box.style.display = (type === "all" || box.dataset.menuType === type) ? "" : "none";
+    });
     // The subcategory chip row only makes sense once you've narrowed down to
     // Food or Drink - under "All" there's nothing for it to filter, so it
     // stays hidden entirely rather than showing all 16 at once.
@@ -4285,10 +4953,32 @@ function initMapLoader() {
     }
 }
 
+// Fades and lifts each "Behind Every Meal" chapter into place as it scrolls
+// into view, and pops its spine number in a beat later. Runs once per
+// chapter, and is skipped entirely for users who've asked for less motion.
+function initStoryReveal() {
+    const chapters = document.querySelectorAll(".menu-story-chapter");
+    if (!chapters.length) return;
+    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        chapters.forEach(c => c.classList.add("is-visible"));
+        return;
+    }
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.25, rootMargin: "0px 0px -60px 0px" });
+    chapters.forEach(c => io.observe(c));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const savedLang = localStorage.getItem("preferredLang");
     switchLanguage(savedLang === "en" ? "en" : "th");
     initMapLoader();
+    initStoryReveal();
 
     // Don't rely on "nothing has hidden these yet" as the default state for
     // the menu's category/subcategory filters - explicitly (re)apply the
@@ -4333,6 +5023,17 @@ document.addEventListener("DOMContentLoaded", () => {
 (function () {
     const wrap = document.getElementById('menuHeroVideoWrap');
     if (!wrap) return;
+    // The looping background video pulls several MB (video stream plus the
+    // YouTube player's own JS/CSS) purely for decoration. Skip it - keeping
+    // the plain dark background the CSS already provides - for anyone on a
+    // metered/slow connection or who has asked for reduced motion, so the
+    // heaviest thing on the page isn't forced on people who can least
+    // afford it.
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = !!(conn && conn.saveData);
+    const slowConnection = !!(conn && /^(slow-2g|2g|3g)$/.test(conn.effectiveType || ''));
+    if (prefersReducedMotion || saveData || slowConnection) return;
     function load() {
         const id = 'O-NpuUy0SsM';
         const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&cc_load_policy=0`;
