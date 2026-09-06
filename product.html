@@ -524,6 +524,15 @@ nav{
     margin: 14px auto 0;
     line-height: 1.6;
 }
+.product-page-eyebrow {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #bdaa8a;
+    margin-bottom: 10px;
+}
 .menu-type-filter {
     display: flex;
     justify-content: center;
@@ -548,24 +557,37 @@ nav{
 .product-type-filter {
     display: flex;
     justify-content: center;
-    gap: 34px;
+    gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 8px;
 }
 .product-type-btn {
-    background: none;
-    border: none;
-    padding: 4px 2px 8px;
-    color: #bdaa8a;
-    font-size: 1.05rem;
-    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid rgba(138,109,59,0.16);
+    padding: 10px 22px;
+    border-radius: 999px;
+    color: #8a7a5c;
+    font-size: 0.92rem;
+    font-weight: 700;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: var(--transition);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     font-family: 'Baloo 2', 'Mitr', serif;
+    box-shadow: 0 2px 6px rgba(60,45,20,0.05);
 }
-.product-type-btn:hover { border-bottom-color: color-mix(in srgb, #bdaa8a 40%, transparent); }
-.product-type-btn.active { border-bottom-color: #bdaa8a; }
+.product-type-btn:hover {
+    border-color: #bdaa8a;
+    color: #8a6d3b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -8px rgba(138,109,59,0.35);
+}
+.product-type-btn.active {
+    background: linear-gradient(135deg, #c7a874 0%, #8a6d3b 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 22px -8px rgba(138,109,59,0.55);
+}
 .menu-subcat-grid-single {
     grid-template-columns: minmax(0, 320px);
     justify-content: center;
@@ -682,7 +704,7 @@ nav{
     font: inherit;
     text-align: left;
     cursor: pointer;
-    border-radius: 14px;
+    border-radius: 18px;
     background: var(--white);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
@@ -700,7 +722,8 @@ nav{
     .product-card { opacity: 1; transform: none; transition: box-shadow 0.35s ease; }
 }
 .product-card:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 22px 40px -18px color-mix(in srgb, var(--ws-accent) 55%, transparent), var(--shadow-md);
+    transform: translateY(-6px);
 }
 .product-card-photo {
     position: relative;
@@ -708,7 +731,7 @@ nav{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: linear-gradient(155deg, color-mix(in srgb, var(--ws-accent) 7%, #fff) 0%, color-mix(in srgb, var(--ws-accent) 16%, #fff) 100%);
     color: color-mix(in srgb, var(--ws-accent) 60%, white);
     overflow: hidden;
 }
@@ -729,8 +752,8 @@ nav{
 .product-card:hover .product-card-photo img { transform: scale(1.08); }
 .product-card-name {
     display: block;
-    padding: 16px 16px 0;
-    font-size: 0.95rem;
+    padding: 18px 16px 0;
+    font-size: 0.98rem;
     font-weight: 700;
     line-height: 1.3;
     color: var(--dark);
@@ -756,25 +779,29 @@ nav{
     gap: 8px;
 }
 .product-card-price {
-    font-weight: 700;
-    font-size: 0.9rem;
+    font-weight: 800;
+    font-size: 0.92rem;
     color: var(--ws-accent);
 }
 .product-card-arrow {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
     border-radius: 50%;
     background: var(--menu-accent-soft, #f3ead9);
     color: var(--ws-accent);
     font-weight: 700;
     font-size: 1.05rem;
-    transition: transform 0.25s ease;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
-.product-card:hover .product-card-arrow { transform: translateX(3px); }
+.product-card:hover .product-card-arrow {
+    background: var(--ws-accent);
+    color: #fff;
+    transform: translateX(3px);
+}
 .product-group + .product-group { margin-top: 54px; }
 
 /* Product detail modal: reuses the same tabbed Details/Collaboration shape
@@ -799,6 +826,14 @@ nav{
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
+    /* Locking body scroll while a modal is open sets touch-action:none on
+       <body> (see body.modal-locked below) so the whole page can't be
+       dragged behind the modal - but touch-action doesn't stop at the
+       modal boundary on its own, so every scrollable region *inside* the
+       modal needs its own explicit touch-action or touch/swipe silently
+       stops working there too. This is what was breaking photo swiping
+       on mobile. pan-y here keeps the modal itself scrollable by touch. */
+    touch-action: pan-y;
 }
 .product-detail-top {
     display: flex;
@@ -807,7 +842,7 @@ nav{
 .product-detail-info {
     flex: 1;
     min-width: 0;
-    padding: 36px 34px;
+    padding: 40px 38px;
     display: flex;
     flex-direction: column;
 }
@@ -815,23 +850,28 @@ nav{
     flex: 1;
     min-width: 0;
     align-self: flex-start;
-    aspect-ratio: 4 / 5;
-    max-height: 560px;
-    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: #fff;
+    flex-direction: column;
+    gap: 12px;
+    padding: 30px 30px 0 0;
 }
-.product-detail-photo #productModalIcon {
+.product-detail-photo-main {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 500px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(155deg, #faf7f0 0%, #efe6d5 100%);
+    box-shadow: 0 20px 44px -20px rgba(60,45,20,0.32);
+}
+.product-detail-photo-main #productModalIcon {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.product-detail-photo img {
+.product-detail-photo-main img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -845,6 +885,7 @@ nav{
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     scrollbar-width: none;
 }
 .product-detail-photo-scroll::-webkit-scrollbar { display: none; }
@@ -859,85 +900,137 @@ nav{
 }
 .product-detail-photo-count {
     position: absolute;
-    bottom: 10px;
+    bottom: 12px;
     right: 14px;
     z-index: 2;
-    background: rgba(0,0,0,0.55);
+    background: rgba(20,18,14,0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: #fff;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    padding: 3px 10px;
+    letter-spacing: 0.3px;
+    padding: 4px 12px;
     border-radius: 999px;
     pointer-events: none;
 }
-.product-detail-photo svg {
+.product-detail-photo-main svg {
     width: 35%;
     height: auto;
     max-width: 110px;
     color: var(--ws-accent, #8a6d3b);
 }
+/* Thumbnail rail: a professional-storefront touch that also gives
+   mobile a second, tap-precise way to jump to a photo when swiping is
+   inconvenient (e.g. one-handed use). Reuses whatever photo list is
+   already loaded rather than fetching separate thumbnail assets. */
+.product-detail-photo-thumbs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+}
+.product-detail-photo-thumbs::-webkit-scrollbar { display: none; }
+.product-detail-photo-thumb {
+    flex: 0 0 56px;
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    padding: 0;
+    background: #fff;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.product-detail-photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-detail-photo-thumb:hover { opacity: 0.85; }
+.product-detail-photo-thumb.active {
+    opacity: 1;
+    border-color: var(--ws-accent, var(--primary));
+    transform: translateY(-2px);
+}
 .product-detail-info h2 {
     color: var(--primary-dark);
-    font-size: 1.85rem;
+    font-size: 1.95rem;
+    line-height: 1.25;
     margin-bottom: 14px;
 }
 .product-detail-desc {
     color: #666;
     font-size: 1.05rem;
     line-height: 1.7;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 .product-detail-price {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     align-self: flex-start;
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.2px;
     color: var(--ws-accent, #8a6d3b);
     background: var(--menu-accent-soft, #f3ead9);
-    padding: 7px 18px;
+    padding: 8px 20px;
     border-radius: 999px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ws-accent, #8a6d3b) 18%, transparent);
 }
 .product-shop-now-btn {
     display: inline-flex;
     align-self: flex-start;
     align-items: center;
-    margin-top: 20px;
-    background: var(--ws-accent, var(--primary));
+    gap: 10px;
+    margin-top: 22px;
+    background: linear-gradient(135deg, var(--ws-accent, var(--primary)) 0%, color-mix(in srgb, var(--ws-accent, var(--primary)) 75%, #000) 100%);
     color: #fff;
     border: none;
-    padding: 16px 38px;
+    padding: 16px 36px;
     border-radius: 999px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.08rem;
     text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 12px 26px -10px color-mix(in srgb, var(--ws-accent, var(--primary)) 70%, transparent);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+.product-shop-now-btn svg { width: 19px; height: 19px; flex-shrink: 0; }
 .product-shop-now-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 22px -8px color-mix(in srgb, var(--ws-accent, var(--primary)) 60%, transparent);
+    box-shadow: 0 16px 32px -10px color-mix(in srgb, var(--ws-accent, var(--primary)) 70%, transparent);
 }
+.product-dimensions-strip:empty { display: none; }
 .product-dimensions-strip {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     overflow-x: auto;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
     gap: 10px;
-    padding: 14px 20px;
-    background: var(--gray-light);
+    padding: 16px 34px;
+    background: linear-gradient(180deg, #faf8f3 0%, var(--gray-light) 100%);
     border-top: 1px solid rgba(0,0,0,0.06);
     border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 .product-dimension-item {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.68rem;
+    gap: 6px;
+    font-size: 0.7rem;
     font-weight: 700;
     color: #7a7a72;
     white-space: nowrap;
     flex-shrink: 0;
+    background: #fff;
+    padding: 7px 14px;
+    border-radius: 999px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.07);
 }
 .product-dimension-item svg {
     width: 14px;
@@ -957,6 +1050,7 @@ nav{
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     scroll-snap-type: x proximity;
     padding-bottom: 8px;
 }
@@ -983,9 +1077,11 @@ nav{
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: 14px;
     background: #fff;
     color: var(--ws-accent, #8a6d3b);
-    transition: box-shadow 0.25s ease;
+    box-shadow: 0 4px 14px -6px rgba(0,0,0,0.2);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 .product-suggestion-photo img {
     width: 100%;
@@ -994,7 +1090,8 @@ nav{
     padding: 8px;
 }
 .product-suggestion-tile:hover .product-suggestion-photo {
-    box-shadow: inset 0 0 0 2px var(--ws-accent, var(--primary));
+    box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--ws-accent, var(--primary)) 45%, transparent);
+    transform: translateY(-3px);
 }
 .product-suggestion-photo svg { width: 30%; height: auto; max-width: 26px; }
 .product-suggestion-name {
@@ -1082,19 +1179,29 @@ nav{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.35);
-    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.92);
+    color: var(--dark, #2b2b26);
     border: none;
     border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
     line-height: 1;
     cursor: pointer;
-    transition: background 0.2s ease;
+    box-shadow: 0 6px 16px -4px rgba(0,0,0,0.35);
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
     z-index: 2;
 }
-.product-detail-photo-arrow:hover { background: rgba(0, 0, 0, 0.55); }
+.product-detail-photo-arrow:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
+/* Toggled by JS instead of display:none so the fade is smooth, and so
+   scroll-position math (clientWidth etc.) never has to account for a
+   suddenly-undisplayed element mid-gesture. Hidden arrows also need
+   pointer-events off, or an invisible button still eats the swipe/click
+   that was meant for the photo underneath it. */
+.product-detail-photo-arrow.is-hidden { opacity: 0; pointer-events: none; }
 .product-detail-photo-prev { left: 12px; }
 .product-detail-photo-next { right: 12px; }
 .product-lightbox-count {
@@ -1117,8 +1224,10 @@ nav{
 }
 @media (max-width: 700px) {
     .product-detail-top { flex-direction: column; }
-    .product-detail-photo { order: -1; align-self: stretch; aspect-ratio: 4 / 3; max-height: 320px; min-height: 200px; }
-    .product-detail-info { padding: 28px 22px; }
+    .product-detail-photo { order: -1; align-self: stretch; padding: 22px 22px 0; }
+    .product-detail-photo-main { aspect-ratio: 4 / 3.3; max-height: 340px; min-height: 220px; }
+    .product-detail-photo-thumb { flex: 0 0 50px; width: 50px; height: 50px; }
+    .product-detail-info { padding: 26px 22px 30px; }
     .product-dimensions-strip { padding: 14px 22px; justify-content: flex-start; }
     .product-suggestions { padding: 22px 22px 28px; }
 }
@@ -2407,6 +2516,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 <section id="product" class="news-page-section products-flat" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
 <div class="container">
     <div class="section-title-container" style="margin: 0 0 20px;">
+        <span class="product-page-eyebrow" data-key="page-sub">สินค้าของเรา</span>
         <h2 class="section-title" style="color: #bdaa8a;" data-key="page-title">สินค้าชุมชน</h2>
         <p class="menu-page-desc" data-key="page-desc">ผลิตภัณฑ์จากชุมชนท้องถิ่นจังหวัดชุมพร ส่วนหนึ่งของแนวคิด Business to Help</p>
     </div>
@@ -2674,13 +2784,19 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <button class="ws-modal-tab" data-page="collab" onclick="switchProductTab('collab')" data-key="ws-tab-collab">Collaboration</button>
                 </div>
                 <div id="productModalBody" class="workshop-details"></div>
-                <a href="https://line.me/R/ti/p/%40ouadchum" target="_blank" rel="noopener" class="product-shop-now-btn" data-key="btn-shop-now">Shop Now</a>
+                <a href="https://line.me/R/ti/p/%40ouadchum" target="_blank" rel="noopener" class="product-shop-now-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span data-key="btn-shop-now">Shop Now</span>
+                </a>
             </div>
             <div class="product-detail-photo">
-                <div id="productModalIcon"></div>
-                <button type="button" class="product-detail-photo-arrow product-detail-photo-prev" id="productModalPhotoPrev" onclick="productModalPhotoStep(-1)" aria-label="Previous photo" style="display:none;">&#8249;</button>
-                <button type="button" class="product-detail-photo-arrow product-detail-photo-next" id="productModalPhotoNext" onclick="productModalPhotoStep(1)" aria-label="Next photo" style="display:none;">&#8250;</button>
-                <span class="product-detail-photo-count" id="productModalPhotoCount" style="display:none;"></span>
+                <div class="product-detail-photo-main">
+                    <div id="productModalIcon"></div>
+                    <button type="button" class="product-detail-photo-arrow product-detail-photo-prev is-hidden" id="productModalPhotoPrev" onclick="productModalPhotoStep(-1)" aria-label="Previous photo">&#8249;</button>
+                    <button type="button" class="product-detail-photo-arrow product-detail-photo-next is-hidden" id="productModalPhotoNext" onclick="productModalPhotoStep(1)" aria-label="Next photo">&#8250;</button>
+                    <span class="product-detail-photo-count" id="productModalPhotoCount" style="display:none;"></span>
+                </div>
+                <div class="product-detail-photo-thumbs" id="productModalPhotoThumbs"></div>
             </div>
         </div>
         <div class="product-dimensions-strip" id="productDimensionsStrip"></div>
@@ -3213,7 +3329,7 @@ function renderProductSuggestions(currentId) {
         const pMeta = productMeta[pid];
         const pPhoto = pMeta.photo || (pMeta.photos && pMeta.photos[0]);
         const photoHtml = pPhoto
-            ? `<img src="${pPhoto}" alt="">`
+            ? `<img src="${pPhoto}" alt="" loading="lazy">`
             : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[pMeta.icon]}</svg>`;
         return `
         <button type="button" class="product-suggestion-tile" onclick="openProductModal('${pid}')">
@@ -3270,28 +3386,53 @@ function productModalPhotoStep(delta) {
     if (!scrollEl) return;
     scrollEl.scrollBy({ left: delta * scrollEl.clientWidth, behavior: "smooth" });
 }
+function productModalPhotoGoTo(index) {
+    const scrollEl = document.getElementById("productModalPhotoScroll");
+    if (!scrollEl) return;
+    scrollEl.scrollTo({ left: index * scrollEl.clientWidth, behavior: "smooth" });
+}
+// Hides (rather than disables) whichever arrow has nothing left to step
+// to, so a shopper never taps "next" past the last photo into nothing.
+// Small epsilon guards against sub-pixel scrollLeft values that are
+// technically not *quite* 0 or max but should still count as there.
+function updateProductModalPhotoArrows(scrollEl, prevBtn, nextBtn) {
+    const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+    prevBtn.classList.toggle("is-hidden", scrollEl.scrollLeft <= 4);
+    nextBtn.classList.toggle("is-hidden", scrollEl.scrollLeft >= maxScroll - 4);
+}
 function renderProductModalPhotos(id, photos, productTitle) {
     const meta = productMeta[id];
     document.getElementById("productModalIcon").innerHTML = photos.length
-        ? `<div class="product-detail-photo-scroll" id="productModalPhotoScroll">${photos.map((src, i) => `<img src="${src}" alt="${productTitle}" onclick="openProductLightbox('${id}', ${i})">`).join("")}</div>`
+        ? `<div class="product-detail-photo-scroll" id="productModalPhotoScroll">${photos.map((src, i) => `<img src="${src}" alt="${productTitle}" loading="${i === 0 ? "eager" : "lazy"}" onclick="openProductLightbox('${id}', ${i})">`).join("")}</div>`
         : `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${PRODUCT_ICONS[meta.icon]}</svg>`;
     const photoCount = document.getElementById("productModalPhotoCount");
     const prevBtn = document.getElementById("productModalPhotoPrev");
     const nextBtn = document.getElementById("productModalPhotoNext");
+    const thumbsEl = document.getElementById("productModalPhotoThumbs");
     if (photos.length > 1) {
         photoCount.style.display = "";
         photoCount.textContent = `1 / ${photos.length}`;
-        prevBtn.style.display = "";
-        nextBtn.style.display = "";
+        thumbsEl.style.display = "";
+        thumbsEl.innerHTML = photos.map((src, i) => `
+            <button type="button" class="product-detail-photo-thumb${i === 0 ? " active" : ""}" onclick="productModalPhotoGoTo(${i})" aria-label="Photo ${i + 1} of ${photos.length}">
+                <img src="${src}" alt="" loading="lazy">
+            </button>`).join("");
         const scrollEl = document.getElementById("productModalPhotoScroll");
-        scrollEl.onscroll = () => {
+        const thumbs = thumbsEl.querySelectorAll(".product-detail-photo-thumb");
+        const syncFromScroll = () => {
             const i = Math.round(scrollEl.scrollLeft / scrollEl.clientWidth);
             photoCount.textContent = `${i + 1} / ${photos.length}`;
+            thumbs.forEach((t, ti) => t.classList.toggle("active", ti === i));
+            updateProductModalPhotoArrows(scrollEl, prevBtn, nextBtn);
         };
+        scrollEl.onscroll = syncFromScroll;
+        syncFromScroll();
     } else {
         photoCount.style.display = "none";
-        prevBtn.style.display = "none";
-        nextBtn.style.display = "none";
+        prevBtn.classList.add("is-hidden");
+        nextBtn.classList.add("is-hidden");
+        thumbsEl.style.display = "none";
+        thumbsEl.innerHTML = "";
     }
 }
 let currentProductModalId = null;
@@ -3395,6 +3536,30 @@ function handleProductLightboxKeydown(event) {
     else if (event.key === "ArrowRight") productLightboxStep(1);
     else if (event.key === "ArrowLeft") productLightboxStep(-1);
 }
+// Swipe-to-navigate in the fullscreen lightbox. Registered once at load
+// (not per-open) since the overlay element itself never gets recreated.
+// A horizontal-dominant drag past the threshold steps the photo; a
+// mostly-vertical drag is left alone so it doesn't fight a stray scroll.
+(function initProductLightboxSwipe() {
+    const overlay = document.getElementById("productLightboxOverlay");
+    if (!overlay) return;
+    let startX = 0, startY = 0, tracking = false;
+    overlay.addEventListener("touchstart", (e) => {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        tracking = true;
+    }, { passive: true });
+    overlay.addEventListener("touchend", (e) => {
+        if (!tracking) return;
+        tracking = false;
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            productLightboxStep(dx < 0 ? 1 : -1);
+        }
+    }, { passive: true });
+})();
 
 function openBookingDrawer() {
     document.getElementById("bookingDrawer").classList.add("active");
