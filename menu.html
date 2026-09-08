@@ -488,21 +488,32 @@ nav{
     margin-bottom: 14px;
 }
 .menu-book-filter .menu-type-btn {
-    background: none;
-    border: none;
-    padding: 2px 1px 5px;
-    color: #9aa39f;
-    font-size: 0.72rem;
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid rgba(138,109,59,0.16);
+    padding: 10px 26px;
+    border-radius: 999px;
+    color: #8a7a5c;
+    font-size: 0.92rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.1px;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: var(--transition);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     font-family: inherit;
+    box-shadow: 0 2px 6px rgba(60,45,20,0.05);
 }
-.menu-book-filter .menu-type-btn:hover { color: var(--primary); }
-.menu-book-filter .menu-type-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+.menu-book-filter .menu-type-btn:hover {
+    border-color: #bdaa8a;
+    color: #8a6d3b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -8px rgba(138,109,59,0.35);
+}
+.menu-book-filter .menu-type-btn.active {
+    background: linear-gradient(135deg, #c7a874 0%, #8a6d3b 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 22px -8px rgba(138,109,59,0.55);
+}
 .menu-subcat-filter {
     display: flex;
     justify-content: center;
@@ -522,34 +533,31 @@ nav{
     text-align: center;
     padding: 10px 8px;
     border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(138,109,59,0.16);
+    background: #fff;
+    color: #4c5850;
     font-weight: 600;
     font-size: 0.64rem;
     line-height: 1.2;
     cursor: pointer;
     transition: var(--transition);
     font-family: inherit;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(20,30,20,0.06);
 }
 .menu-subcat-chip-icon {
     display: flex;
     width: 46px;
     height: 46px;
-    color: var(--accent);
+    color: #8a6d3b;
     transition: var(--transition);
 }
 .menu-subcat-chip-icon svg { width: 100%; height: 100%; }
 .menu-subcat-chip-icon img { width: 100%; height: 100%; object-fit: contain; }
 .menu-subcat-chip:hover {
-    border-color: rgba(197,168,128,0.6);
-    color: #fff;
-    background: rgba(255,255,255,0.09);
+    border-color: #bdaa8a;
+    color: #8a6d3b;
     transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 18px -8px rgba(138,109,59,0.35);
 }
 .menu-subcat-chip.active {
     background: linear-gradient(155deg, var(--accent), #a9895f);
@@ -581,33 +589,7 @@ nav{
     width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    padding: 80px 24px 280px;
-    margin-bottom: -180px;
-    background: #1c2b22;
-}
-.menu-hero-video-wrap {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-}
-.menu-hero-video-wrap iframe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    min-width: 100%;
-    min-height: 100%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    border: 0;
-}
-.menu-hero-video-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(20,30,24,0.72);
-    z-index: 1;
+    padding: 50px 24px 20px;
 }
 .menu-hero-video-content {
     position: relative;
@@ -616,9 +598,6 @@ nav{
     max-width: 1240px;
     margin: 0 auto;
 }
-.menu-hero-video-zone .menu-book-filter .menu-type-btn { color: rgba(255,255,255,0.65); }
-.menu-hero-video-zone .menu-book-filter .menu-type-btn:hover { color: #fff; }
-.menu-hero-video-zone .menu-book-filter .menu-type-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 .menu-hero-video-zone .menu-book-header .subtitle { color: var(--accent); }
 .menu-hero-video-zone .menu-book-header .section-title { color: #fff; }
 .menu-book-box {
@@ -968,6 +947,13 @@ nav{
    the page (fork/knife = Food, veggie bowl = the dip-with-veggies chip,
    fish = the catch-of-the-day chip) so the story visually hands off into
    the menu that follows it instead of feeling like a bolted-on intro. */
+/* .menu-hero-video-zone pulls whichever element follows it up by 180px
+   (margin-bottom: -180px) so an opaque menu-book-box card floats up over the
+   dark hero - but a menu-story is transparent text, and it's always what
+   immediately follows the hero zone now (menuStory/menuStoryCoffee/
+   menuStoryNonCoffee - only one visible at a time), so left at the default
+   padding its dark heading would sit unreadable over the dark background.
+   The extra top padding pushes it back down clear of that overlap. */
 .menu-story {
     padding: 10px 0 64px;
     position: relative;
@@ -1015,6 +1001,12 @@ nav{
 .menu-story-chapter--dish .menu-story-frame { background: linear-gradient(155deg, #faf3e6 0%, #f0e0c0 100%); }
 .menu-story-chapter--ground .menu-story-frame { background: linear-gradient(155deg, #f2f7ee 0%, #dcebd4 100%); }
 .menu-story-chapter--sea .menu-story-frame { background: linear-gradient(155deg, #eaf4f5 0%, #cfe6e9 100%); }
+/* Match "Behind Every Dish" and "From The Sea" to the same landscape
+   proportions as the "From Ground Up" photo mosaic, so all three chapter
+   pictures sit at the same visual height/level instead of the dish photo's
+   tall portrait crop or the sea grid's square crop towering over the copy. */
+.menu-story-chapter--dish .menu-story-frame { aspect-ratio: 3 / 2; }
+.menu-story-chapter--sea .menu-story-gallery-grid--4 img { aspect-ratio: 3 / 2; }
 .menu-story-frame {
     grid-column: 1;
     grid-row: 1;
@@ -1270,16 +1262,9 @@ nav{
 .menu-story-gallery-grid--5 img:nth-child(4) { grid-column: 3 / 5; grid-row: 2; }
 .menu-story-gallery-grid--5 img:nth-child(5) { grid-column: 5 / 7; grid-row: 2; }
 
-/* MENU DRINK STORY: extends the "Behind Every Meal" chapter/gallery pieces
-   above into the Drink book itself - a short farm photo strip under the
-   Robusta intro, then a "meet the maker" chapter for Robusta's own
-   collaboration and for each local partner behind the Non-Coffee menu.
-   Everything here is wrapped in column-span:all so it escapes the
-   two-column dish layout of .menu-book-category it's placed inside, and
-   .menu-story-copy is forced back to left-aligned text on wide screens
-   since .menu-book-box otherwise centers everything by default. */
+/* Short farm photo strip that leads into the Robusta "Behind Every..."
+   story section, above its "meet the maker" chapter. */
 .menu-drink-photostrip {
-    column-span: all;
     width: 100%;
     max-width: 620px;
     margin: 26px auto 4px;
@@ -1295,34 +1280,6 @@ nav{
     transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .menu-drink-photostrip img:hover { transform: scale(1.06); }
-.menu-drink-story {
-    column-span: all;
-    width: 100%;
-    margin: 30px 0 4px;
-}
-.menu-drink-partners-head {
-    text-align: center;
-    max-width: 520px;
-    margin: 0 auto 8px;
-}
-.menu-drink-partners-eyebrow {
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 700;
-    font-size: 0.74rem;
-    color: var(--menu-price);
-    opacity: 0.9;
-    margin-bottom: 8px;
-}
-.menu-drink-partners-title {
-    font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.7rem);
-    color: var(--menu-fg);
-    margin: 0;
-}
-@media (min-width: 821px) {
-    .menu-drink-story .menu-story-copy { text-align: left; }
-}
 .menu-partner-eyebrow {
     display: block;
     text-transform: uppercase;
@@ -1345,75 +1302,6 @@ nav{
 .menu-story-chapter--cacao .menu-story-frame { background: linear-gradient(155deg, #f2e2d8 0%, #d7b9a4 100%); }
 .menu-story-chapter--coconut { --story-accent: #5f7d3f; }
 .menu-story-chapter--coconut .menu-story-frame { background: linear-gradient(155deg, #f1f6ea 0%, #d8e7c5 100%); }
-
-/* "Get to know our fence-side greens" - a full-width vignette appended
-   below the From Ground Up row, spanning both text columns instead of
-   living inside the narrow frame/copy split above it. */
-.menu-story-veggie-id {
-    grid-column: 1 / -1;
-    margin-top: 36px;
-    padding-top: 32px;
-    border-top: 1px dashed rgba(62,114,59,0.25);
-    text-align: center;
-}
-.menu-story-veggie-title {
-    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
-    color: var(--dark);
-    margin-bottom: 12px;
-}
-.menu-story-veggie-text {
-    max-width: 640px;
-    margin: 0 auto 26px;
-    color: #5a655f;
-    font-size: 0.92rem;
-    line-height: 1.8;
-}
-.menu-story-veggie-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    max-width: 760px;
-    margin: 0 auto;
-}
-.menu-story-veggie-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 16px 8px;
-    border-radius: 14px;
-    background: #f2f7ee;
-    border: 1px solid rgba(62,114,59,0.15);
-    transition: var(--transition);
-}
-.menu-story-veggie-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-sm);
-    border-color: rgba(62,114,59,0.35);
-}
-.menu-story-veggie-card svg {
-    width: 28px;
-    height: 28px;
-    color: var(--primary);
-    opacity: 0.8;
-}
-.menu-story-veggie-name {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--dark);
-    text-align: center;
-    line-height: 1.3;
-}
-.menu-story-veggie-gloss {
-    font-size: 0.68rem;
-    font-style: italic;
-    color: #677063;
-    text-align: center;
-}
-.menu-story-veggie-gloss:empty { display: none; }
-@media (max-width: 700px) {
-    .menu-story-veggie-grid { grid-template-columns: repeat(2, 1fr); }
-}
 
 /* The top story is a full-bleed, dramatic image banner with overlaid
    text - the loudest thing on the page - while the rest of the coverage
@@ -2638,7 +2526,35 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 <section id="menu" class="news-page-section" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
 <div class="container">
 
-    <div class="menu-story" id="menuStory">
+    <div class="menu-hero-video-zone" id="menuHeroVideoZone">
+        <div class="menu-hero-video-content">
+            <div class="menu-book-filter">
+                <button type="button" id="menuFilterFoodBtn" class="menu-type-btn active" onclick="filterMenuType('food', this)" data-key="filter-menu-food">อาหาร</button>
+                <button type="button" class="menu-type-btn" onclick="filterMenuType('coffee', this)" data-key="filter-menu-coffee">กาแฟ</button>
+                <button type="button" class="menu-type-btn" onclick="filterMenuType('noncoffee', this)" data-key="filter-menu-noncoffee">ไม่ใช่กาแฟ</button>
+            </div>
+
+            <div class="menu-subcat-filter" id="menuSubcatFilter">
+                <button type="button" class="menu-subcat-chip active" data-menu-type="food" onclick="filterBySubcat(['subcat-recommended'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-recommended">Recommended</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-dip-with-fresh-veggies'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/vegetable-1.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-dip-with-fresh-veggies">Dip with Fresh Veggies</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-appetizer'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.3"/><circle cx="12" cy="12" r="3.8"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-appetizer">Appetizer</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-spicy-salad-and-steamed'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/spicy-chilli.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-spicy-salad-and-steamed">Spicy Salad & Steamed</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-stir-fried'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 01-18 0z"/><path d="M3 11l-2.3-1.3M21 11l2.3-1.3"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-stir-fried">Stir-Fried</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-soup'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><path d="M2 12h20"/><path d="M9 5c0 1-1 1-1 2M13 4c0 1-1 1-1 2M17 5c0 1-1 1-1 2"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-soup">Soup</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-deep-fried-catch-of-the-day'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/fish.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-deep-fried-catch-of-the-day">Deep-Fried Catch of the Day</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-rice'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-rice">Rice</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-quick-meal-served-with-rice'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-quick-meal-served-with-rice">Quick Meal — Served with Rice</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-all-day-breakfast'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.2M12 18.8V21M4.2 12H2M22 12h-2.2M5.8 5.8l1.5 1.5M16.7 16.7l1.5 1.5M18.2 5.8l-1.5 1.5M7.3 16.7l-1.5 1.5"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-all-day-breakfast">All Day Breakfast</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="coffee" onclick="filterBySubcat(['subcat-must-try'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-must-try">Must Try</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="coffee" onclick="filterBySubcat(['subcat-coffee-and-soda', 'subcat-classic'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><circle cx="9" cy="5" r="0.8" fill="currentColor" stroke="none"/><circle cx="12.2" cy="3.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="14.7" cy="5.2" r="0.7" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="chip-coffee">Coffee</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="noncoffee" onclick="filterBySubcat(['subcat-honey-lover'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/honey-lover.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-honey-lover">Honey Lover</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="noncoffee" onclick="filterBySubcat(['subcat-cacao-lover'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/cacao-lover.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-cacao-lover">Cacao Lover</span></button>
+                <button type="button" class="menu-subcat-chip" data-menu-type="noncoffee" onclick="filterBySubcat(['subcat-tea', 'subcat-milk', 'subcat-matcha', 'subcat-other'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-other">Other</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-story" id="menuStory" data-menu-type="food">
         <div class="menu-story-head">
             <span class="menu-story-eyebrow" data-key="story-eyebrow">Our Story</span>
             <h2 class="menu-story-title" data-key="story-title">Behind Every Meal</h2>
@@ -2682,53 +2598,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <h3 class="menu-story-chapter-title" data-key="story-ch2-title">From Ground Up</h3>
                     <p class="menu-story-chapter-text" data-key="story-ch2-text">Our pesticide-free vegetables started small &mdash; just enough to feed ourselves &mdash; before growing into every spare patch of land on the property, tended by hand by our housekeepers. We compost our own food scraps and fallen leaves for fertilizer, and buy the rest from the community and Ban Hin Kop School. They may not look picture-perfect, but they're completely chemical-free &mdash; sweet, crisp, and full of flavor.</p>
                 </div>
-
-                <div class="menu-story-veggie-id">
-                    <h4 class="menu-story-veggie-title" data-key="story-veggie-title">รู้จักผักเหมือดรอบรั้ว</h4>
-                    <p class="menu-story-veggie-text" data-key="story-veggie-text">ผักเหมือด หรือผักแนม คือผักเคียงที่เสิร์ฟพร้อมกับน้ำพริก และอาหารใต้รสจัด เพื่อลดความเผ็ดเพิ่มรสชาติในการกิน และยังมีคุณประโยชน์มากมาย ซึ่งผักพื้นบ้านหลายชนิดยังมีสรรพคุณทางยาและเป็นสมุนไพรอีกด้วย ตามคำที่กล่าวไว้ว่า "กินอาหารให้เป็นยา"</p>
-                    <div class="menu-story-veggie-grid">
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">ผักชีล้อม</span>
-                            <span class="menu-story-veggie-gloss">Wild Dill</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">ดอกชมจันทร์</span>
-                            <span class="menu-story-veggie-gloss">Moonflower</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">ยอดอ่อนมะม่วง</span>
-                            <span class="menu-story-veggie-gloss">Young Mango Shoot</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">หินมะพาน</span>
-                            <span class="menu-story-veggie-gloss">Hin Ma Phan</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">ถั่วพู</span>
-                            <span class="menu-story-veggie-gloss">Winged Bean</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">ลูกเหนียงเพาะ</span>
-                            <span class="menu-story-veggie-gloss">Sprouted Djenkol Bean</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">ยอดมันปู</span>
-                            <span class="menu-story-veggie-gloss">Man Pu Shoot</span>
-                        </div>
-                        <div class="menu-story-veggie-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10C12 10 6 10 6 4c6 0 6 6 6 6z"/><path d="M12 13c0 0 6 0 6-6c-6 0-6 6-6 6z"/></svg>
-                            <span class="menu-story-veggie-name">สะตอ / ยอดสะตอ</span>
-                            <span class="menu-story-veggie-gloss">Sator Bean &amp; Shoot</span>
-                        </div>
-                    </div>
-                </div>
             </article>
 
             <article class="menu-story-chapter menu-story-chapter--sea">
@@ -2754,36 +2623,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         </div>
 
         <div class="menu-story-end" aria-hidden="true"><span></span><span></span><span></span></div>
-    </div>
-
-    <div class="menu-hero-video-zone" id="menuHeroVideoZone">
-        <div class="menu-hero-video-wrap" id="menuHeroVideoWrap"></div>
-        <div class="menu-hero-video-overlay"></div>
-        <div class="menu-hero-video-content">
-            <div class="menu-book-filter">
-                <button type="button" id="menuFilterAllBtn" class="menu-type-btn active" onclick="filterMenuType('all', this)" data-key="filter-menu-all">ทั้งหมด</button>
-                <button type="button" class="menu-type-btn" onclick="filterMenuType('food', this)" data-key="filter-menu-food">อาหาร</button>
-                <button type="button" class="menu-type-btn" onclick="filterMenuType('drink', this)" data-key="filter-menu-drink">เครื่องดื่ม</button>
-            </div>
-
-            <div class="menu-subcat-filter" id="menuSubcatFilter">
-                <button type="button" class="menu-subcat-chip active" data-menu-type="food" onclick="filterBySubcat(['subcat-recommended'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-recommended">Recommended</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-dip-with-fresh-veggies'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/vegetable-1.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-dip-with-fresh-veggies">Dip with Fresh Veggies</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-appetizer'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.3"/><circle cx="12" cy="12" r="3.8"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-appetizer">Appetizer</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-spicy-salad-and-steamed'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/spicy-chilli.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-spicy-salad-and-steamed">Spicy Salad & Steamed</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-stir-fried'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 01-18 0z"/><path d="M3 11l-2.3-1.3M21 11l2.3-1.3"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-stir-fried">Stir-Fried</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-soup'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><path d="M2 12h20"/><path d="M9 5c0 1-1 1-1 2M13 4c0 1-1 1-1 2M17 5c0 1-1 1-1 2"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-soup">Soup</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-deep-fried-catch-of-the-day'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/fish.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-deep-fried-catch-of-the-day">Deep-Fried Catch of the Day</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-rice'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-rice">Rice</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-quick-meal-served-with-rice'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 01-16 0z"/><ellipse cx="8.5" cy="7" rx="1.3" ry="0.7" transform="rotate(-25 8.5 7)"/><ellipse cx="12" cy="6" rx="1.3" ry="0.7" transform="rotate(-5 12 6)"/><ellipse cx="15.5" cy="7" rx="1.3" ry="0.7" transform="rotate(20 15.5 7)"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-quick-meal-served-with-rice">Quick Meal — Served with Rice</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="food" onclick="filterBySubcat(['subcat-all-day-breakfast'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.2M12 18.8V21M4.2 12H2M22 12h-2.2M5.8 5.8l1.5 1.5M16.7 16.7l1.5 1.5M18.2 5.8l-1.5 1.5M7.3 16.7l-1.5 1.5"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-all-day-breakfast">All Day Breakfast</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-must-try'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/recommended.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-must-try">Must Try</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-coffee-and-soda', 'subcat-classic'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><circle cx="9" cy="5" r="0.8" fill="currentColor" stroke="none"/><circle cx="12.2" cy="3.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="14.7" cy="5.2" r="0.7" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="chip-coffee">Coffee</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-honey-lover'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/honey-lover.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-honey-lover">Honey Lover</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-cacao-lover'], this)"><span class="menu-subcat-chip-icon"><img src="Icons/cacao-lover.png" alt="" loading="lazy"></span><span class="menu-subcat-chip-label" data-key="subcattitle-cacao-lover">Cacao Lover</span></button>
-                <button type="button" class="menu-subcat-chip" data-menu-type="drink" onclick="filterBySubcat(['subcat-tea', 'subcat-milk', 'subcat-matcha', 'subcat-other'], this)"><span class="menu-subcat-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="menu-subcat-chip-label" data-key="subcattitle-other">Other</span></button>
-            </div>
-        </div>
     </div>
 
     <div class="menu-book-box menu-book-box--food" data-menu-type="food">
@@ -3788,55 +3627,60 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         </div>
     </div>
 
-    <div class="menu-book-box menu-book-box--drink" data-menu-type="drink">
-        <div class="menu-book-category" id="menu-robusta" data-menu-type="drink">
+    <div class="menu-story" id="menuStoryCoffee" data-menu-type="coffee">
+        <div class="menu-story-head">
+            <span class="menu-story-eyebrow" data-key="robustacollab-eyebrow">Grown by a New Generation of Farmers</span>
+            <h2 class="menu-story-title" data-key="robustacollab-title">Chumphon Robusta</h2>
+        </div>
+
+        <div class="menu-drink-photostrip">
+            <div class="menu-story-gallery-grid">
+                <img src="Story/robusta-1.webp" alt="Farmer sorting freshly picked Chumphon robusta coffee cherries by hand" loading="lazy">
+                <img src="Story/robusta-2.webp" alt="A handful of ripe and unripe robusta coffee cherries" loading="lazy">
+                <img src="Story/robusta-3.webp" alt="Hand-picking ripe red robusta coffee cherries from the branch" loading="lazy">
+            </div>
+        </div>
+
+        <div class="menu-story-chapters">
+            <article class="menu-story-chapter menu-story-chapter--robusta">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--12">
+                        <img src="Story/robusta-collab-1.webp" alt="Robusta coffee blossoms flowering on the branch" loading="lazy">
+                        <img src="Story/robusta-collab-2.webp" alt="Freshly picked robusta cherries poured onto a sorting tray" loading="lazy">
+                        <img src="Story/robusta-collab-3.webp" alt="Ripe red robusta cherries being poured out for sorting" loading="lazy">
+                        <img src="Story/robusta-collab-4.webp" alt="Farmers hand-sorting fresh robusta cherries on a mat" loading="lazy">
+                        <img src="Story/robusta-collab-5.webp" alt="A hand holding a mix of ripe and unripe robusta cherries" loading="lazy">
+                        <img src="Story/robusta-collab-6.webp" alt="Roasted robusta coffee beans inside the roasting drum" loading="lazy">
+                        <img src="Story/robusta-collab-7.webp" alt="Freshly roasted coffee beans tumbling out of the roaster" loading="lazy">
+                        <img src="Story/robusta-collab-8.webp" alt="Two iced Baan OuadChum coffee drinks on a wooden tray" loading="lazy">
+                        <img src="Story/robusta-collab-9.webp" alt="Two iced coffee drinks served on a wooden board outdoors" loading="lazy">
+                        <img src="Story/robusta-collab-10.webp" alt="Iced cacao latte served with fresh cacao pods and beans" loading="lazy">
+                        <img src="Story/robusta-collab-11.webp" alt="Iced coffee served with wildflower honey and fresh calamansi" loading="lazy">
+                        <img src="Story/robusta-collab-12.webp" alt="Iced coffee served with fresh coconut sugar" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">01</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <p class="menu-story-chapter-text" data-key="robustacollab-text">Robusta doesn&rsquo;t need arabica to taste good &mdash; it can shine entirely on its own. Meet the robusta grown and processed right here in Chumphon by a new generation of young farmers, who have reinvented every step &mdash; growing, drying, sorting, and roasting &mdash; to draw out an aroma that&rsquo;s nothing short of extraordinary.</p>
+                </div>
+            </article>
+        </div>
+
+        <div class="menu-story-end" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="menu-book-box menu-book-box--drink" data-menu-type="coffee">
+        <div class="menu-book-category" id="menu-robusta" data-menu-type="coffee">
             <div class="menu-book-category-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><path d="M8 4.5c0 1-1 1-1 2M12 4.5c0 1-1 1-1 2"/></svg>
                 <h3 data-key="robusta-title">กาแฟโรบัสต้า</h3>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 010 5H17"/><path d="M8 4.5c0 1-1 1-1 2M12 4.5c0 1-1 1-1 2"/></svg>
             </div>
             <p class="menu-book-category-desc" data-key="robusta-desc">ชุมพร มหานครแห่งโรบัสต้าคุณภาพ ทุกเมล็ดมาจากเกษตรกรท้องถิ่นที่แปรรูปอย่างพิถีพิถัน ดึงเอาความหอมและเสน่ห์ของโรบัสต้าออกมาได้อย่างอัศจรรย์</p>
-
-            <div class="menu-drink-photostrip">
-                <div class="menu-story-gallery-grid">
-                    <img src="Story/robusta-1.webp" alt="Farmer sorting freshly picked Chumphon robusta coffee cherries by hand" loading="lazy">
-                    <img src="Story/robusta-2.webp" alt="A handful of ripe and unripe robusta coffee cherries" loading="lazy">
-                    <img src="Story/robusta-3.webp" alt="Hand-picking ripe red robusta coffee cherries from the branch" loading="lazy">
-                </div>
-            </div>
-
-            <div class="menu-drink-story">
-                <div class="menu-story-chapters">
-                    <article class="menu-story-chapter menu-story-chapter--robusta">
-                        <div class="menu-story-frame menu-story-frame--gallery">
-                            <div class="menu-story-gallery-grid menu-story-gallery-grid--12">
-                                <img src="Story/robusta-collab-1.webp" alt="Robusta coffee blossoms flowering on the branch" loading="lazy">
-                                <img src="Story/robusta-collab-2.webp" alt="Freshly picked robusta cherries poured onto a sorting tray" loading="lazy">
-                                <img src="Story/robusta-collab-3.webp" alt="Ripe red robusta cherries being poured out for sorting" loading="lazy">
-                                <img src="Story/robusta-collab-4.webp" alt="Farmers hand-sorting fresh robusta cherries on a mat" loading="lazy">
-                                <img src="Story/robusta-collab-5.webp" alt="A hand holding a mix of ripe and unripe robusta cherries" loading="lazy">
-                                <img src="Story/robusta-collab-6.webp" alt="Roasted robusta coffee beans inside the roasting drum" loading="lazy">
-                                <img src="Story/robusta-collab-7.webp" alt="Freshly roasted coffee beans tumbling out of the roaster" loading="lazy">
-                                <img src="Story/robusta-collab-8.webp" alt="Two iced Baan OuadChum coffee drinks on a wooden tray" loading="lazy">
-                                <img src="Story/robusta-collab-9.webp" alt="Two iced coffee drinks served on a wooden board outdoors" loading="lazy">
-                                <img src="Story/robusta-collab-10.webp" alt="Iced cacao latte served with fresh cacao pods and beans" loading="lazy">
-                                <img src="Story/robusta-collab-11.webp" alt="Iced coffee served with wildflower honey and fresh calamansi" loading="lazy">
-                                <img src="Story/robusta-collab-12.webp" alt="Iced coffee served with fresh coconut sugar" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="menu-story-spine" aria-hidden="true">
-                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
-                            <span class="menu-story-spine-node">01</span>
-                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
-                        </div>
-                        <div class="menu-story-copy">
-                            <span class="menu-partner-eyebrow" data-key="robustacollab-eyebrow">Grown by a New Generation of Farmers</span>
-                            <h3 class="menu-story-chapter-title" data-key="robustacollab-title">Chumphon Robusta</h3>
-                            <p class="menu-story-chapter-text" data-key="robustacollab-text">Robusta doesn&rsquo;t need arabica to taste good &mdash; it can shine entirely on its own. Meet the robusta grown and processed right here in Chumphon by a new generation of young farmers, who have reinvented every step &mdash; growing, drying, sorting, and roasting &mdash; to draw out an aroma that&rsquo;s nothing short of extraordinary.</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
 
             <div class="menu-book-divider-line"></div>
             <div class="menu-book-subcat" id="subcat-must-try">
@@ -4067,105 +3911,110 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="menu-book-category" id="menu-noncoffee" data-menu-type="drink">
+    <div class="menu-story" id="menuStoryNonCoffee" data-menu-type="noncoffee">
+        <div class="menu-story-head">
+            <span class="menu-story-eyebrow" data-key="drinkpartners-eyebrow">Local Ingredients</span>
+            <h2 class="menu-story-title" data-key="drinkpartners-title">Behind Every Cup</h2>
+        </div>
+
+        <div class="menu-story-chapters">
+
+            <article class="menu-story-chapter menu-story-chapter--honey">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--5">
+                        <img src="Story/honey-collab-1.webp" alt="Portrait of beekeeper Pi Jongkoy holding a bottle of wildflower honey near the hives" loading="lazy">
+                        <img src="Story/honey-collab-2.webp" alt="A hand holding a fresh piece of wild honeycomb dripping with honey" loading="lazy">
+                        <img src="Story/honey-collab-3.webp" alt="Beekeeper Pi Jongkoy at the wooden hive box" loading="lazy">
+                        <img src="Story/honey-collab-4.webp" alt="Fresh coconut sugar and an iced drink hanging from a palm tree" loading="lazy">
+                        <img src="Story/honey-collab-5.webp" alt="Wildflower honey drink, honeycomb, hive box, and honey bottle on a wooden table" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">01</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <span class="menu-partner-eyebrow" data-key="honeycollab-eyebrow">Pi Jongkoy</span>
+                    <h3 class="menu-story-chapter-title" data-key="honeycollab-title">Wildflower Honey</h3>
+                    <p class="menu-story-chapter-text" data-key="honeycollab-text">Wild honey from the South, harvested from a mixed-fruit orchard. This tunnel-hive honey carries a complex flavor &mdash; sweet with a hint of sourness. Uncle Jongkoy harvests it the conservation way, without harming the young bees, and we use his honey to add gentle sweetness across our entire Non-Coffee menu.</p>
+                </div>
+            </article>
+
+            <article class="menu-story-chapter menu-story-chapter--syrup menu-story-chapter--reverse">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--2">
+                        <img src="Story/syrup-collab-1.webp" alt="Nipa palm syrup being slow-stirred as it cooks down in the pan" loading="lazy">
+                        <img src="Story/syrup-collab-2.webp" alt="Jak Jai Group member harvesting nipa palm sap in the wetlands" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">02</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <span class="menu-partner-eyebrow" data-key="syrupcollab-eyebrow">Jak Jai Group</span>
+                    <h3 class="menu-story-chapter-title menu-partner-title"><img src="Icons/nipa-syrup.png" alt="" loading="lazy"><span data-key="syrupcollab-title">Nipa Palm Syrup</span></h3>
+                    <p class="menu-story-chapter-text" data-key="syrupcollab-text">A rare, old-style healthy sugar made from the sweet sap of nipa palm flower clusters &mdash; fragrant, with a hint of salt and caramel. It&rsquo;s the healthy sweetener behind our Es-Yen (Thai-style iced coffee).</p>
+                </div>
+            </article>
+
+            <article class="menu-story-chapter menu-story-chapter--cacao">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--2">
+                        <img src="Story/cacao-collab-1.webp" alt="Two iced J&amp;O cacao drinks on a wooden table overlooking the beach" loading="lazy">
+                        <img src="Story/cacao-collab-2.webp" alt="J&amp;O Cacao farmers holding fresh cacao pods among the trees" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">03</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <span class="menu-partner-eyebrow" data-key="cacaocollab-eyebrow">A New Generation of Farmers</span>
+                    <h3 class="menu-story-chapter-title" data-key="cacaocollab-title">J&amp;O Cacao</h3>
+                    <p class="menu-story-chapter-text" data-key="cacaocollab-text">J&amp;O crafts premium chocolate using only the Chumphon Hybrid 1 variety, rich in good fats extracted through cold-pressing with no added palm oil &mdash; better for your health. It carries a fragrant white-flower aroma, grown and processed 100% in Pathio, for an intensely rich flavor with just a hint of tartness.</p>
+                </div>
+            </article>
+
+            <article class="menu-story-chapter menu-story-chapter--coconut menu-story-chapter--reverse">
+                <div class="menu-story-frame menu-story-frame--gallery">
+                    <div class="menu-story-gallery-grid menu-story-gallery-grid--4">
+                        <img src="Story/coconut-collab-1.webp" alt="Portrait of Uncle Kanchit holding coconut palm fronds" loading="lazy">
+                        <img src="Story/coconut-collab-2.webp" alt="Fresh coconut sugar and an iced drink hanging on a coconut palm trunk" loading="lazy">
+                        <img src="Story/coconut-collab-3.webp" alt="Iced coconut sugar coffee served with the coconut sugar packaging and fresh cacao pods" loading="lazy">
+                        <img src="Story/coconut-collab-4.webp" alt="Close-up of golden coconut palm blossom clusters, the source of the sap" loading="lazy">
+                    </div>
+                </div>
+                <div class="menu-story-spine" aria-hidden="true">
+                    <span class="menu-story-spine-line menu-story-spine-line--top"></span>
+                    <span class="menu-story-spine-node">04</span>
+                    <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
+                </div>
+                <div class="menu-story-copy">
+                    <span class="menu-partner-eyebrow" data-key="coconutcollab-eyebrow">Uncle Kanchit</span>
+                    <h3 class="menu-story-chapter-title menu-partner-title"><img src="Icons/coconut-sugar.png" alt="" loading="lazy"><span data-key="coconutcollab-title">Coconut Sugar</span></h3>
+                    <p class="menu-story-chapter-text" data-key="coconutcollab-text">Sweet sap tapped from coconut palm blossoms, slow-simmered over a wood fire until it thickens into sugar. Uncle Kanchit makes it entirely by hand using traditional methods from start to finish &mdash; this sweetness is a key ingredient throughout Baan OuadChum.</p>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="menu-story-end" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="menu-book-box menu-book-box--drink" data-menu-type="noncoffee">
+        <div class="menu-book-category" id="menu-noncoffee" data-menu-type="noncoffee">
             <div class="menu-book-category-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-6 5-10 15-10-1 9-6 15-15 15z"/><path d="M4 19c3-3 7-6 10-9"/></svg>
                 <h3 data-key="noncoffee-title">Non-Coffee</h3>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-6 5-10 15-10-1 9-6 15-15 15z"/><path d="M4 19c3-3 7-6 10-9"/></svg>
             </div>
             <p class="menu-book-category-desc" data-key="noncoffee-desc">เมนูเครื่องดื่มจากวัตถุดิบท้องถิ่นในจังหวัดชุมพร เราเลือกใช้น้ำผึ้งดอกไม้ป่า น้ำตาลมะพร้าว น้ำตาลจาก ในการให้ความหวาน จึงได้เครื่องดื่มที่ละมุน ชื่นใจ และดีต่อสุขภาพ</p>
-
-            <div class="menu-drink-story">
-                <div class="menu-drink-partners-head">
-                    <span class="menu-drink-partners-eyebrow" data-key="drinkpartners-eyebrow">Local Ingredients</span>
-                    <h3 class="menu-drink-partners-title" data-key="drinkpartners-title">Behind Every Cup</h3>
-                </div>
-                <div class="menu-story-chapters">
-
-                    <article class="menu-story-chapter menu-story-chapter--honey">
-                        <div class="menu-story-frame menu-story-frame--gallery">
-                            <div class="menu-story-gallery-grid menu-story-gallery-grid--5">
-                                <img src="Story/honey-collab-1.webp" alt="Portrait of beekeeper Pi Jongkoy holding a bottle of wildflower honey near the hives" loading="lazy">
-                                <img src="Story/honey-collab-2.webp" alt="A hand holding a fresh piece of wild honeycomb dripping with honey" loading="lazy">
-                                <img src="Story/honey-collab-3.webp" alt="Beekeeper Pi Jongkoy at the wooden hive box" loading="lazy">
-                                <img src="Story/honey-collab-4.webp" alt="Fresh coconut sugar and an iced drink hanging from a palm tree" loading="lazy">
-                                <img src="Story/honey-collab-5.webp" alt="Wildflower honey drink, honeycomb, hive box, and honey bottle on a wooden table" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="menu-story-spine" aria-hidden="true">
-                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
-                            <span class="menu-story-spine-node">01</span>
-                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
-                        </div>
-                        <div class="menu-story-copy">
-                            <span class="menu-partner-eyebrow" data-key="honeycollab-eyebrow">Pi Jongkoy</span>
-                            <h3 class="menu-story-chapter-title" data-key="honeycollab-title">Wildflower Honey</h3>
-                            <p class="menu-story-chapter-text" data-key="honeycollab-text">Wild honey from the South, harvested from a mixed-fruit orchard. This tunnel-hive honey carries a complex flavor &mdash; sweet with a hint of sourness. Uncle Jongkoy harvests it the conservation way, without harming the young bees, and we use his honey to add gentle sweetness across our entire Non-Coffee menu.</p>
-                        </div>
-                    </article>
-
-                    <article class="menu-story-chapter menu-story-chapter--syrup menu-story-chapter--reverse">
-                        <div class="menu-story-frame menu-story-frame--gallery">
-                            <div class="menu-story-gallery-grid menu-story-gallery-grid--2">
-                                <img src="Story/syrup-collab-1.webp" alt="Nipa palm syrup being slow-stirred as it cooks down in the pan" loading="lazy">
-                                <img src="Story/syrup-collab-2.webp" alt="Jak Jai Group member harvesting nipa palm sap in the wetlands" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="menu-story-spine" aria-hidden="true">
-                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
-                            <span class="menu-story-spine-node">02</span>
-                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
-                        </div>
-                        <div class="menu-story-copy">
-                            <span class="menu-partner-eyebrow" data-key="syrupcollab-eyebrow">Jak Jai Group</span>
-                            <h3 class="menu-story-chapter-title menu-partner-title"><img src="Icons/nipa-syrup.png" alt="" loading="lazy"><span data-key="syrupcollab-title">Nipa Palm Syrup</span></h3>
-                            <p class="menu-story-chapter-text" data-key="syrupcollab-text">A rare, old-style healthy sugar made from the sweet sap of nipa palm flower clusters &mdash; fragrant, with a hint of salt and caramel. It&rsquo;s the healthy sweetener behind our Es-Yen (Thai-style iced coffee).</p>
-                        </div>
-                    </article>
-
-                    <article class="menu-story-chapter menu-story-chapter--cacao">
-                        <div class="menu-story-frame menu-story-frame--gallery">
-                            <div class="menu-story-gallery-grid menu-story-gallery-grid--2">
-                                <img src="Story/cacao-collab-1.webp" alt="Two iced J&amp;O cacao drinks on a wooden table overlooking the beach" loading="lazy">
-                                <img src="Story/cacao-collab-2.webp" alt="J&amp;O Cacao farmers holding fresh cacao pods among the trees" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="menu-story-spine" aria-hidden="true">
-                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
-                            <span class="menu-story-spine-node">03</span>
-                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
-                        </div>
-                        <div class="menu-story-copy">
-                            <span class="menu-partner-eyebrow" data-key="cacaocollab-eyebrow">A New Generation of Farmers</span>
-                            <h3 class="menu-story-chapter-title" data-key="cacaocollab-title">J&amp;O Cacao</h3>
-                            <p class="menu-story-chapter-text" data-key="cacaocollab-text">J&amp;O crafts premium chocolate using only the Chumphon Hybrid 1 variety, rich in good fats extracted through cold-pressing with no added palm oil &mdash; better for your health. It carries a fragrant white-flower aroma, grown and processed 100% in Pathio, for an intensely rich flavor with just a hint of tartness.</p>
-                        </div>
-                    </article>
-
-                    <article class="menu-story-chapter menu-story-chapter--coconut menu-story-chapter--reverse">
-                        <div class="menu-story-frame menu-story-frame--gallery">
-                            <div class="menu-story-gallery-grid menu-story-gallery-grid--4">
-                                <img src="Story/coconut-collab-1.webp" alt="Portrait of Uncle Kanchit holding coconut palm fronds" loading="lazy">
-                                <img src="Story/coconut-collab-2.webp" alt="Fresh coconut sugar and an iced drink hanging on a coconut palm trunk" loading="lazy">
-                                <img src="Story/coconut-collab-3.webp" alt="Iced coconut sugar coffee served with the coconut sugar packaging and fresh cacao pods" loading="lazy">
-                                <img src="Story/coconut-collab-4.webp" alt="Close-up of golden coconut palm blossom clusters, the source of the sap" loading="lazy">
-                            </div>
-                        </div>
-                        <div class="menu-story-spine" aria-hidden="true">
-                            <span class="menu-story-spine-line menu-story-spine-line--top"></span>
-                            <span class="menu-story-spine-node">04</span>
-                            <span class="menu-story-spine-line menu-story-spine-line--bottom"></span>
-                        </div>
-                        <div class="menu-story-copy">
-                            <span class="menu-partner-eyebrow" data-key="coconutcollab-eyebrow">Uncle Kanchit</span>
-                            <h3 class="menu-story-chapter-title menu-partner-title"><img src="Icons/coconut-sugar.png" alt="" loading="lazy"><span data-key="coconutcollab-title">Coconut Sugar</span></h3>
-                            <p class="menu-story-chapter-text" data-key="coconutcollab-text">Sweet sap tapped from coconut palm blossoms, slow-simmered over a wood fire until it thickens into sugar. Uncle Kanchit makes it entirely by hand using traditional methods from start to finish &mdash; this sweetness is a key ingredient throughout Baan OuadChum.</p>
-                        </div>
-                    </article>
-
-                </div>
-            </div>
 
             <div class="menu-book-divider-line"></div>
             <div class="menu-book-subcat" id="subcat-honey-lover">
@@ -4789,9 +4638,7 @@ const langData = {
         "story-ch2-text": "Our pesticide-free vegetables started small — just enough to feed ourselves — before growing into every spare patch of land on the property, tended by hand by our housekeepers. We compost our own food scraps and fallen leaves for fertilizer, and buy the rest from the community and Ban Hin Kop School. They may not look picture-perfect, but they're completely chemical-free — sweet, crisp, and full of flavor.",
         "story-ch3-title": "From The Sea",
         "story-ch3-text": "Baan OuadChum's seafood comes straight from local small-scale fishermen — small boats, caught day by day — so every ingredient stays fresh and full of flavor, true to the local way of life. We buy by the season and never stockpile until the taste fades, cooking everything simply so the main ingredient can speak for itself.",
-        "story-veggie-title": "Getting to Know Our Fence-Side Greens",
-        "story-veggie-text": "\"Phak Mueat\" (or \"phak naem\") are the side greens served alongside nam prik and the South's boldly-spiced dishes — there to cool the heat and round out the flavor of every bite, while packing in plenty of goodness of their own. Many of these wild, local greens carry medicinal properties and double as herbal remedies, true to the old saying: \"let food be your medicine.\"",
-        "filter-menu-all": "All", "filter-menu-food": "Food", "filter-menu-drink": "Drink",
+        "filter-menu-food": "Food", "filter-menu-coffee": "Coffee", "filter-menu-noncoffee": "Non-Coffee",
         "hero-badge": "Coming Soon", "hero-title": "Our Menu Is Coming Soon", "hero-desc": "We're preparing great food and drinks for you at Baan OuadChum.",
         "card-badge": "Coming Soon",
         "card1-title": "New Menu Item Coming Soon", "card2-title": "New Menu Item Coming Soon", "card3-title": "New Menu Item Coming Soon",
@@ -4901,10 +4748,8 @@ const langData = {
         "story-ch2-text": "ผักปลอดสารพิษของเรา เริ่มจากปลูกไว้ทานกันเอง จากนั้นขยายพื้นที่ปลูกในที่ว่างในโครงการ โดยมีแม่บ้านคอยดูแลอย่างพิถีพิถัน เราใช้ปุ๋ยหมักจากเศษอาหารและใบไม้ ผักบางส่วนรับซื้อจากชุมชนและจาก ร.ร.บ้านหินกบ ถึงแม้ผักจะรูปร่างไม่สวย แต่ปลอดจากสารเคมี รสชาติหวานกรอบอร่อย",
         "story-ch3-title": "จากท้องทะเล",
         "story-ch3-text": "อาหารทะเลของบ้านอวดชุม เรารับจากชาวบ้านที่ทำประมงพื้นบ้าน ใช้เรือเล็ก จับแบบวันต่อวัน อาหารและวัตถุดิบจึงสดใหม่ รสชาติอร่อย สะท้อนวิถีชีวิตท้องถิ่น เรารับซื้อวัตถุดิบตามฤดูกาล ไม่สต๊อกไว้นานจนเสียรสชาติ ปรุงด้วยความเรียบง่าย เน้นชูวัตถุดิบหลักเป็นสำคัญ",
-        "story-veggie-title": "รู้จักผักเหมือดรอบรั้ว",
-        "story-veggie-text": "ผักเหมือด หรือผักแนม คือผักเคียงที่เสิร์ฟพร้อมกับน้ำพริก และอาหารใต้รสจัด เพื่อลดความเผ็ดเพิ่มรสชาติในการกิน และยังมีคุณประโยชน์มากมาย ซึ่งผักพื้นบ้านหลายชนิดยังมีสรรพคุณทางยาและเป็นสมุนไพรอีกด้วย ตามคำที่กล่าวไว้ว่า \"กินอาหารให้เป็นยา\"",
 
-        "filter-menu-all": "ทั้งหมด", "filter-menu-food": "อาหาร", "filter-menu-drink": "เครื่องดื่ม",
+        "filter-menu-food": "อาหาร", "filter-menu-coffee": "กาแฟ", "filter-menu-noncoffee": "ไม่ใช่กาแฟ",
         "hero-badge": "เร็วๆ นี้", "hero-title": "เมนูกำลังจะมาเร็วๆ นี้", "hero-desc": "เรากำลังเตรียมเมนูอาหารและเครื่องดื่มดีๆ ไว้ให้คุณที่บ้านอวดชุม",
         "card-badge": "เร็วๆ นี้",
         "card1-title": "เมนูใหม่กำลังจะมา", "card2-title": "เมนูใหม่กำลังจะมา", "card3-title": "เมนูใหม่กำลังจะมา",
@@ -5118,25 +4963,28 @@ function closeBookingDrawer() {
 
 
 function filterMenuType(type, btnEl) {
+    // Each tab (Food/Coffee/Non-Coffee) has its own "Behind Every..." story
+    // section - show only the one matching the selected tab so switching
+    // tabs doesn't leave an unrelated story sitting on screen.
+    document.querySelectorAll(".menu-story[data-menu-type]").forEach(story => {
+        story.style.display = (story.dataset.menuType === type) ? "" : "none";
+    });
     document.querySelectorAll(".menu-book-category").forEach(section => {
-        section.style.display = (type === "all" || section.dataset.menuType === type) ? "" : "none";
+        section.style.display = (section.dataset.menuType === type) ? "" : "none";
     });
-    // Food and Drink now live in their own separately-themed boxes - hide
-    // the whole box (not just the categories inside it) when its type isn't
-    // selected, so an empty colored card doesn't linger on screen.
+    // Food, Coffee, and Non-Coffee each live in their own separately-themed
+    // box - hide the whole box (not just the categories inside it) when its
+    // type isn't selected, so an empty colored card doesn't linger on screen.
     document.querySelectorAll(".menu-book-box[data-menu-type]").forEach(box => {
-        box.style.display = (type === "all" || box.dataset.menuType === type) ? "" : "none";
+        box.style.display = (box.dataset.menuType === type) ? "" : "none";
     });
-    // The subcategory chip row only makes sense once you've narrowed down to
-    // Food or Drink - under "All" there's nothing for it to filter, so it
-    // stays hidden entirely rather than showing all 16 at once.
     const subcatFilter = document.getElementById("menuSubcatFilter");
-    if (subcatFilter) subcatFilter.style.display = (type === "all") ? "none" : "";
+    if (subcatFilter) subcatFilter.style.display = "";
     document.querySelectorAll(".menu-subcat-chip").forEach(chip => {
-        chip.style.display = (type === "all" || chip.dataset.menuType === type) ? "" : "none";
+        chip.style.display = (chip.dataset.menuType === type) ? "" : "none";
     });
     // Reset any per-subcategory filtering from the chip row below, since it
-    // no longer applies once the top-level All/Food/Drink selection changes.
+    // no longer applies once the top-level Food/Coffee/Non-Coffee selection changes.
     document.querySelectorAll(".menu-book-subcat").forEach(sc => {
         sc.style.display = "";
         sc.classList.remove("subcat-solo");
@@ -5235,10 +5083,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Don't rely on "nothing has hidden these yet" as the default state for
     // the menu's category/subcategory filters - explicitly (re)apply the
-    // "All" filter on load so every category, subcategory, and chip is
-    // guaranteed visible from the start, the same way clicking "All" would.
-    const menuFilterAllBtn = document.getElementById("menuFilterAllBtn");
-    if (menuFilterAllBtn) filterMenuType("all", menuFilterAllBtn);
+    // "Food" filter on load so it matches the active button and only food
+    // categories/subcategories/chips are visible from the start.
+    const menuFilterFoodBtn = document.getElementById("menuFilterFoodBtn");
+    if (menuFilterFoodBtn) filterMenuType("food", menuFilterFoodBtn);
 
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
@@ -5272,35 +5120,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
 })();
 </script>
-<script>
-(function () {
-    const wrap = document.getElementById('menuHeroVideoWrap');
-    if (!wrap) return;
-    // The looping background video pulls several MB (video stream plus the
-    // YouTube player's own JS/CSS) purely for decoration. Skip it - keeping
-    // the plain dark background the CSS already provides - for anyone on a
-    // metered/slow connection or who has asked for reduced motion, so the
-    // heaviest thing on the page isn't forced on people who can least
-    // afford it.
-    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = !!(conn && conn.saveData);
-    const slowConnection = !!(conn && /^(slow-2g|2g|3g)$/.test(conn.effectiveType || ''));
-    if (prefersReducedMotion || saveData || slowConnection) return;
-    function load() {
-        const id = 'O-NpuUy0SsM';
-        const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&cc_load_policy=0`;
-        wrap.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media" title="Baan OuadChum background video"></iframe>`;
-    }
-    const idle = window.requestIdleCallback || (cb => setTimeout(cb, 300));
-    if (document.readyState === 'complete') {
-        idle(load);
-    } else {
-        window.addEventListener('load', () => idle(load), { once: true });
-    }
-})();
-</script>
-
 <script>
 const AVAILABILITY_WEEKDAYS = {
     th: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
