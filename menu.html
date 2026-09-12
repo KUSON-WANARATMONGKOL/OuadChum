@@ -4997,15 +4997,26 @@ function filterMenuType(type, btnEl) {
     btnEl.classList.add("active");
 }
 
-// Chip row is multi-select: each chip toggles independently (clicking an
-// already-active chip deselects it) instead of one chip exclusively
-// replacing another. activeSubcatChips maps each active chip button to the
-// subcat/story ids it controls, and applySubcatFilters() re-derives the
-// full visible set (union of every active chip) on every toggle.
+// activeSubcatChips maps each active chip button to the subcat/story ids it
+// controls; applySubcatFilters() re-derives the full visible set (union of
+// every active chip) on every toggle. Food's row (which includes the
+// "Behind Every Meal" story chip) is single-select - picking one clears
+// any other active Food chip first, same as a radio button - while other
+// tabs' rows (e.g. Non-Coffee) stay multi-select: several chips can be on
+// together, and clicking an active chip again just deselects it.
 const activeSubcatChips = new Map();
 
 function toggleSubcatFilter(ids, btnEl) {
-    const nowActive = btnEl.classList.toggle("active");
+    const nowActive = !btnEl.classList.contains("active");
+    if (btnEl.dataset.menuType === "food") {
+        [...activeSubcatChips.keys()].forEach(chip => {
+            if (chip.dataset.menuType === "food" && chip !== btnEl) {
+                chip.classList.remove("active");
+                activeSubcatChips.delete(chip);
+            }
+        });
+    }
+    btnEl.classList.toggle("active", nowActive);
     if (nowActive) activeSubcatChips.set(btnEl, ids);
     else activeSubcatChips.delete(btnEl);
     applySubcatFilters();
