@@ -160,6 +160,20 @@
     </image:image>
   </url>
   <url>
+    <loc>https://ouadchum.com/impact.html</loc>
+    <lastmod>2026-09-15T00:00:00+07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://ouadchum.com/Background/BGimpac.webp</image:loc>
+      <image:title>OuadChum Impact: Business to Help</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ouadchum.com/5%20Core%20Dimention/Education.webp</image:loc>
+      <image:title>OuadChum Impact: the Bee Wisdom education project</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://ouadchum.com/project.html</loc>
     <lastmod>2026-08-18T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>

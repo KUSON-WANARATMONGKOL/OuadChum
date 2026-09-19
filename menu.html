@@ -1296,6 +1296,7 @@ nav{
 .menu-story-chapter--robusta .menu-story-frame { background: linear-gradient(155deg, #f7ede0 0%, #e3c9a6 100%); }
 .menu-story-chapter--honey { --story-accent: #c8952c; }
 .menu-story-chapter--honey .menu-story-frame { background: linear-gradient(155deg, #fdf3dd 0%, #f2dfa8 100%); }
+.menu-story-chapter--honey .menu-story-frame--gallery { max-width: 340px; }
 .menu-story-chapter--syrup { --story-accent: #a9752f; }
 .menu-story-chapter--syrup .menu-story-frame { background: linear-gradient(155deg, #f8efdf 0%, #e9d3ac 100%); }
 .menu-story-chapter--cacao { --story-accent: #6b3f2a; }
@@ -2504,6 +2505,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         <a href="workshop.html" data-key="menu-workshop" onclick="closeMenu()">เวิร์คช็อป</a>
         <a href="menu.html" data-key="menu-menu" onclick="event.preventDefault(); closeMenu(); window.scrollTo({top:0, behavior:'smooth'});">เมนู</a>
         <a href="product.html" data-key="menu-product" onclick="closeMenu()">สินค้า</a>
+        <a href="impact.html" data-key="menu-impact" onclick="closeMenu()">ธุรกิจเพื่อช่วย</a>
         <a href="articles.html" data-key="menu-articles" onclick="closeMenu()">สื่อ</a>
     </div>
 </div>
@@ -4623,7 +4625,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 // Translation Database
 const langData = {
     en: {
-        "menu-about": "Home", "menu-stay": "Stay", "menu-workshop": "Workshop", "menu-menu": "Menu", "menu-product": "Product", "menu-articles": "Articles",
+        "menu-about": "Home", "menu-stay": "Stay", "menu-workshop": "Workshop", "menu-menu": "Menu", "menu-product": "Product", "menu-impact": "Impact", "menu-articles": "Articles",
         "btn-reserve": "Reserve",
         "page-sub": "Our Menu", "page-title": "Food & Drink",
         "page-desc": "Food and drinks from Baan OuadChum. New menu items are being added little by little — browse by category below.",
@@ -4733,7 +4735,7 @@ const langData = {
         "badge-recommended": "Recommended",
     },
     th: {
-        "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-product": "สินค้า", "menu-articles": "สื่อ",
+        "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-product": "สินค้า", "menu-impact": "ธุรกิจเพื่อช่วย", "menu-articles": "สื่อ",
         "btn-reserve": "ติดต่อ",
         "page-sub": "เมนูของเรา", "page-title": "Food & Drink",
         "page-desc": "อาหารและเครื่องดื่มจากบ้านต้นไม้อวดชุม รายการเมนูกำลังทยอยเพิ่มเข้ามา เลือกดูตามหมวดด้านล่าง",

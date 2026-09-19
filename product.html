@@ -2496,6 +2496,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         <a href="workshop.html" data-key="menu-workshop" onclick="closeMenu()">เวิร์คช็อป</a>
         <a href="menu.html" data-key="menu-menu" onclick="closeMenu()">เมนู</a>
         <a href="product.html" data-key="menu-product" onclick="event.preventDefault(); closeMenu(); window.scrollTo({top:0, behavior:'smooth'});">สินค้า</a>
+        <a href="impact.html" data-key="menu-impact" onclick="closeMenu()">ธุรกิจเพื่อช่วย</a>
         <a href="articles.html" data-key="menu-articles" onclick="closeMenu()">สื่อ</a>
     </div>
 </div>
@@ -2730,6 +2731,17 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 <p class="product-card-desc" data-key="honeyhinkop-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
                 <div class="product-card-bottom-row">
                     <span class="product-card-price" data-key="honeyhinkop-price">เร็วๆ นี้</span>
+                    <span class="product-card-arrow">›</span>
+                </div>
+            </div>
+        </button>
+        <button type="button" class="card product-card" onclick="openProductModal('wildhoneycomb')">
+            <div class="product-card-photo"><img src="Product/wildhoneycomb.webp" alt="" loading="lazy"></div>
+            <span class="product-card-name" data-key="wildhoneycomb-title">รังผึ้งโพรงดอกไม้ป่าแดนใต้</span>
+            <div class="product-card-detail">
+                <p class="product-card-desc" data-key="wildhoneycomb-desc">รายละเอียดสินค้าจะเพิ่มเข้ามาเร็วๆ นี้</p>
+                <div class="product-card-bottom-row">
+                    <span class="product-card-price" data-key="wildhoneycomb-price">เร็วๆ นี้</span>
                     <span class="product-card-arrow">›</span>
                 </div>
             </div>
@@ -3025,7 +3037,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 // Translation Database
 const langData = {
     en: {
-        "menu-about": "Home", "menu-stay": "Stay", "menu-workshop": "Workshop", "menu-menu": "Menu", "menu-articles": "Articles",
+        "menu-about": "Home", "menu-stay": "Stay", "menu-workshop": "Workshop", "menu-menu": "Menu", "menu-impact": "Impact", "menu-articles": "Articles",
         "btn-reserve": "Reserve",
         "page-sub": "Our Products", "page-title": "Community Products",
         "page-desc": "Products from the local community around Baan OuadChum, part of our Business to Help approach.",
@@ -3051,6 +3063,7 @@ const langData = {
         "wildhoney-title": "Wildflower Raw Honey", "wildhoney-desc": "Nectar from a mixed deciduous forest - a complex, mellow, sweet-and-sour flavor, never heat-treated so all its natural properties stay intact.", "wildhoney-price": "360 ml / 360 THB",
         "honeythairat-title": "Mangkrai Flower Honey — Thairat School", "honeythairat-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeythairat-price": "330 ml / 400 THB",
         "honeyhinkop-title": "Mangkrai Flower Honey — Hinkop School", "honeyhinkop-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeyhinkop-price": "330 ml / 400 THB",
+        "wildhoneycomb-title": "Wildflower Raw Honeycomb — Southern Thailand", "wildhoneycomb-desc": "Made using Uncle Jongkoy's conservation-style method that protects the young bee brood - raw, never heat-treated, and rich in antioxidants.", "wildhoneycomb-price": "250 g / 200 THB",
         "saltedfish-title": "Fragrant Salted Kulao Fish", "saltedfish-desc": "Young kulao fish, salted fresh off coastal fishing boats and cured immediately - firm, pink, fragrant, and rich in natural oil. (Pre-sliced)", "saltedfish-price": "120 THB per 100g",
         "beeswaxwrap-title": "Beeswax Food Wrap by Young Entrepreneurs", "beeswaxwrap-desc": "Natural beeswax-coated cloth for wrapping fruit, vegetables, and food - keeps it fresh, seals in aroma, and can be reused for 2-3 years.", "beeswaxwrap-price": "25x25 cm / 90 THB, 30x30 cm / 100 THB",
         "beeplate-title": "Bee Conservation Pattern Plate", "beeplate-desc": "A ceramic plate depicting the conservation-style honey harvesting method, hand-painted using the 'needle-pricking' technique invented by Khun Jongkoy.", "beeplate-price": "28 x 41 x 3 cm (W x L x H) / 590 THB",
@@ -3090,7 +3103,7 @@ const langData = {
         "footer-title": "Baan OuadChum Coastal Treehouse"
     },
     th: {
-        "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-articles": "สื่อ",
+        "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-impact": "ธุรกิจเพื่อช่วย", "menu-articles": "สื่อ",
         "btn-reserve": "ติดต่อ",
         "page-sub": "สินค้าของเรา", "page-title": "สินค้าชุมชน",
         "page-desc": "ผลิตภัณฑ์จากชุมชนท้องถิ่นจังหวัดชุมพร ส่วนหนึ่งของแนวคิด Business to Help",
@@ -3116,6 +3129,7 @@ const langData = {
         "wildhoney-title": "น้ำผึ้งดอกไม้ป่า", "wildhoney-desc": "น้ำหวานจากป่าเบญจพรรณ รสชาติซับซ้อน ละมุน หวานอมเปรี้ยว ไม่ผ่านความร้อน ทำให้คงสรรพคุณไว้ครบ", "wildhoney-price": "360 ml. / 360 บาท",
         "honeythairat-title": "น้ำผึ้งดอกเสม็ดขาว จากนักธุรกิจน้อย รร. ไทยรัฐ๗๘ (วัดสามัคคีชัย)", "honeythairat-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeythairat-price": "330 ml. / 400 บาท",
         "honeyhinkop-title": "น้ำผึ้งดอกมังเคร จากนักธุรกิจน้อย รร.บ้านหินกบ", "honeyhinkop-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeyhinkop-price": "330 ml. / 400 บาท",
+        "wildhoneycomb-title": "รังผึ้งโพรงดอกไม้ป่าแดนใต้", "wildhoneycomb-desc": "จากการผลิตน้ำผึ้งแบบ 'อนุรักษ์' ของลุงจงโกย รักษาตัวอ่อน ไม่ผ่านความร้อน อุดมไปด้วยสารอาหารต้านอนุมูลอิสระ", "wildhoneycomb-price": "250 กรัม / 200 บาท",
         "saltedfish-title": "ปลากุเลาเค็มหอม", "saltedfish-desc": "ปลากุเลาอ่อนเค็มจากเรือประมงชายฝั่ง จับและหมักทันที ทำให้เนื้อแน่น ชมพู หอม ชุ่มไขมัน (ทุกตัวหั่นชิ้นแล้ว)", "saltedfish-price": "ขีดละ 120 บาท",
         "beeswaxwrap-title": "ผ้าไขผึ้งถนอมอาหารจากนักธุรกิจน้อย", "beeswaxwrap-desc": "ผ้าชุบไขผึ้งธรรมชาติ ห่อผักผลไม้ ห่ออาหาร ช่วยคงความสด เก็บกลิ่น ใช้ซ้ำได้ 2-3 ปี", "beeswaxwrap-price": "25x25 ซม. / 90 บาท, 30x30 ซม. / 100 บาท",
         "beeplate-title": "จานลายการอนุรักษ์ผึ้ง", "beeplate-desc": "จานเซรามิกบอกเล่าวิธีการเก็บน้ำผึ้งแบบอนุรักษ์ด้วยเทคนิคแทงเข็ม คิดค้นโดยคุณจงโกย", "beeplate-price": "กว้าง 28 x ยาว 41 x สูง 3 ซม. / 590 บาท",
@@ -3282,6 +3296,7 @@ const productMeta = {
     wildhoney: { icon: 'honey', photo: 'Product/wildhoney.webp', galleryCount: 4 },
     honeythairat: { icon: 'honeycomb', photo: 'Product/honeythairat.webp' },
     honeyhinkop: { icon: 'honeycomb', photo: 'Product/honeyhinkop.webp', galleryCount: 4 },
+    wildhoneycomb: { icon: 'honeycomb', photo: 'Product/wildhoneycomb.webp', galleryCount: 2 },
     saltedfish: { icon: 'fish', photo: 'Product/saltedfish.webp', galleryCount: 4 },
     beeswaxwrap: { icon: 'wrap', photo: 'Product/beeswaxwrap.webp', galleryCount: 4 },
     beeplate: { icon: 'plate', photo: 'Product/beeplate.webp' }
@@ -3615,6 +3630,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedLang = localStorage.getItem("preferredLang");
     switchLanguage(savedLang === "en" ? "en" : "th");
     initMapLoader();
+
+    // Deep link support: ?product=<id> (e.g. from the Impact page's product
+    // frames) opens that product's detail modal straight away on arrival.
+    const requestedProduct = new URLSearchParams(location.search).get("product");
+    if (requestedProduct && productMeta[requestedProduct]) {
+        openProductModal(requestedProduct);
+    }
 
     // Click-outside and Escape-to-close for every ".modal" (productModal,
     // reserveModal, availabilityModal, ...). Relies on each modal having a
