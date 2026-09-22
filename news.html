@@ -591,13 +591,8 @@ nav{
    uniform row of equal-sized blocks. */
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-}
-@media (max-width: 1000px) {
-    .news-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 @media (max-width: 600px) {
     .news-grid {
@@ -1169,36 +1164,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </a>
 
     <div class="news-grid">
-        <a class="card news-card" style="--news-accent:#b3946b;" href="https://www.haadthip.com/th/newsroom/haadthip-journey/569/%E0%B8%AD%E0%B8%A7%E0%B8%94%E0%B8%8A%E0%B8%B8%E0%B8%A1-%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%9C%E0%B8%B7%E0%B8%99%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B9%88%E0%B8%B2-%E0%B8%AA%E0%B8%B9%E0%B9%88%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%88%E0%B8%B1%E0%B8%9A%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%8A%E0%B8%B2%E0%B8%A7%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%A7%E0%B8%94%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%9B%E0%B8%B1%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B8%9E%E0%B8%A3" target="_blank" rel="noopener noreferrer">
-            <div class="img-wrapper">
-                <img class="card-img" src="https://www.haadthip.com/storage/newsroom/haadthip-journey/2026/06/20260622-115724-1.webp" alt="" loading="lazy">
-                <span class="news-card-badge" data-key="news2-source">หาดทิพย์</span>
-            </div>
-            <div class="card-body">
-                <h3 data-key="news2-title">อวดชุม จากผืนดินว่างเปล่า สู่การจับมือชาวบ้านอวดภูมิปัญญาเมืองชุมพร</h3>
-                <p class="news-desc" style="color: #666; font-size: 0.95rem;" data-key="news2-desc">"อวดชุม" ศูนย์กลางชุมชนที่เกิดจากการรวมตัวของภาคเอกชน มหาวิทยาลัย และชุมชน เพื่อพัฒนาทรัพยากรท้องถิ่นและส่งเสริมภูมิปัญญาในจังหวัดชุมพรให้เป็นที่รู้จักในตลาด</p>
-                <span class="news-card-link">
-                    <span data-key="news-read-more">อ่านต่อ</span>
-                    <span class="news-card-arrow"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M9 7h8v8"/></svg></span>
-                </span>
-            </div>
-        </a>
-
-        <a class="card news-card" style="--news-accent:#909fa0;" href="https://www.coffeetravelermagazine.com/post/baan-ouadchum-treehouse" target="_blank" rel="noopener noreferrer">
-            <div class="img-wrapper">
-                <img class="card-img" src="https://static.wixstatic.com/media/416a01_bc5f00981e214c4c9fc70b595becf303~mv2.jpg" alt="" loading="lazy">
-                <span class="news-card-badge" data-key="news3-source">Coffee Traveller</span>
-            </div>
-            <div class="card-body">
-                <h3 data-key="news3-title">Baan OuadChum Treehouse</h3>
-                <p class="news-desc" style="color: #666; font-size: 0.95rem;" data-key="news3-desc">"บ้านต้นไม้อวดชุม" ร้านกาแฟกลางป่าในชุมพร ออกแบบด้วยสถาปัตยกรรมไม้เอกลักษณ์ ยึดหลักการพัฒนาชุมชนและอยู่ร่วมกับธรรมชาติอย่างยั่งยืน</p>
-                <span class="news-card-link">
-                    <span data-key="news-read-more">อ่านต่อ</span>
-                    <span class="news-card-arrow"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M9 7h8v8"/></svg></span>
-                </span>
-            </div>
-        </a>
-
         <a class="card news-card" style="--news-accent:#3E723B;" href="https://today.line.me/th/v3/article/RB6P6Qm" target="_blank" rel="noopener noreferrer">
             <div class="img-wrapper">
                 <img class="card-img" src="Philosophy/DSC07894.webp" alt="" loading="lazy">
@@ -1374,8 +1339,6 @@ const langData = {
         "btn-reserve": "Reserve",
         "news-sub": "In the Press", "news-title": "News & Media Coverage",
         "news1-source": "The Cloud", "news1-title": "Baan OuadChum: A Treehouse by the Sea in Pathio, Chumphon", "news1-desc": "A travel feature from The Cloud introducing Baan OuadChum's treehouses and coastal community space in Pathio, Chumphon.",
-        "news2-source": "Haadthip", "news2-title": "OuadChum: From Empty Land to a Community Partnership Showcasing Chumphon's Local Wisdom", "news2-desc": "OuadChum is a community hub formed by the private sector, universities, and the community to develop local resources and bring Chumphon's local wisdom to market.",
-        "news3-source": "Coffee Traveller", "news3-title": "Baan OuadChum Treehouse", "news3-desc": "Baan OuadChum Treehouse is a forest cafe in Chumphon with a signature timber design rooted in community development and sustainable coexistence with nature.",
         "news4-source": "Prachachat Business", "news4-title": "'OuadChum' Treehouse: A Community Bond with a Business Family", "news4-desc": "The Baan OuadChum Treehouse project is a community hub linking the private sector, universities, and the community in Chumphon, developing local products and sustainable tourism.",
         "news5-source": "dsign something", "news5-title": "Baan OuadChum: A Treehouse That Grows With Recycled Steel, Reclaimed Wood, and Stainless Shafts", "news5-desc": "A coastal community center project in Chumphon blending modern architecture with nature, designed to grow alongside its large trees and local surroundings sustainably.",
         "news-read-more": "Read article",
@@ -1405,8 +1368,6 @@ const langData = {
         "btn-reserve": "ติดต่อ",
         "news-sub": "สื่อพูดถึงเรา", "news-title": "ข่าวสารและรีวิวจากสื่อ",
         "news1-source": "The Cloud", "news1-title": "บ้านอวดชุม บ้านต้นไม้ริมทะเลปะทิว ชุมพร", "news1-desc": "บทความท่องเที่ยวจาก The Cloud ที่พาไปรู้จักบ้านต้นไม้และพื้นที่ชุมชนอวดชุม ริมทะเลอำเภอปะทิว จังหวัดชุมพร",
-        "news2-source": "หาดทิพย์", "news2-title": "อวดชุม จากผืนดินว่างเปล่า สู่การจับมือชาวบ้านอวดภูมิปัญญาเมืองชุมพร", "news2-desc": "\"อวดชุม\" ศูนย์กลางชุมชนที่เกิดจากการรวมตัวของภาคเอกชน มหาวิทยาลัย และชุมชน เพื่อพัฒนาทรัพยากรท้องถิ่นและส่งเสริมภูมิปัญญาในจังหวัดชุมพรให้เป็นที่รู้จักในตลาด",
-        "news3-source": "Coffee Traveller", "news3-title": "Baan OuadChum Treehouse", "news3-desc": "\"บ้านต้นไม้อวดชุม\" ร้านกาแฟกลางป่าในชุมพร ออกแบบด้วยสถาปัตยกรรมไม้เอกลักษณ์ ยึดหลักการพัฒนาชุมชนและอยู่ร่วมกับธรรมชาติอย่างยั่งยืน",
         "news4-source": "ประชาชาติธุรกิจ", "news4-title": "'อวดชุม' บ้านต้นไม้ สายใยชุมชนกับตระกูลเจ้าสัว", "news4-desc": "โครงการ \"บ้านต้นไม้อวดชุม\" ศูนย์กลางชุมชนที่เชื่อมโยงภาคเอกชน มหาวิทยาลัย และชุมชนในจังหวัดชุมพร มุ่งพัฒนาผลิตภัณฑ์ท้องถิ่นและการท่องเที่ยวอย่างยั่งยืน",
         "news5-source": "dsign something", "news5-title": "บ้านอวดชุม บ้านต้นไม้ที่เติบโตไปพร้อมกับโครงสร้างเหล็กฉากรีไซเคิล ไม้เก่า และเพลาสแตนเลส", "news5-desc": "โครงการศูนย์ชุมชนริมทะเลในจังหวัดชุมพรที่ผสมผสานสถาปัตยกรรมสมัยใหม่กับธรรมชาติ ออกแบบให้เติบโตไปพร้อมกับต้นไม้ใหญ่และสภาพแวดล้อมท้องถิ่นอย่างยั่งยืน",
         "news-read-more": "อ่านต่อ",
