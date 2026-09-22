@@ -1045,44 +1045,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     .impact-support-steps { grid-template-columns: 1fr; row-gap: 30px; }
 }
 
-/* Smaller horizontal scrolling photo strip - two rows of thumbnails the
-   visitor swipes/scrolls through left-to-right, instead of one big square
-   photo wall, so the area overview stays light rather than a heavy block. */
-.impact-overview-scroll {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(2, 1fr);
-    grid-auto-columns: 140px;
-    gap: 8px;
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 12px;
-    margin-bottom: 60px;
-}
-.impact-overview-scroll figure {
-    margin: 0;
-    scroll-snap-align: start;
-    position: relative;
-    height: 92px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(0,0,0,0.05);
-}
-.impact-overview-scroll img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.impact-overview-scroll figure:hover img { transform: scale(1.09); }
-@media (max-width: 600px) {
-    .impact-overview-scroll { grid-auto-columns: 110px; }
-    .impact-overview-scroll figure { height: 76px; }
-}
-
 /* Square photo-wall grid used inside the Education panel's own mini
    overview ("Bee Wisdom Project Overview") - frame = rounded outer border +
    shadow + a thin inset ring per tile, per the brief that every picture on
@@ -1794,21 +1756,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
 
     <div class="section-title-container impact-reveal">
-        <h2 class="section-title" data-key="gallery-title">อวดชุม ปะทิว ชุมพร</h2>
-    </div>
-
-    <div class="impact-overview-scroll impact-reveal">
-        <figure><img src="Philosophy/DSC07821.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Philosophy/DSC07894.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Background/DSC00072.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Background/fish-drying.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Background/fisherman-boat.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Background/hornbill-flying.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Background/IMG_2964.webp" alt="" loading="lazy"></figure>
-        <figure><img src="Background/IMG_8826.webp" alt="" loading="lazy"></figure>
-    </div>
-
-    <div class="section-title-container impact-reveal">
         <span class="subtitle" style="color:#bdaa8a;" data-key="support-eyebrow">ร่วมเป็นส่วนหนึ่งกับเรา</span>
         <h2 class="section-title" data-key="support-title">สนับสนุนธุรกิจเพื่อ "ช่วย" ด้วย 4อ</h2>
     </div>
@@ -2221,8 +2168,6 @@ const langData = {
         "beat4-title": "Developing 5 Dimensions Through Standardized Systems",
         "beat4-body": "OuadChum is committed to developing sub-district-level communities across 5 dimensions, applying basic management tools such as PDCA (Plan-Do-Check-Act) to manage the community's supply chain - increasing income and reducing community problems.",
 
-        "gallery-title": "OuadChum, Pathio, Chumphon",
-
         "support-eyebrow": "Be Part of It", "support-title": "4 Ways to Support \"Business to Help\"",
         "support-1-name": "Share", "support-1-desc": "Share photos and videos, tell your friends, and show off OuadChum.",
         "support-2-name": "Support", "support-2-desc": "Buy our products for yourself or as gifts, and join a community workshop.",
@@ -2310,8 +2255,6 @@ const langData = {
         "beat3-body": "เราทำงานกับมหาวิทยาลัยและหน่วยงานให้ทุนจากภาครัฐ ซึ่งเต็มไปด้วยเครือข่ายชุมชนและงานวิจัยทรงคุณค่า อวดชุมจึงเป็นสะพานเชื่อมความรู้สู่หน้างานจริง",
         "beat4-title": "พัฒนา 5 มิติ ด้วยระบบมาตรฐาน",
         "beat4-body": "อวดชุมตั้งใจพัฒนาชุมชนระดับตำบล ผ่าน 5 มิติ โดยนำเครื่องมือ Basic Management ต่างๆ เช่น PDCA (Plan-Do-Check-Act) มาบริหาร Supply Chain ของชุมชน ทำให้มีรายได้เพิ่ม ลดปัญหาของชุมชน",
-
-        "gallery-title": "อวดชุม ปะทิว ชุมพร",
 
         "support-eyebrow": "ร่วมเป็นส่วนหนึ่งกับเรา", "support-title": "สนับสนุนธุรกิจเพื่อ \"ช่วย\" ด้วย 4อ",
         "support-1-name": "Share", "support-1-desc": "แชร์ภาพ วีดีโอ บอกต่อ อวดให้เพื่อนๆ ฟัง",
