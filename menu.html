@@ -1132,6 +1132,17 @@ nav{
 }
 .menu-story-chapter--reverse .menu-story-frame { grid-column: 3; }
 .menu-story-chapter--reverse .menu-story-copy { grid-column: 1; }
+/* No-picture variant: frame removed for now, so the spine + copy take over
+   the full row (spine keeps its numbering, copy fills the rest) - text runs
+   smaller than the picture chapters since it's the only thing on the row. */
+.menu-story-chapter--no-frame {
+    grid-template-columns: 64px 1fr;
+}
+.menu-story-chapter--no-frame .menu-story-spine { grid-column: 1; }
+.menu-story-chapter--no-frame .menu-story-copy { grid-column: 2; max-width: 100%; }
+.menu-story-chapter--no-frame .menu-partner-eyebrow { font-size: 0.66rem; }
+.menu-story-chapter--no-frame .menu-story-chapter-title { font-size: 1.1rem; }
+.menu-story-chapter--no-frame .menu-story-chapter-text { font-size: 0.85rem; line-height: 1.7; }
 .menu-story-chapter-title {
     font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.6rem);
     color: var(--dark);
@@ -3909,16 +3920,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
         <div class="menu-story-chapters">
 
-            <article class="menu-story-chapter menu-story-chapter--honey">
-                <div class="menu-story-frame menu-story-frame--gallery">
-                    <div class="menu-story-gallery-grid menu-story-gallery-grid--5">
-                        <img src="Story/honey-collab-1.webp" alt="Portrait of beekeeper Pi Jongkoy holding a bottle of wildflower honey near the hives" loading="lazy">
-                        <img src="Story/honey-collab-2.webp" alt="A hand holding a fresh piece of wild honeycomb dripping with honey" loading="lazy">
-                        <img src="Story/honey-collab-3.webp" alt="Beekeeper Pi Jongkoy at the wooden hive box" loading="lazy">
-                        <img src="Story/honey-collab-4.webp" alt="Fresh coconut sugar and an iced drink hanging from a palm tree" loading="lazy">
-                        <img src="Story/honey-collab-5.webp" alt="Wildflower honey drink, honeycomb, hive box, and honey bottle on a wooden table" loading="lazy">
-                    </div>
-                </div>
+            <article class="menu-story-chapter menu-story-chapter--honey menu-story-chapter--no-frame">
                 <div class="menu-story-spine" aria-hidden="true">
                     <span class="menu-story-spine-line menu-story-spine-line--top"></span>
                     <span class="menu-story-spine-node">01</span>
