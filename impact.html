@@ -1180,28 +1180,11 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     inset: 0;
     background: linear-gradient(to top, rgba(15,20,18,0.75) 0%, rgba(15,20,18,0.1) 50%, rgba(15,20,18,0) 72%);
 }
-.impact-dim-tile-photo::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1.5px solid rgba(255,255,255,0.55);
-    border-radius: 11px;
-    z-index: 2;
-    opacity: 0.7;
-    transition: opacity 0.3s ease, border-color 0.3s ease, inset 0.3s ease;
-    pointer-events: none;
-}
 .impact-dim-tile:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -16px color-mix(in srgb, var(--dim-accent) 50%, transparent), var(--shadow-lg); }
 .impact-dim-tile:hover img { transform: scale(1.08); }
-.impact-dim-tile:hover .impact-dim-tile-photo::before { opacity: 1; }
 .impact-dim-tile.active {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px -16px color-mix(in srgb, var(--dim-accent) 60%, transparent), var(--shadow-lg);
-}
-.impact-dim-tile.active .impact-dim-tile-photo::before {
-    opacity: 1;
-    inset: 6px;
-    border: 2.5px solid var(--dim-accent);
 }
 /* The floating pill button - half over the photo, half hanging below its
    bottom edge, exactly like a real UI button anchored to the card. */
@@ -1234,8 +1217,8 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: color-mix(in srgb, var(--dim-accent) 16%, #fff);
-    color: var(--dim-accent);
+    background: color-mix(in srgb, var(--primary) 16%, #fff);
+    color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1773,7 +1756,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
     <div class="section-title-container impact-story-heading impact-reveal">
         <span class="subtitle" style="color:#bdaa8a;" data-key="page-eyebrow">จุดเริ่มต้นของอวดชุม…</span>
-        <h2 class="section-title" data-key="page-title">ปรัชญา "อวดชุม": ธุรกิจเพื่อ "ช่วย"</h2>
+        <h2 class="section-title" data-key="page-title">ปรัชญาอวดชุม: ธุรกิจเพื่อ "ช่วย"</h2>
     </div>
 
     <div class="impact-timeline">
@@ -1811,7 +1794,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
 
     <div class="section-title-container impact-reveal">
-        <span class="subtitle" style="color:#bdaa8a;" data-key="gallery-eyebrow">ภาพรวมพื้นที่</span>
         <h2 class="section-title" data-key="gallery-title">อวดชุม ปะทิว ชุมพร</h2>
     </div>
 
@@ -1828,8 +1810,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
     <div class="section-title-container impact-reveal">
         <span class="subtitle" style="color:#bdaa8a;" data-key="support-eyebrow">ร่วมเป็นส่วนหนึ่งกับเรา</span>
-        <h2 class="section-title" data-key="support-title">สนับสนุน "ธุรกิจ เพื่อช่วย" ด้วย 4อ</h2>
-        <p data-key="support-desc">4 วิธีง่ายๆ ที่ทุกคนช่วยอวดชุมได้</p>
+        <h2 class="section-title" data-key="support-title">สนับสนุนธุรกิจเพื่อ "ช่วย" ด้วย 4อ</h2>
     </div>
 
     <div class="impact-support-band impact-reveal">
@@ -1862,9 +1843,8 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
 
     <div id="dim-grid" class="section-title-container impact-reveal">
-        <span class="subtitle" style="color:#bdaa8a;" data-key="dims-eyebrow">5 มิติการพัฒนา</span>
+        <span class="subtitle" style="color:#bdaa8a;" data-key="dims-eyebrow">โครงการและผลลัพธ์</span>
         <h2 class="section-title" data-key="dims-title">5 มิติหลักของอวดชุม</h2>
-        <p data-key="dims-desc">คลิกที่แต่ละมิติเพื่อดูรายละเอียดโครงการและผลลัพธ์ที่วัดได้จริง</p>
     </div>
 
     <div class="impact-dim-grid impact-reveal">
@@ -1938,13 +1918,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                     <polygon points="40,45 60,57 60,81 40,93 20,81 20,57"/>
                     <polygon points="70,45 90,57 90,81 70,93 50,81 50,57"/>
                 </svg>
-                <span class="impact-edu-case-badge" data-key="edu-case-badge">เคสศึกษา</span>
-                <span class="impact-detail-eyebrow" data-key="dim-5">มิติการศึกษา</span>
-                <h2 class="impact-detail-title" data-key="edu-title">โครงการผึ้งรู้</h2>
-                <p class="impact-detail-tagline" data-key="edu-tagline">"โครงการผึ้งรู้": เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง</p>
+                <h2 class="impact-detail-title"><span data-key="edu-title">โครงการผึ้งรู้</span> : <strong data-key="edu-tagline">เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง</strong></h2>
+                <p class="impact-detail-body" data-key="edu-body">โครงการมุ่งเน้นการยกระดับคุณภาพการศึกษาผ่านกระบวนการเรียนรู้เชิงปฏิบัติการ โดยนำการเลี้ยงผึ้งมาบูรณาการเป็นหลักสูตรฝึกทักษะความเป็นผู้ประกอบการรุ่นเยาว์ หลักสูตรนี้นำผึ้งมาเป็นสื่อกลางในการพัฒนาศักยภาพเด็ก ควบคู่ไปกับการขับเคลื่อนชุมชนปลอดสารเคมี เนื่องจากผึ้งเป็นดัชนีชี้วัดความสะอาดของระบบนิเวศ หากเกษตรกรในพื้นที่ใช้ยาฆ่าแมลง ผึ้งจะไม่สามารถอยู่อาศัยได้</p>
             </div>
-
-            <p class="impact-detail-body impact-reveal" data-key="edu-body">โครงการมุ่งเน้นการยกระดับคุณภาพการศึกษาผ่านกระบวนการเรียนรู้เชิงปฏิบัติการ โดยนำการเลี้ยงผึ้งมาบูรณาการเป็นหลักสูตรฝึกทักษะความเป็นผู้ประกอบการรุ่นเยาว์ หลักสูตรนี้นำผึ้งมาเป็นสื่อกลางในการพัฒนาศักยภาพเด็ก ควบคู่ไปกับการขับเคลื่อนชุมชนปลอดสารเคมี เนื่องจากผึ้งเป็นดัชนีชี้วัดความสะอาดของระบบนิเวศ หากเกษตรกรในพื้นที่ใช้ยาฆ่าแมลง ผึ้งจะไม่สามารถอยู่อาศัยได้</p>
 
             <div class="impact-section-head impact-reveal">
                 <div class="impact-section-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5-10-5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg></div>
@@ -1968,10 +1944,9 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 </div>
             </div>
 
-            <span class="impact-detail-eyebrow impact-reveal" style="margin-top:36px;" data-key="edu-stats-heading">สรุปข้อมูลและผลการดำเนินงานเชิงตัวเลข</span>
-            <div class="impact-section-head impact-reveal" style="margin-top:8px;">
+            <div class="impact-section-head impact-reveal" style="margin-top:36px;">
                 <div class="impact-section-head-icon">1</div>
-                <h3 data-key="edu-stats-sub1">1. การขยายผลสู่โรงเรียนนำร่อง</h3>
+                <h3 data-key="edu-stats-sub1">การขยายผลสู่โรงเรียนนำร่อง</h3>
             </div>
             <div class="impact-stat-grid impact-reveal">
                 <div class="impact-stat-card">
@@ -2008,8 +1983,48 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             </div>
 
             <div class="impact-section-head impact-reveal">
+                <div class="impact-section-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 6.75L12 3 3.75 6.75 12 10.5l8.25-3.75z"/><path d="M3.75 6.75v10.5L12 21l8.25-3.75V6.75"/><path d="M12 10.5V21"/></svg></div>
+                <h3 data-key="edu-product-heading">ผลิตภัณฑ์จากโครงการผึ้งรู้</h3>
+            </div>
+            <div class="impact-product-grid impact-reveal">
+                <a class="card product-card" style="--ws-accent:#c8952c;" href="product.html?product=honeyhinkop">
+                    <div class="product-card-photo"><img src="Product/honeyhinkop.webp" alt="" loading="lazy"></div>
+                    <span class="product-card-name" data-key="honeyhinkop-title">น้ำผึ้งดอกมังเคร จากนักธุรกิจน้อย รร.บ้านหินกบ</span>
+                    <div class="product-card-detail">
+                        <p class="product-card-desc" data-key="honeyhinkop-desc">'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง</p>
+                        <div class="product-card-bottom-row">
+                            <span class="product-card-price" data-key="honeyhinkop-price">330 ml. / 400 บาท</span>
+                            <span class="product-card-arrow">›</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="card product-card" style="--ws-accent:#c8952c;" href="product.html?product=beeswaxwrap">
+                    <div class="product-card-photo"><img src="Product/beeswaxwrap.webp" alt="" loading="lazy"></div>
+                    <span class="product-card-name" data-key="beeswaxwrap-title">ผ้าไขผึ้งถนอมอาหารจากนักธุรกิจน้อย</span>
+                    <div class="product-card-detail">
+                        <p class="product-card-desc" data-key="beeswaxwrap-desc">ผ้าชุบไขผึ้งธรรมชาติ ห่อผักผลไม้ ห่ออาหาร ช่วยคงความสด เก็บกลิ่น ใช้ซ้ำได้ 2-3 ปี</p>
+                        <div class="product-card-bottom-row">
+                            <span class="product-card-price" data-key="beeswaxwrap-price">25x25 ซม. / 90 บาท, 30x30 ซม. / 100 บาท</span>
+                            <span class="product-card-arrow">›</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="card product-card" style="--ws-accent:#c8952c;" href="product.html?product=honeythairat">
+                    <div class="product-card-photo"><img src="Product/honeythairat.webp" alt="" loading="lazy"></div>
+                    <span class="product-card-name" data-key="honeythairat-title">น้ำผึ้งดอกเสม็ดขาว จากนักธุรกิจน้อย รร. ไทยรัฐ๗๘ (วัดสามัคคีชัย)</span>
+                    <div class="product-card-detail">
+                        <p class="product-card-desc" data-key="honeythairat-desc">'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง</p>
+                        <div class="product-card-bottom-row">
+                            <span class="product-card-price" data-key="honeythairat-price">330 ml. / 400 บาท</span>
+                            <span class="product-card-arrow">›</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="impact-section-head impact-reveal">
                 <div class="impact-section-head-icon">2</div>
-                <h3 data-key="edu-sub2-heading">2. การสร้างมูลค่าเพิ่มและพันธมิตรเชิงสร้างสรรค์</h3>
+                <h3 data-key="edu-sub2-heading">การสร้างมูลค่าเพิ่มและพันธมิตรเชิงสร้างสรรค์</h3>
             </div>
             <div class="impact-partner-box impact-reveal">
                 <div class="impact-partner-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l4-4 4 2 4-4 8 8"/><path d="M11 14l2 2-3 3-4-4z"/></svg></div>
@@ -2018,7 +2033,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="impact-section-head impact-reveal">
                 <div class="impact-section-head-icon">3</div>
-                <h3 data-key="edu-sub3-heading">3. ผลกระทบเชิงบวก (Impact) ต่อชุมชน</h3>
+                <h3 data-key="edu-sub3-heading">ผลกระทบเชิงบวก (Impact) ต่อชุมชน</h3>
             </div>
             <div class="impact-outcome-grid impact-reveal">
                 <div class="impact-outcome-card">
@@ -2038,56 +2053,13 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
                 <h3 data-key="edu-gallery-heading">ภาพรวมโครงการผึ้งรู้</h3>
             </div>
             <div class="impact-photo-grid impact-reveal" style="max-width:900px; margin-bottom:40px;">
-                <figure><img src="น้ำผึ้งรร ไทยรัฐ.png" alt="" loading="lazy"></figure>
-                <figure><img src="Product/honeythairat.webp" alt="" loading="lazy"></figure>
-                <figure><img src="Product/honeyhinkop.webp" alt="" loading="lazy"></figure>
-                <figure><img src="Product/beeswaxwrap.webp" alt="" loading="lazy"></figure>
-                <figure><img src="Story/honey-collab-1.webp" alt="" loading="lazy"></figure>
-                <figure><img src="Story/honey-collab-2.webp" alt="" loading="lazy"></figure>
-                <figure><img src="Story/honey-collab-4.webp" alt="" loading="lazy"></figure>
-                <figure><img src="Story/honey-collab-5.webp" alt="" loading="lazy"></figure>
+                <figure><img src="HONEY WORKSHOP/Bee 5.webp" alt="" loading="lazy"></figure>
+                <figure><img src="HONEY WORKSHOP/Bee 6.webp" alt="" loading="lazy"></figure>
+                <figure><img src="HONEY WORKSHOP/Bee 7.webp" alt="" loading="lazy"></figure>
+                <figure><img src="HONEY WORKSHOP/Bee 8.webp" alt="" loading="lazy"></figure>
+                <figure><img src="HONEY WORKSHOP/Bee 9.webp" alt="" loading="lazy"></figure>
             </div>
 
-            <div class="impact-section-head impact-reveal">
-                <div class="impact-section-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 6.75L12 3 3.75 6.75 12 10.5l8.25-3.75z"/><path d="M3.75 6.75v10.5L12 21l8.25-3.75V6.75"/><path d="M12 10.5V21"/></svg></div>
-                <h3 data-key="edu-product-heading">ผลิตภัณฑ์จากโครงการผึ้งรู้</h3>
-            </div>
-            <p class="impact-detail-body impact-reveal" style="margin-bottom:20px;" data-key="edu-product-sub">คลิกเพื่อดูรายละเอียดและสั่งซื้อสินค้า</p>
-            <div class="impact-product-grid impact-reveal">
-                <a class="card product-card" style="--ws-accent:#c8952c;" href="product.html?product=honeythairat">
-                    <div class="product-card-photo"><img src="Product/honeythairat.webp" alt="" loading="lazy"></div>
-                    <span class="product-card-name" data-key="honeythairat-title">น้ำผึ้งดอกเสม็ดขาว จากนักธุรกิจน้อย รร. ไทยรัฐ๗๘ (วัดสามัคคีชัย)</span>
-                    <div class="product-card-detail">
-                        <p class="product-card-desc" data-key="honeythairat-desc">'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง</p>
-                        <div class="product-card-bottom-row">
-                            <span class="product-card-price" data-key="honeythairat-price">330 ml. / 400 บาท</span>
-                            <span class="product-card-arrow">›</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="card product-card" style="--ws-accent:#c8952c;" href="product.html?product=honeyhinkop">
-                    <div class="product-card-photo"><img src="Product/honeyhinkop.webp" alt="" loading="lazy"></div>
-                    <span class="product-card-name" data-key="honeyhinkop-title">น้ำผึ้งดอกมังเคร จากนักธุรกิจน้อย รร.บ้านหินกบ</span>
-                    <div class="product-card-detail">
-                        <p class="product-card-desc" data-key="honeyhinkop-desc">'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง</p>
-                        <div class="product-card-bottom-row">
-                            <span class="product-card-price" data-key="honeyhinkop-price">330 ml. / 400 บาท</span>
-                            <span class="product-card-arrow">›</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="card product-card" style="--ws-accent:#8a6d3b;" href="product.html?product=beeswaxwrap">
-                    <div class="product-card-photo"><img src="Product/beeswaxwrap.webp" alt="" loading="lazy"></div>
-                    <span class="product-card-name" data-key="beeswaxwrap-title">ผ้าไขผึ้งถนอมอาหารจากนักธุรกิจน้อย</span>
-                    <div class="product-card-detail">
-                        <p class="product-card-desc" data-key="beeswaxwrap-desc">ผ้าชุบไขผึ้งธรรมชาติ ห่อผักผลไม้ ห่ออาหาร ช่วยคงความสด เก็บกลิ่น ใช้ซ้ำได้ 2-3 ปี</p>
-                        <div class="product-card-bottom-row">
-                            <span class="product-card-price" data-key="beeswaxwrap-price">25x25 ซม. / 90 บาท, 30x30 ซม. / 100 บาท</span>
-                            <span class="product-card-arrow">›</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
         </div>
 
     </div>
@@ -2249,17 +2221,15 @@ const langData = {
         "beat4-title": "Developing 5 Dimensions Through Standardized Systems",
         "beat4-body": "OuadChum is committed to developing sub-district-level communities across 5 dimensions, applying basic management tools such as PDCA (Plan-Do-Check-Act) to manage the community's supply chain - increasing income and reducing community problems.",
 
-        "gallery-eyebrow": "Area Overview", "gallery-title": "OuadChum, Pathio, Chumphon",
+        "gallery-title": "OuadChum, Pathio, Chumphon",
 
         "support-eyebrow": "Be Part of It", "support-title": "4 Ways to Support \"Business to Help\"",
-        "support-desc": "Four simple ways everyone can help OuadChum grow.",
         "support-1-name": "Share", "support-1-desc": "Share photos and videos, tell your friends, and show off OuadChum.",
         "support-2-name": "Support", "support-2-desc": "Buy our products for yourself or as gifts, and join a community workshop.",
         "support-3-name": "Contribute", "support-3-desc": "Bring your organization's expertise to help solve challenges the community faces.",
         "support-4-name": "Join In", "support-4-desc": "Develop your own community using the HAB (Holistic Area-Based) concept.",
 
         "dims-eyebrow": "5 Dimensions of Development", "dims-title": "The 5 Core Dimensions of OuadChum",
-        "dims-desc": "Click each dimension to explore its projects and measurable results.",
         "dim-1": "Occupation", "dim-2": "Health", "dim-3": "Society", "dim-4": "Environment", "dim-5": "Education",
 
         "soon-badge": "Full Case Study Coming Soon",
@@ -2270,16 +2240,14 @@ const langData = {
         "det-env-body": "OuadChum promotes living in balance with nature, conserving resources and reducing impact on the local ecosystem. Full details for this dimension are currently being compiled and will be added here soon.",
 
         "edu-title": "The Bee Wisdom Project",
-        "edu-tagline": "\"The Bee Wisdom Project\": Learning through beekeeping - raising young entrepreneurs, building a pesticide-free community.",
+        "edu-tagline": "Learning through beekeeping - raising young entrepreneurs, building a pesticide-free community.",
         "edu-body": "The project focuses on raising the quality of education through hands-on, activity-based learning by integrating beekeeping into a curriculum that trains young entrepreneurial skills. Bees serve as the medium for developing children's potential, while simultaneously driving the community toward becoming chemical-free - because bees are a key indicator of ecosystem health. If local farmers use pesticides, bees simply cannot survive there.",
         "edu-process-heading": "The teaching process emphasizes full, hands-on, real-world practice, covering:",
-        "edu-case-badge": "Case Study",
         "edu-process-1-title": "Biology &amp; Ecology", "edu-process-1-desc": "Studying the bee life cycle and caring for beehive boxes",
         "edu-process-2-title": "Production &amp; Value Creation", "edu-process-2-desc": "Harvesting the yield and processing it into market-ready products",
         "edu-process-3-title": "Management", "edu-process-3-desc": "Bookkeeping, cost calculation, and profit-loss analysis",
 
-        "edu-stats-heading": "Summary of Results &amp; Key Figures",
-        "edu-stats-sub1": "1. Expansion to Pilot Schools",
+        "edu-stats-sub1": "Expansion to Pilot Schools",
         "hinkop-name": "Ban Hin Kop School",
         "hinkop-meta": "The first pilot school (small school - 62 students)",
         "hinkop-start": "Launched the project in 2024 with 30 beehive boxes (8 core student leaders assigned to the hives)",
@@ -2301,7 +2269,6 @@ const langData = {
 
         "edu-gallery-heading": "Bee Wisdom Project Overview",
         "edu-product-heading": "Products from the Bee Wisdom Project",
-        "edu-product-sub": "Click a product to view details and order.",
 
         "honeythairat-title": "Mangkrai Flower Honey — Thairat School", "honeythairat-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeythairat-price": "330 ml / 400 THB",
         "honeyhinkop-title": "Mangkrai Flower Honey — Hinkop School", "honeyhinkop-desc": "Honey from the 'Bee Wisdom' project, where young entrepreneurs learn through beekeeping while building a pesticide-free community.", "honeyhinkop-price": "330 ml / 400 THB",
@@ -2333,7 +2300,7 @@ const langData = {
 
         "hero-badge": "ธุรกิจเพื่อสังคม", "hero-title": "เราไม่ได้มาสร้างใหม่ แต่มาช่วยทำให้สิ่งที่มีอยู่แล้ว ให้ดีขึ้นกว่าเดิม", "hero-desc": "โดยใช้แนวคิด ธุรกิจเพื่อสังคม",
 
-        "page-eyebrow": "จุดเริ่มต้นของอวดชุม…", "page-title": "ปรัชญา \"อวดชุม\": ธุรกิจเพื่อ \"ช่วย\"",
+        "page-eyebrow": "จุดเริ่มต้นของอวดชุม…", "page-title": "ปรัชญาอวดชุม: ธุรกิจเพื่อ \"ช่วย\"",
 
         "beat1-title": "ความฝันในวัยเด็ก สู่บ้านต้นไม้กลางป่า",
         "beat1-body": "ตอนเด็ก คุณวนัสฝันอยากมีบ้านต้นไม้กลางป่า ทว่าความฝันได้กลายเป็นจริง หลังจากเกษียณที่ \"เบทาโกร\" โดยคุณวนัสนำแนวคิด \"การพัฒนาชุมชนเชิงพื้นที่แบบองค์รวม\" (Holistic Area Based Community Development-HAB) มาต่อยอดกับความฝันในวัยเด็ก เพื่อสร้างแลนด์มาร์ค ที่สามารถสร้างคุณค่าให้สังคมได้",
@@ -2344,17 +2311,15 @@ const langData = {
         "beat4-title": "พัฒนา 5 มิติ ด้วยระบบมาตรฐาน",
         "beat4-body": "อวดชุมตั้งใจพัฒนาชุมชนระดับตำบล ผ่าน 5 มิติ โดยนำเครื่องมือ Basic Management ต่างๆ เช่น PDCA (Plan-Do-Check-Act) มาบริหาร Supply Chain ของชุมชน ทำให้มีรายได้เพิ่ม ลดปัญหาของชุมชน",
 
-        "gallery-eyebrow": "ภาพรวมพื้นที่", "gallery-title": "อวดชุม ปะทิว ชุมพร",
+        "gallery-title": "อวดชุม ปะทิว ชุมพร",
 
-        "support-eyebrow": "ร่วมเป็นส่วนหนึ่งกับเรา", "support-title": "สนับสนุน \"ธุรกิจ เพื่อช่วย\" ด้วย 4อ",
-        "support-desc": "4 วิธีง่ายๆ ที่ทุกคนช่วยอวดชุมได้",
+        "support-eyebrow": "ร่วมเป็นส่วนหนึ่งกับเรา", "support-title": "สนับสนุนธุรกิจเพื่อ \"ช่วย\" ด้วย 4อ",
         "support-1-name": "Share", "support-1-desc": "แชร์ภาพ วีดีโอ บอกต่อ อวดให้เพื่อนๆ ฟัง",
         "support-2-name": "Support", "support-2-desc": "ซื้อใช้ ซื้อฝาก workshop กับชุมชน",
         "support-3-name": "Contribute", "support-3-desc": "นำความเชี่ยวชาญของหน่วยงานมาช่วยแก้ปัญหาที่ชุมชนมี",
         "support-4-name": "Join In", "support-4-desc": "พัฒนาชุมชนในพื้นที่ของตนเอง ด้วยแนวคิด HAB",
 
-        "dims-eyebrow": "5 มิติการพัฒนา", "dims-title": "5 มิติหลักของอวดชุม",
-        "dims-desc": "คลิกที่แต่ละมิติเพื่อดูรายละเอียดโครงการและผลลัพธ์ที่วัดได้จริง",
+        "dims-eyebrow": "โครงการและผลลัพธ์", "dims-title": "5 มิติหลักของอวดชุม",
         "dim-1": "มิติอาชีพ", "dim-2": "มิติสุขภาพ", "dim-3": "มิติสังคม", "dim-4": "มิติสิ่งแวดล้อม", "dim-5": "มิติการศึกษา",
         "soon-badge": "เนื้อหาโครงการฉบับเต็มกำลังจัดทำ",
 
@@ -2364,16 +2329,14 @@ const langData = {
         "det-env-body": "อวดชุมส่งเสริมการอยู่ร่วมกับธรรมชาติอย่างสมดุล ผ่านการอนุรักษ์ทรัพยากรและลดผลกระทบต่อระบบนิเวศในพื้นที่ เนื้อหาโครงการฉบับเต็มในมิตินี้กำลังอยู่ระหว่างจัดทำ และจะทยอยเพิ่มเข้ามาเร็วๆ นี้",
 
         "edu-title": "โครงการผึ้งรู้",
-        "edu-tagline": "\"โครงการผึ้งรู้\": เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง",
+        "edu-tagline": "เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง",
         "edu-body": "โครงการมุ่งเน้นการยกระดับคุณภาพการศึกษาผ่านกระบวนการเรียนรู้เชิงปฏิบัติการ โดยนำการเลี้ยงผึ้งมาบูรณาการเป็นหลักสูตรฝึกทักษะความเป็นผู้ประกอบการรุ่นเยาว์ หลักสูตรนี้นำผึ้งมาเป็นสื่อกลางในการพัฒนาศักยภาพเด็ก ควบคู่ไปกับการขับเคลื่อนชุมชนปลอดสารเคมี เนื่องจากผึ้งเป็นดัชนีชี้วัดความสะอาดของระบบนิเวศ หากเกษตรกรในพื้นที่ใช้ยาฆ่าแมลง ผึ้งจะไม่สามารถอยู่อาศัยได้",
         "edu-process-heading": "กระบวนการเรียนการสอนเน้นการลงมือปฏิบัติจริงแบบครบวงจร ได้แก่:",
-        "edu-case-badge": "เคสศึกษา",
         "edu-process-1-title": "ชีววิทยาและนิเวศวิทยา", "edu-process-1-desc": "การศึกษาวงจรชีวิตผึ้งและการดูแลรักษากล่องเลี้ยงผึ้ง",
         "edu-process-2-title": "การผลิตและการสร้างมูลค่า", "edu-process-2-desc": "การเก็บเกี่ยวผลผลิตและการแปรรูปเป็นผลิตภัณฑ์พร้อมจำหน่าย",
         "edu-process-3-title": "การบริหารจัดการ", "edu-process-3-desc": "การทำบัญชี การคิดคำนวณต้นทุน และการวิเคราะห์กำไร-ขาดทุน",
 
-        "edu-stats-heading": "สรุปข้อมูลและผลการดำเนินงานเชิงตัวเลข",
-        "edu-stats-sub1": "1. การขยายผลสู่โรงเรียนนำร่อง",
+        "edu-stats-sub1": "การขยายผลสู่โรงเรียนนำร่อง",
         "hinkop-name": "โรงเรียนบ้านหินกบ",
         "hinkop-meta": "โรงเรียนนำร่องแห่งแรก (โรงเรียนขนาดเล็ก - นักเรียน 62 คน)",
         "hinkop-start": "เริ่มโครงการปี 2567 ด้วยกล่องเลี้ยงผึ้ง 30 กล่อง (มีนักเรียนแกนนำประจำฐาน 8 คน)",
@@ -2386,16 +2349,15 @@ const langData = {
         "thairat-start": "ขยายผลในเดือนมิถุนายน 2568 เริ่มต้นด้วยกล่องเลี้ยงผึ้ง 20 กล่อง",
         "thairat-honey-p1": "2569 · 45 ขวด",
 
-        "edu-sub2-heading": "2. การสร้างมูลค่าเพิ่มและพันธมิตรเชิงสร้างสรรค์",
+        "edu-sub2-heading": "การสร้างมูลค่าเพิ่มและพันธมิตรเชิงสร้างสรรค์",
         "edu-partner-text": "โครงการได้เชื่อมโยงพันธมิตรอย่างแบรนด์ชุดนอน <b>SliptoSleep</b> นำเศษผ้าคอตตอนส่วนเกินจากโรงงานมาชุบไขผึ้งบริสุทธิ์ของโรงเรียน ผลิตเป็น \"ผ้าไขผึ้งถนอมอาหาร\" ชนิดใช้ซ้ำได้นาน 1-2 ปี ซึ่งตอบโจทย์เทรนด์รักษ์โลก และได้รับการตอบรับอย่างดีจากกลุ่มลูกค้าชาวต่างชาติ",
 
-        "edu-sub3-heading": "3. ผลกระทบเชิงบวก (Impact) ต่อชุมชน",
+        "edu-sub3-heading": "ผลกระทบเชิงบวก (Impact) ต่อชุมชน",
         "edu-outcome-1-title": "ทุนการศึกษาและทักษะชีวิต", "edu-outcome-1-desc": "รายได้ทั้งหมดจากการจำหน่ายน้ำผึ้งและผ้าไขผึ้ง (ผ่านคาเฟ่อวดชุมและช่องทางออนไลน์) นำกลับมาเป็นทุนการศึกษา ช่วยแบ่งเบาภาระครอบครัว และปลูกฝังกระบวนการคิด การทำบรรจุภัณฑ์ การคุมคุณภาพ ตลอดจนการสร้าง Storytelling",
         "edu-outcome-2-title": "นิเวศวิทยาและสุขภาพคนในพื้นที่", "edu-outcome-2-desc": "ความจำเป็นของการเลี้ยงผึ้งกลายเป็นกุศโลบายสำคัญที่กระตุ้นให้ผู้ปกครองและชาวบ้านในพื้นที่ร่วมกันลด-ละ-เลิก การใช้สารเคมีเกษตร ส่งผลให้เกิดชุมชนปลอดภัย ปลอดยาฆ่าแมลง และสร้างสุขอนามัยที่ดีให้คนทุกวัยในชุมชน",
 
         "edu-gallery-heading": "ภาพรวมโครงการผึ้งรู้",
         "edu-product-heading": "ผลิตภัณฑ์จากโครงการผึ้งรู้",
-        "edu-product-sub": "คลิกเพื่อดูรายละเอียดและสั่งซื้อสินค้า",
 
         "honeythairat-title": "น้ำผึ้งดอกเสม็ดขาว จากนักธุรกิจน้อย รร. ไทยรัฐ๗๘ (วัดสามัคคีชัย)", "honeythairat-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeythairat-price": "330 ml. / 400 บาท",
         "honeyhinkop-title": "น้ำผึ้งดอกมังเคร จากนักธุรกิจน้อย รร.บ้านหินกบ", "honeyhinkop-desc": "'โครงการผึ้งรู้' เรียนอย่างสนุกผ่านการใช้ผึ้งเป็นสื่อกลาง สร้างนักธุรกิจน้อย สร้างชุมชนปลอดยาฆ่าแมลง", "honeyhinkop-price": "330 ml. / 400 บาท",
