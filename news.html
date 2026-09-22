@@ -953,8 +953,11 @@ nav{
 .reserve-modal-body {
     padding: 22px 24px 26px;
 }
-.reserve-modal-body .icon-phone {
-    background: linear-gradient(135deg,#06C755,#048f3f);
+.reserve-modal-body .icon-calendar,
+.reserve-modal-body .icon-line,
+.reserve-modal-body .icon-phone,
+.reserve-modal-body .icon-other {
+    background: linear-gradient(135deg,#d9b673,#bdaa8a);
 }
 .reserve-contact-row {
     display: flex;
@@ -1288,7 +1291,6 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         <div class="reserve-modal-banner">
             <div class="reserve-modal-banner-icon"><img src="Branding/logo-icon.webp" alt="Baan OuadChum Logo"></div>
             <h2 data-key="reserve-modal-title">Reserve Your Stay</h2>
-            <p data-key="reserve-modal-desc">Contact us directly with LINE or phone to check availability and book.</p>
         </div>
 
         <div class="reserve-modal-body">
@@ -1356,7 +1358,7 @@ const langData = {
         "contact-map-title": "Map", "contact-map-value": "View on Google Maps",
         "map-facade-btn": "Load interactive map",
 
-        "reserve-modal-title": "Reserve Your Stay", "reserve-modal-desc": "Contact us directly with LINE or phone to check availability and book.",
+        "reserve-modal-title": "Reserve Your Stay",
         "reserve-self-title": "Book Online", "reserve-self-value": "Reservation System",
         "reserve-line-title": "Book with LINE", "reserve-line-value": "LINE: @ouadchum",
         "reserve-phone-title": "Book by Phone", "reserve-phone-value": "082-116-6905", "contact-other-title": "Other", "contact-other-value": "098-009-8842",
@@ -1385,10 +1387,10 @@ const langData = {
         "contact-map-title": "แผนที่", "contact-map-value": "ดูแผนที่บน Google Maps",
         "map-facade-btn": "โหลดแผนที่แบบอินเทอร์แอกทีฟ",
 
-        "reserve-modal-title": "จองห้องพัก", "reserve-modal-desc": "ติดต่อเราโดยตรงผ่าน LINE หรือโทรศัพท์<br>เพื่อตรวจสอบห้องว่างและทำการจอง",
-        "reserve-self-title": "จองห้องพักด้วยตนเอง", "reserve-self-value": "ระบบจองห้องพักออนไลน์",
-        "reserve-line-title": "จองห้องพักผ่านแอดมิน", "reserve-line-value": "LINE: @ouadchum",
-        "reserve-phone-title": "จองห้องพักทางโทรศัพท์", "reserve-phone-value": "082-116-6905", "contact-other-title": "อื่นๆ", "contact-other-value": "098-009-8842",
+        "reserve-modal-title": "จองห้องพัก",
+        "reserve-self-title": "จองด้วยตนเอง", "reserve-self-value": "ระบบจองห้องพักออนไลน์",
+        "reserve-line-title": "จองผ่านแอดมิน", "reserve-line-value": "LINE: @ouadchum",
+        "reserve-phone-title": "จองทางโทรศัพท์", "reserve-phone-value": "082-116-6905", "contact-other-title": "อื่นๆ", "contact-other-value": "098-009-8842",
 
         "footer-title": "Baan OuadChum Coastal Treehouse"
     }

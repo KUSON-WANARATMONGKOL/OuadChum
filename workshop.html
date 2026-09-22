@@ -2071,8 +2071,11 @@ nav{
         font-size: 0.95rem;
     }
 }
-.reserve-modal-body .icon-phone {
-    background: linear-gradient(135deg,#06C755,#048f3f);
+.reserve-modal-body .icon-calendar,
+.reserve-modal-body .icon-line,
+.reserve-modal-body .icon-phone,
+.reserve-modal-body .icon-other {
+    background: linear-gradient(135deg,#d9b673,#bdaa8a);
 }
 .reserve-contact-row {
     display: flex;
@@ -2473,24 +2476,23 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         <div class="reserve-modal-banner">
             <div class="reserve-modal-banner-icon"><img src="Branding/logo-icon.webp" alt="Baan OuadChum Logo"></div>
             <h2 data-key="reserve-modal-title">Reserve Your Stay</h2>
-            <p data-key="reserve-modal-desc">Contact us directly with LINE or phone to check availability and book.</p>
         </div>
 
         <div class="reserve-modal-body">
-            <a href="https://reservation.roomscope.com/2698/th" target="_blank" rel="noopener" class="reserve-contact-row">
-                <div class="contact-icon icon-self"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-13.5-6h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
-                <div class="reserve-contact-text">
-                    <h4 data-key="reserve-self-title">Book Online</h4>
-                    <p data-key="reserve-self-value">Reservation System</p>
-                </div>
-                <span class="reserve-contact-arrow">›</span>
-            </a>
-
             <a href="#" onclick="event.preventDefault(); openAvailabilityModal('all');" class="reserve-contact-row">
                 <div class="contact-icon icon-calendar"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg></div>
                 <div class="reserve-contact-text">
                     <h4 data-key="reserve-avail-title">Check Availability</h4>
                     <p data-key="reserve-avail-value">Live Room Calendar</p>
+                </div>
+                <span class="reserve-contact-arrow">›</span>
+            </a>
+
+            <a href="https://reservation.roomscope.com/2698/th" target="_blank" rel="noopener" class="reserve-contact-row">
+                <div class="contact-icon icon-self"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-13.5-6h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+                <div class="reserve-contact-text">
+                    <h4 data-key="reserve-self-title">Book Online</h4>
+                    <p data-key="reserve-self-value">Reservation System</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
             </a>
@@ -2619,7 +2621,7 @@ const langData = {
         "contact-map-title": "Map", "contact-map-value": "View on Google Maps",
         "map-facade-btn": "Load interactive map",
 
-        "reserve-modal-title": "Reserve Your Stay", "reserve-modal-desc": "Contact us directly with LINE or phone to check availability and book.",
+        "reserve-modal-title": "Reserve Your Stay",
         "reserve-self-title": "Book Online", "reserve-self-value": "Reservation System",
         "reserve-avail-title": "Check Availability", "reserve-avail-value": "Live Room Calendar",
         "room001-title": "VIP <span class=\"num-font\">1</span>", "room201-title": "Room <span class=\"num-font\">201</span>", "room202-title": "Room <span class=\"num-font\">202</span>", "room203-title": "Room <span class=\"num-font\">203</span>", "room204-title": "Room <span class=\"num-font\">204</span>", "room301-title": "Room <span class=\"num-font\">301</span>", "room302-title": "Room <span class=\"num-font\">302</span>", "room401-title": "Room <span class=\"num-font\">401</span>", "room403-title": "Room <span class=\"num-font\">403</span>", "room404-title": "Room <span class=\"num-font\">404</span>",
@@ -2664,12 +2666,12 @@ const langData = {
         "contact-map-title": "แผนที่", "contact-map-value": "ดูแผนที่บน Google Maps",
         "map-facade-btn": "โหลดแผนที่แบบอินเทอร์แอกทีฟ",
 
-        "reserve-modal-title": "จองห้องพัก", "reserve-modal-desc": "ติดต่อเราโดยตรงผ่าน LINE หรือโทรศัพท์<br>เพื่อตรวจสอบห้องว่างและทำการจอง",
-        "reserve-self-title": "จองห้องพักด้วยตนเอง", "reserve-self-value": "ระบบจองห้องพักออนไลน์",
+        "reserve-modal-title": "จองห้องพัก",
+        "reserve-self-title": "จองด้วยตนเอง", "reserve-self-value": "ระบบจองห้องพักออนไลน์",
         "reserve-avail-title": "ตรวจสอบห้องว่าง", "reserve-avail-value": "ปฏิทินห้องว่างล่าสุด",
         "room001-title": "VIP <span class=\"num-font\">1</span>", "room201-title": "ห้อง <span class=\"num-font\">201</span>", "room202-title": "ห้อง <span class=\"num-font\">202</span>", "room203-title": "ห้อง <span class=\"num-font\">203</span>", "room204-title": "ห้อง <span class=\"num-font\">204</span>", "room301-title": "ห้อง <span class=\"num-font\">301</span>", "room302-title": "ห้อง <span class=\"num-font\">302</span>", "room401-title": "ห้อง <span class=\"num-font\">401</span>", "room403-title": "ห้อง <span class=\"num-font\">403</span>", "room404-title": "ห้อง <span class=\"num-font\">404</span>",
-        "reserve-line-title": "จองห้องพักผ่านแอดมิน", "reserve-line-value": "LINE: @ouadchum",
-        "reserve-phone-title": "จองห้องพักทางโทรศัพท์", "reserve-phone-value": "082-116-6905", "contact-other-title": "อื่นๆ", "contact-other-value": "098-009-8842",
+        "reserve-line-title": "จองผ่านแอดมิน", "reserve-line-value": "LINE: @ouadchum",
+        "reserve-phone-title": "จองทางโทรศัพท์", "reserve-phone-value": "082-116-6905", "contact-other-title": "อื่นๆ", "contact-other-value": "098-009-8842",
 
         "footer-title": "Baan OuadChum Coastal Treehouse"
     }
