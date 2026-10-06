@@ -231,7 +231,7 @@ nav{
 .lang-btn {
     background: none;
     border: none;
-    color: #777;
+    color: #5c5c5c;
     cursor: pointer;
     padding: 6px 12px;
     min-width: 36px;
@@ -1579,7 +1579,7 @@ nav{
     font-size: 1.05rem;
 }
 .contact-card p {
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.9);
     opacity: 1;
     font-size: 0.9rem;
 }
@@ -2347,7 +2347,7 @@ nav{
     flex: 1;
     min-width: 0;
 }
-.reserve-contact-text h4 {
+.reserve-contact-text h3 {
     margin: 0;
     font-size: 1rem;
     color: var(--dark);
@@ -2396,7 +2396,7 @@ footer{
 }
 footer > .container { position: relative; z-index: 2; }
 footer h3 { font-size: 1.6rem; margin-bottom: 10px; }
-footer p { opacity: 0.5; font-size: 0.9rem; }
+footer p { opacity: 0.85; font-size: 0.9rem; }
 
 /* News page section: sits directly under the fixed nav (no hero above it),
    so it needs its own clearance instead of relying on a hero for spacing. */
@@ -2432,7 +2432,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         margin-left: 0;
         justify-content: center;
     }
-    .nav-links { gap: 26px; }
+    .nav-links { gap: 26px; flex-wrap: wrap; justify-content: center; row-gap: 10px; }
     .nav-links a { font-size: 0.85rem; letter-spacing: 0.3px; padding: 4px 0; }
     .nav-actions .btn-outline {
         display: inline-flex;
@@ -4501,7 +4501,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="#" onclick="event.preventDefault(); openAvailabilityModal('all');" class="reserve-contact-row">
                 <div class="contact-icon icon-calendar"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-avail-title">Check Availability</h4>
+                    <h3 data-key="reserve-avail-title">Check Availability</h3>
                     <p data-key="reserve-avail-value">Live Room Calendar</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -4510,7 +4510,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="https://reservation.roomscope.com/2698/th" target="_blank" rel="noopener" class="reserve-contact-row">
                 <div class="contact-icon icon-self"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-13.5-6h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-self-title">Book Online</h4>
+                    <h3 data-key="reserve-self-title">Book Online</h3>
                     <p data-key="reserve-self-value">Reservation System</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -4519,7 +4519,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="https://line.me/R/ti/p/%40ouadchum" target="_blank" rel="noopener" class="reserve-contact-row">
                 <div class="contact-icon icon-line"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-line-title">Book with LINE</h4>
+                    <h3 data-key="reserve-line-title">Book with LINE</h3>
                     <p data-key="reserve-line-value">LINE: @ouadchum</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -4528,7 +4528,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="tel:0821166905" class="reserve-contact-row">
                 <div class="contact-icon icon-phone"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-phone-title">Book by Phone</h4>
+                    <h3 data-key="reserve-phone-title">Book by Phone</h3>
                     <p data-key="reserve-phone-value">082-116-6905</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -4537,7 +4537,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="tel:0980098842" class="reserve-contact-row">
                 <div class="contact-icon icon-other"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm3.75 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm3.75 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="contact-other-title">Other</h4>
+                    <h3 data-key="contact-other-title">Other</h3>
                     <p data-key="contact-other-value">098-009-8842</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>

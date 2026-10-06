@@ -228,7 +228,7 @@ nav{
 .lang-btn {
     background: none;
     border: none;
-    color: #777;
+    color: #5c5c5c;
     cursor: pointer;
     padding: 6px 12px;
     min-width: 36px;
@@ -548,7 +548,7 @@ nav{
     font-size: 1.05rem;
 }
 .contact-card p {
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.9);
     opacity: 1;
     font-size: 0.9rem;
 }
@@ -777,7 +777,7 @@ nav{
     flex: 1;
     min-width: 0;
 }
-.reserve-contact-text h4 {
+.reserve-contact-text h3 {
     margin: 0;
     font-size: 1rem;
     color: var(--dark);
@@ -803,7 +803,7 @@ footer{
     border-top: 4px solid var(--accent);
 }
 footer h3 { font-size: 1.6rem; margin-bottom: 10px; }
-footer p { opacity: 0.5; font-size: 0.9rem; }
+footer p { opacity: 0.85; font-size: 0.9rem; }
 
 .impact-page-section {
     padding-top: 160px;
@@ -838,7 +838,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
         margin-left: 0;
         justify-content: center;
     }
-    .nav-links { gap: 22px; }
+    .nav-links { gap: 22px; flex-wrap: wrap; justify-content: center; row-gap: 10px; }
     .nav-links a { font-size: 0.85rem; letter-spacing: 0.3px; padding: 4px 0; }
     .nav-actions .btn-outline {
         display: inline-flex;
@@ -1324,7 +1324,30 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 }
 .impact-placeholder-frame img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.5s ease; }
 .impact-placeholder-frame:hover img { transform: scale(1.06); }
-.impact-video-frame { aspect-ratio: 16/9; max-width: 760px; width: 100%; margin-left: auto; margin-right: auto; }
+/* Occupation videos: a stacked editorial column - a numbered label with a
+   fine rule, the title, then a 16:9 player with a soft lift. */
+.impact-video-list { max-width: 880px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 56px; }
+.impact-video-item { margin: 0; }
+.impact-video-head { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin: 0 0 18px; }
+.impact-video-index {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--dim-accent);
+    font-variant-numeric: tabular-nums;
+}
+.impact-video-index::after {
+    content: '';
+    width: 48px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
+}
+.impact-video-title { display: block; font-size: 1.12rem; font-weight: 700; color: var(--dark); line-height: 1.45; }
+.impact-video-frame { aspect-ratio: 16/9; width: 100%; border-radius: 14px; overflow: hidden; background: #000; box-shadow: var(--shadow-lg); }
 .impact-video-frame iframe { width:100%; height:100%; border:0; display:block; }
 
 /* Education panel header - a warm gradient "case study" banner instead of
@@ -1800,7 +1823,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
     </div>
 
     <div class="impact-dim-grid impact-reveal">
-        <button type="button" class="impact-dim-tile" data-dim="occupation" style="--dim-accent:#c8952c;" onclick="switchDimension('occupation')">
+        <button type="button" class="impact-dim-tile active" data-dim="occupation" style="--dim-accent:#c8952c;" onclick="switchDimension('occupation')">
             <span class="impact-dim-tile-photo"><img src="5 Core Dimention/Occupation.webp" alt="Occupation" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-1">มิติอาชีพ</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
@@ -1820,7 +1843,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-4">มิติสิ่งแวดล้อม</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
         </button>
-        <button type="button" class="impact-dim-tile active" data-dim="education" style="--dim-accent:#c8952c;" onclick="switchDimension('education')">
+        <button type="button" class="impact-dim-tile" data-dim="education" style="--dim-accent:#c8952c;" onclick="switchDimension('education')">
             <span class="impact-dim-tile-photo"><img src="5 Core Dimention/Education.webp" alt="Education" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-5">มิติการศึกษา</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
@@ -1829,12 +1852,27 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
     <div class="impact-panel-stage" id="impactPanelStage">
 
-        <div id="panel-occupation" class="impact-panel" style="--dim-accent:#7a5030;">
+        <div id="panel-occupation" class="impact-panel is-active" style="--dim-accent:#7a5030;">
             <span class="impact-detail-eyebrow" data-key="dim-1">มิติอาชีพ</span>
             <h2 class="impact-detail-title" data-key="dim-1">มิติอาชีพ</h2>
-            <div><span class="impact-coming-soon" data-key="soon-badge">เนื้อหาโครงการฉบับเต็มกำลังจัดทำ</span></div>
+            <div><span class="impact-coming-soon" data-key="soon-badge-occ">แนวทางการเพิ่มมูลค่าสินค้า</span></div>
             <p class="impact-detail-body" data-key="det-occ-body">อวดชุมส่งเสริมอาชีพและรายได้เสริมให้คนในชุมชน ผ่านการนำภูมิปัญญาท้องถิ่นมาต่อยอดเป็นผลิตภัณฑ์และบริการที่มีมาตรฐาน เนื้อหาโครงการฉบับเต็มในมิตินี้กำลังอยู่ระหว่างจัดทำ และจะทยอยเพิ่มเข้ามาเร็วๆ นี้</p>
-            <div class="impact-placeholder-frame impact-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/qAS0t5f1wwU" title="มิติอาชีพ" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="impact-video-list">
+                <figure class="impact-video-item">
+                    <figcaption class="impact-video-head">
+                        <span class="impact-video-index">01</span>
+                        <span class="impact-video-title" data-key="occ-video-1">ออกแบบบรรจุภัณฑ์: ให้สินค้าเล่าเรื่อง | ภาพรวมหลักสูตร</span>
+                    </figcaption>
+                    <div class="impact-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/qAS0t5f1wwU" title="ออกแบบบรรจุภัณฑ์: ให้สินค้าเล่าเรื่อง | ภาพรวมหลักสูตร" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                </figure>
+                <figure class="impact-video-item">
+                    <figcaption class="impact-video-head">
+                        <span class="impact-video-index">02</span>
+                        <span class="impact-video-title" data-key="occ-video-2">ออกแบบบรรจุภัณฑ์: ให้สินค้าเล่าเรื่อง | ตอนที่ 1 หลักการเลือกสินค้า</span>
+                    </figcaption>
+                    <div class="impact-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/CUh0m-zoV0Q" title="ออกแบบบรรจุภัณฑ์: ให้สินค้าเล่าเรื่อง | ตอนที่ 1 หลักการเลือกสินค้า" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                </figure>
+            </div>
         </div>
 
         <div id="panel-health" class="impact-panel" style="--dim-accent:#2d6e7a;">
@@ -1861,7 +1899,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <div class="impact-placeholder-frame"><img src="5 Core Dimention/Environment.webp" alt="Environment" loading="lazy"></div>
         </div>
 
-        <div id="panel-education" class="impact-panel is-active" style="--dim-accent:#c8952c;">
+        <div id="panel-education" class="impact-panel" style="--dim-accent:#c8952c;">
 
             <div class="impact-edu-header impact-reveal">
                 <svg class="impact-edu-header-icon" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
@@ -1976,7 +2014,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 
             <div class="impact-section-head impact-reveal">
                 <div class="impact-section-head-icon">2</div>
-                <h3 data-key="edu-sub2-heading">การสร้างมูลค่าเพิ่มและพันธมิตรเชิงสร้างสรรค์</h3>
+                <h3 data-key="edu-sub2-heading">แนวทางการเพิ่มมูลค่าสินค้า</h3>
             </div>
             <div class="impact-partner-box impact-reveal">
                 <div class="impact-partner-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l4-4 4 2 4-4 8 8"/><path d="M11 14l2 2-3 3-4-4z"/></svg></div>
@@ -2115,7 +2153,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="https://reservation.roomscope.com/2698/th" target="_blank" rel="noopener" class="reserve-contact-row">
                 <div class="contact-icon icon-self"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-13.5-6h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-self-title">Book Online</h4>
+                    <h3 data-key="reserve-self-title">Book Online</h3>
                     <p data-key="reserve-self-value">Reservation System</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -2124,7 +2162,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="https://line.me/R/ti/p/%40ouadchum" target="_blank" rel="noopener" class="reserve-contact-row">
                 <div class="contact-icon icon-line"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-line-title">Book with LINE</h4>
+                    <h3 data-key="reserve-line-title">Book with LINE</h3>
                     <p data-key="reserve-line-value">LINE: @ouadchum</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -2133,7 +2171,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="tel:0821166905" class="reserve-contact-row">
                 <div class="contact-icon icon-phone"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="reserve-phone-title">Book by Phone</h4>
+                    <h3 data-key="reserve-phone-title">Book by Phone</h3>
                     <p data-key="reserve-phone-value">082-116-6905</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -2142,7 +2180,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
             <a href="tel:0980098842" class="reserve-contact-row">
                 <div class="contact-icon icon-other"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm3.75 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm3.75 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div>
                 <div class="reserve-contact-text">
-                    <h4 data-key="contact-other-title">Other</h4>
+                    <h3 data-key="contact-other-title">Other</h3>
                     <p data-key="contact-other-value">098-009-8842</p>
                 </div>
                 <span class="reserve-contact-arrow">›</span>
@@ -2155,6 +2193,7 @@ footer p { opacity: 0.5; font-size: 0.9rem; }
 // Translation Database
 const langData = {
     en: {
+        "occ-video-1": "Packaging Design: Let the Product Tell the Story | Course Overview", "occ-video-2": "Packaging Design: Let the Product Tell the Story | Episode 1: Choosing Products",
         "menu-about": "Home", "menu-stay": "Stay", "menu-workshop": "Workshop", "menu-menu": "Menu", "menu-product": "Product", "menu-impact": "Impact", "menu-articles": "News", "menu-shop": "Contact",
         "btn-reserve": "Reserve",
 
@@ -2180,7 +2219,7 @@ const langData = {
         "dims-eyebrow": "5 Dimensions of Development", "dims-title": "The 5 Core Dimensions of OuadChum",
         "dim-1": "Occupation", "dim-2": "Health", "dim-3": "Society", "dim-4": "Environment", "dim-5": "Education",
 
-        "soon-badge": "Full Case Study Coming Soon",
+        "soon-badge": "Full Case Study Coming Soon", "soon-badge-occ": "Approaches to Increase Product Value",
 
         "det-occ-body": "OuadChum promotes occupations and supplementary income for the community by turning local wisdom into standardized products and services. Full details for this dimension are currently being compiled and will be added here soon.",
         "det-health-body": "OuadChum prioritizes the well-being of people of every age in the community - nutrition, a safe environment, and reduced use of agricultural chemicals. Full details for this dimension are currently being compiled and will be added here soon.",
@@ -2208,7 +2247,7 @@ const langData = {
         "thairat-start": "Expanded to this school in June 2025, starting with 20 beehive boxes",
         "thairat-honey-p1": "2026 · 45 bottles",
 
-        "edu-sub2-heading": "2. Value-Added Creation &amp; Creative Partnerships",
+        "edu-sub2-heading": "2. Approaches to Increase Product Value",
         "edu-partner-text": "The project has partnered with sleepwear brand <b>SliptoSleep</b>, which supplies surplus cotton fabric scraps from its factory to be coated in the school's pure beeswax, turned into a reusable \"beeswax food wrap\" that lasts 1-2 years. It answers the eco-conscious trend and has been very well received by international customers.",
 
         "edu-sub3-heading": "3. Positive Impact on the Community",
@@ -2243,6 +2282,7 @@ const langData = {
         "footer-title": "Baan OuadChum Coastal Treehouse"
     },
     th: {
+        "occ-video-1": "ออกแบบบรรจุภัณฑ์: ให้สินค้าเล่าเรื่อง | ภาพรวมหลักสูตร", "occ-video-2": "ออกแบบบรรจุภัณฑ์: ให้สินค้าเล่าเรื่อง | ตอนที่ 1 หลักการเลือกสินค้า",
         "menu-about": "หน้าแรก", "menu-stay": "ห้องพัก", "menu-workshop": "เวิร์คช็อป", "menu-menu": "เมนู", "menu-product": "สินค้า", "menu-impact": "ธุรกิจเพื่อช่วย", "menu-articles": "ข่าวสาร", "menu-shop": "ติดต่อ",
         "btn-reserve": "ติดต่อ",
 
@@ -2267,7 +2307,7 @@ const langData = {
 
         "dims-eyebrow": "โครงการและผลลัพธ์", "dims-title": "5 มิติหลักของอวดชุม",
         "dim-1": "มิติอาชีพ", "dim-2": "มิติสุขภาพ", "dim-3": "มิติสังคม", "dim-4": "มิติสิ่งแวดล้อม", "dim-5": "มิติการศึกษา",
-        "soon-badge": "เนื้อหาโครงการฉบับเต็มกำลังจัดทำ",
+        "soon-badge": "เนื้อหาโครงการฉบับเต็มกำลังจัดทำ", "soon-badge-occ": "แนวทางการเพิ่มมูลค่าสินค้า",
 
         "det-occ-body": "อวดชุมส่งเสริมอาชีพและรายได้เสริมให้คนในชุมชน ผ่านการนำภูมิปัญญาท้องถิ่นมาต่อยอดเป็นผลิตภัณฑ์และบริการที่มีมาตรฐาน เนื้อหาโครงการฉบับเต็มในมิตินี้กำลังอยู่ระหว่างจัดทำ และจะทยอยเพิ่มเข้ามาเร็วๆ นี้",
         "det-health-body": "อวดชุมให้ความสำคัญกับสุขภาวะของคนในชุมชนทุกช่วงวัย ทั้งด้านโภชนาการ สิ่งแวดล้อมที่ปลอดภัย และการลดใช้สารเคมีทางการเกษตร เนื้อหาโครงการฉบับเต็มในมิตินี้กำลังอยู่ระหว่างจัดทำ และจะทยอยเพิ่มเข้ามาเร็วๆ นี้",
@@ -2295,7 +2335,7 @@ const langData = {
         "thairat-start": "ขยายผลในเดือนมิถุนายน 2568 เริ่มต้นด้วยกล่องเลี้ยงผึ้ง 20 กล่อง",
         "thairat-honey-p1": "2569 · 45 ขวด",
 
-        "edu-sub2-heading": "การสร้างมูลค่าเพิ่มและพันธมิตรเชิงสร้างสรรค์",
+        "edu-sub2-heading": "แนวทางการเพิ่มมูลค่าสินค้า",
         "edu-partner-text": "โครงการได้เชื่อมโยงพันธมิตรอย่างแบรนด์ชุดนอน <b>SliptoSleep</b> นำเศษผ้าคอตตอนส่วนเกินจากโรงงานมาชุบไขผึ้งบริสุทธิ์ของโรงเรียน ผลิตเป็น \"ผ้าไขผึ้งถนอมอาหาร\" ชนิดใช้ซ้ำได้นาน 1-2 ปี ซึ่งตอบโจทย์เทรนด์รักษ์โลก และได้รับการตอบรับอย่างดีจากกลุ่มลูกค้าชาวต่างชาติ",
 
         "edu-sub3-heading": "ผลกระทบเชิงบวก (Impact) ต่อชุมชน",
@@ -2478,7 +2518,7 @@ function initMapLoader() {
 // exits toward the side the new one will enter from, then the new panel
 // enters from the opposite side, direction based on left-to-right tab order.
 const IMPACT_DIMENSIONS = ["occupation", "health", "society", "environment", "education"];
-let currentDimension = "education";
+let currentDimension = "occupation";
 let dimensionSwapping = false;
 
 function switchDimension(dim) {
