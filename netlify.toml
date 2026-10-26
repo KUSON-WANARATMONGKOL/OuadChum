@@ -15,3 +15,108 @@
   from = "/api/weather"
   to = "/.netlify/functions/weather"
   status = 200
+
+# Explicit 404s for the automated-scanner probe paths Netlify's traffic
+# analytics showed hitting this site (.env files, .git internals, WordPress
+# exploit paths). These already 404 by default - nothing is ever committed
+# at these paths - but blocking them explicitly at the edge cuts log noise
+# and guards against ever accidentally exposing a file at one of these
+# paths in the future.
+[[redirects]]
+  from = "/.env*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.git/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wp-*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/@fs/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/api/.env"
+  to = "/"
+  status = 404
+  force = true
+
+# Security headers for every response. This site has no login, no forms and
+# no third-party scripts, so the policy below can be fairly strict: every
+# inline <script>/<style> and onclick="..." handler on the site needs
+# 'unsafe-inline' (there's no build step to add nonces/hashes), but external
+# sources are locked to just what's actually used - Google Fonts, the
+# youtube-nocookie.com video embeds, the Google Maps embed, the press-coverage
+# thumbnail images hotlinked in articles.html (img.youtube.com, Thairath,
+# Wix, Haadthip, SME Thailand Club), plus the site's own same-origin /api/*
+# functions. Re-check img-src if a future press clipping hotlinks a new host.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://static.thairath.co.th https://static.wixstatic.com https://www.haadthip.com https://www.smethailandclub.com; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+
+# 7-day cache for photos/icons - long enough to pay off on repeat visits,
+# short enough that a swapped photo under the same filename (this project
+# replaces photos in place fairly often) doesn't stay stale for too long.
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Meta's crawler (and others sharing link previews on Facebook/Instagram/
+# WhatsApp) checks this before fetching OG images - answering it with "no
+# special advice" is the correct response per the spec and was the single
+# most-requested 404 in Netlify's traffic analytics.
+[[headers]]
+  for = "/.well-known/traffic-advice"
+  [headers.values]
+    Content-Type = "application/trafficadvice+json"
+    Cache-Control = "public, max-age=86400"

@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ouadchum.com/</loc>
-    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -90,7 +90,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/workshop.html</loc>
-    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -116,7 +116,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/menu.html</loc>
-    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://ouadchum.com/Background/IMG_7813.webp</image:loc></image:image>
@@ -126,7 +126,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/articles.html</loc>
-    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://ouadchum.com/Background/DSC00171.webp</image:loc></image:image>
@@ -139,7 +139,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/news.html</loc>
-    <lastmod>2026-08-18T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://ouadchum.com/Background/DSC00171.webp</image:loc></image:image>
@@ -151,17 +151,21 @@
   </url>
   <url>
     <loc>https://ouadchum.com/product.html</loc>
-    <lastmod>2026-08-22T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://ouadchum.com/Background/IMG_8826.webp</image:loc>
       <image:title>Baan OuadChum community products</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://ouadchum.com/Product/woodtray.webp</image:loc>
+      <image:title>Wooden tray handmade by local artisans - Baan OuadChum</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://ouadchum.com/impact.html</loc>
-    <lastmod>2026-09-15T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -175,7 +179,7 @@
   </url>
   <url>
     <loc>https://ouadchum.com/project.html</loc>
-    <lastmod>2026-08-18T00:00:00+07:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>

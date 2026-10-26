@@ -24,9 +24,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional" rel="stylesheet"></noscript>
 
 <style>
 :root{
@@ -59,6 +59,12 @@ html{
     /* Keeps anchor jumps (e.g. to #contact) from landing with the fixed nav
        bar covering the top of the target section. */
     scroll-padding-top: var(--nav-h);
+    /* Always reserves the vertical scrollbar's width, whether or not this
+       particular page's content is tall enough to need it - otherwise a
+       short page (no scrollbar) and a tall one (scrollbar) have different
+       effective viewport widths, which can flip the nav's responsive
+       breakpoints between pages at the same window size. */
+    scrollbar-gutter: stable;
 }
 
 body{
@@ -91,6 +97,18 @@ body{
 html {
     scrollbar-width: thin;
     scrollbar-color: #bdaa8a var(--gray-light);
+}
+
+/* Cross-page transition: clicking a link to another page on this site
+   fades the current page out before navigating, instead of hard-cutting -
+   see the click listener near the top of the script below. Deliberately
+   NOT also fading every page in on arrival: an unconditional entrance
+   animation on <body> delays First Contentful Paint on every single load
+   (including fresh/direct visits), which isn't worth it just to smooth
+   over a transition the exit fade already reads fine without. */
+body.page-exit {
+    opacity: 0;
+    transition: opacity 0.22s ease;
 }
 
 body.modal-locked {
@@ -244,6 +262,18 @@ nav{
     color: var(--white);
     background: var(--primary-dark);
     box-shadow: var(--shadow-sm);
+}
+.lang-btn:active {
+    transform: scale(0.88);
+}
+/* Smooth whole-page crossfade while switchLanguageAnimated() swaps every
+   data-key'd string - scoped to this one class so it never affects any
+   other opacity change (modals, reveals, etc.) on the page. */
+body {
+    transition: opacity 0.2s ease;
+}
+body.lang-fade {
+    opacity: 0.45;
 }
 
 .hamburger {
@@ -494,7 +524,7 @@ nav{
     border: 1.5px solid rgba(138,109,59,0.16);
     padding: 10px 26px;
     border-radius: 999px;
-    color: #8a7a5c;
+    color: #74624a;
     font-size: 0.92rem;
     font-weight: 700;
     cursor: pointer;
@@ -635,6 +665,8 @@ nav{
     box-shadow: var(--menu-shadow);
 }
 .menu-book-box + .menu-book-box { margin-top: 44px; }
+/* Food's board gets sharp corners; Drink's board keeps the rounded 26px above. */
+.menu-book-box--food { border-radius: 0; }
 /* DRINK theme: a warm, light "coffeehouse chalkboard" card that reads as a
    deliberately different menu from Food's dark forest-green one, while
    still pulling from the same brand palette (cream/tan + espresso brown,
@@ -694,7 +726,7 @@ nav{
 }
 .menu-book-category-desc {
     column-span: all;
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     color: var(--menu-fg-soft);
     max-width: 440px;
     margin: 0 auto;
@@ -995,7 +1027,7 @@ nav{
     column-gap: 32px;
     padding: 26px 0;
 }
-.menu-story-chapter--dish { --story-accent: #b3946b; }
+.menu-story-chapter--dish { --story-accent: #7a6749; }
 .menu-story-chapter--ground { --story-accent: #3E723B; }
 .menu-story-chapter--sea { --story-accent: #2d6e7a; }
 .menu-story-chapter--dish .menu-story-frame { background: linear-gradient(155deg, #faf3e6 0%, #f0e0c0 100%); }
@@ -1238,6 +1270,16 @@ nav{
     transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .menu-story-gallery-grid img:hover { transform: scale(1.07); }
+/* "Behind Every Meal" (#menuStory) uses sharp corners on its picture frames,
+   matching the Chumphon Robusta / Behind Every Cup sections' look - scoped
+   to this section only, so the other two story sections are untouched. */
+#menuStory .menu-story-frame,
+#menuStory .menu-story-gallery-grid {
+    border-radius: 0;
+}
+#menuStory .menu-story-frame::before {
+    border-radius: 0;
+}
 @media (max-width: 820px) {
     .menu-story-chapter .menu-story-frame--gallery,
     .menu-story-chapter--reverse .menu-story-frame--gallery { aspect-ratio: auto; max-width: 420px; }
@@ -1295,10 +1337,10 @@ nav{
 .menu-partner-title img { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
 .menu-story-chapter--robusta { --story-accent: #7a5030; }
 .menu-story-chapter--robusta .menu-story-frame { background: linear-gradient(155deg, #f7ede0 0%, #e3c9a6 100%); }
-.menu-story-chapter--honey { --story-accent: #c8952c; }
+.menu-story-chapter--honey { --story-accent: #96691f; }
 .menu-story-chapter--honey .menu-story-frame { background: linear-gradient(155deg, #fdf3dd 0%, #f2dfa8 100%); }
 .menu-story-chapter--honey .menu-story-frame--gallery { max-width: 340px; }
-.menu-story-chapter--syrup { --story-accent: #a9752f; }
+.menu-story-chapter--syrup { --story-accent: #7a5722; }
 .menu-story-chapter--syrup .menu-story-frame { background: linear-gradient(155deg, #f8efdf 0%, #e9d3ac 100%); }
 .menu-story-chapter--cacao { --story-accent: #6b3f2a; }
 .menu-story-chapter--cacao .menu-story-frame { background: linear-gradient(155deg, #f2e2d8 0%, #d7b9a4 100%); }
@@ -2516,8 +2558,8 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 
 <div class="nav-actions">
     <div class="lang-switch">
-        <button id="btn-lang-th" class="lang-btn active" onclick="switchLanguage('th')">TH</button>
-        <button id="btn-lang-en" class="lang-btn" onclick="switchLanguage('en')">EN</button>
+        <button id="btn-lang-th" class="lang-btn active" onclick="switchLanguageAnimated('th')">TH</button>
+        <button id="btn-lang-en" class="lang-btn" onclick="switchLanguageAnimated('en')">EN</button>
     </div>
     <button class="btn btn-outline" data-key="btn-reserve" onclick="openReserveModal()">Reserve</button>
 
@@ -4829,6 +4871,28 @@ const langData = {
 
 let currentLang = 'en';
 
+// Cross-page transition: fades the page out before following a link to
+// another page on this site, so navigating feels like a soft crossfade
+// instead of an instant flash-cut. Left alone: external links, same-page
+// anchors (#section jumps), new-tab/download links, and modified clicks
+// (ctrl/cmd/shift/middle-click), which all need to behave normally.
+document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest("a");
+    if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+    const href = a.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("javascript:")) return;
+    let url;
+    try { url = new URL(href, location.href); } catch { return; }
+    if (url.origin !== location.origin) return;
+    if (!/\.html?($|[?#])/i.test(url.pathname) && url.pathname !== "/") return;
+    if (url.pathname === location.pathname) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    e.preventDefault();
+    document.body.classList.add("page-exit");
+    setTimeout(() => { location.href = href; }, 220);
+});
+
 
 const metaI18n = {
     th: {
@@ -4859,6 +4923,19 @@ function applyMetaLanguage(lang) {
     setContent('meta[name="twitter:description"]', m.description);
 }
 
+// Runs switchLanguage() behind a brief whole-page opacity dip so the text
+// swap reads as a smooth crossfade instead of an instant jump-cut. Only the
+// button click goes through here - the initial page-load call still invokes
+// switchLanguage() directly so there's no needless fade on first paint.
+function switchLanguageAnimated(lang) {
+    if (lang === currentLang) return;
+    document.body.classList.add("lang-fade");
+    setTimeout(() => {
+        switchLanguage(lang);
+        requestAnimationFrame(() => document.body.classList.remove("lang-fade"));
+    }, 180);
+}
+
 function switchLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("preferredLang", lang);
@@ -4877,6 +4954,21 @@ function switchLanguage(lang) {
 
     updateGuestDropdowns(lang);
     applyAttrTranslations(lang);
+
+    // The availability modal's room name + legend are set once in JS rather
+    // than via data-key. Re-run just that part (not switchAvailabilityRoom,
+    // which would reset the calendar back to the current month) so a
+    // language switch while the modal is open doesn't leave them stale.
+    if (availabilityState.roomId && document.getElementById("availabilityModal").classList.contains("active")) {
+        const subtitleEl = document.getElementById("availabilityModalSubtitle");
+        if (availabilityState.roomId !== "all") subtitleEl.textContent = roomDisplayName(availabilityState.roomId);
+        const isGrid = availabilityState.roomId === "all";
+        const legendItems = isGrid ? AVAILABILITY_GRID_LEGEND : AVAILABILITY_MONTH_LEGEND;
+        const swatchClass = isGrid ? "availability-bar-seg" : "avail-cell";
+        document.getElementById("availabilityLegend").innerHTML = legendItems.map(item =>
+            `<div class="availability-legend-item"><span class="availability-legend-swatch ${swatchClass} status-${item.status}" style="width:12px;height:12px;"></span>${item[lang] || item.en}</div>`
+        ).join("");
+    }
 }
 
 // aria-label lives on attributes, which the innerHTML sweep above never touches -

@@ -26,9 +26,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional" rel="stylesheet"></noscript>
 
 <style>
 :root{
@@ -59,6 +59,12 @@ html{
     scroll-behavior:smooth;
     overflow-x: hidden;
     scroll-padding-top: var(--nav-h);
+    /* Always reserves the vertical scrollbar's width, whether or not this
+       particular page's content is tall enough to need it - otherwise a
+       short page (no scrollbar) and a tall one (scrollbar) have different
+       effective viewport widths, which can flip the nav's responsive
+       breakpoints between pages at the same window size. */
+    scrollbar-gutter: stable;
 }
 
 body{
@@ -89,6 +95,18 @@ body{
 html {
     scrollbar-width: thin;
     scrollbar-color: #bdaa8a var(--gray-light);
+}
+
+/* Cross-page transition: clicking a link to another page on this site
+   fades the current page out before navigating, instead of hard-cutting -
+   see the click listener near the top of the script below. Deliberately
+   NOT also fading every page in on arrival: an unconditional entrance
+   animation on <body> delays First Contentful Paint on every single load
+   (including fresh/direct visits), which isn't worth it just to smooth
+   over a transition the exit fade already reads fine without. */
+body.page-exit {
+    opacity: 0;
+    transition: opacity 0.22s ease;
 }
 
 body.modal-locked {
@@ -172,7 +190,7 @@ nav{
 
 .nav-links{
     display:flex;
-    gap:40px;
+    gap:56px;
 }
 
 .nav-links a{
@@ -201,10 +219,10 @@ nav{
 .nav-links a:hover::after { width: 100%; }
 .nav-links a:hover{ color:var(--primary); }
 
-@media (min-width: 1025px) and (max-width: 1180px) {
+@media (min-width: 1025px) and (max-width: 1100px) {
     .nav-menu-wrapper { margin-left: 18px; }
-    .nav-links { gap: 22px; }
-    .nav-links a { font-size: 0.8rem; letter-spacing: 0.3px; }
+    .nav-links { gap: 24px; }
+    .nav-links a { font-size: 0.82rem; letter-spacing: 0.3px; }
     .logo { font-size: 1.1rem; gap: 8px; }
     .nav-actions { gap: 12px; }
     .nav-actions .btn-outline { padding: 8px 16px; font-size: 0.8rem; }
@@ -241,6 +259,18 @@ nav{
     color: var(--white);
     background: var(--primary-dark);
     box-shadow: var(--shadow-sm);
+}
+.lang-btn:active {
+    transform: scale(0.88);
+}
+/* Smooth whole-page crossfade while switchLanguageAnimated() swaps every
+   data-key'd string - scoped to this one class so it never affects any
+   other opacity change (modals, reveals, etc.) on the page. */
+body {
+    transition: opacity 0.2s ease;
+}
+body.lang-fade {
+    opacity: 0.45;
 }
 
 .hamburger {
@@ -838,7 +868,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
         margin-left: 0;
         justify-content: center;
     }
-    .nav-links { gap: 22px; flex-wrap: wrap; justify-content: center; row-gap: 10px; }
+    .nav-links { gap: 26px; flex-wrap: wrap; justify-content: center; row-gap: 10px; }
     .nav-links a { font-size: 0.85rem; letter-spacing: 0.3px; padding: 4px 0; }
     .nav-actions .btn-outline {
         display: inline-flex;
@@ -859,8 +889,8 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 }
 
 @media (max-width: 380px) {
-    .nav-links { gap: 14px; }
-    .nav-links a { font-size: 0.76rem; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 0.78rem; }
 }
 
 .nav-backdrop {
@@ -1719,8 +1749,8 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 
 <div class="nav-actions">
     <div class="lang-switch">
-        <button id="btn-lang-th" class="lang-btn active" onclick="switchLanguage('th')">TH</button>
-        <button id="btn-lang-en" class="lang-btn" onclick="switchLanguage('en')">EN</button>
+        <button id="btn-lang-th" class="lang-btn active" onclick="switchLanguageAnimated('th')">TH</button>
+        <button id="btn-lang-en" class="lang-btn" onclick="switchLanguageAnimated('en')">EN</button>
     </div>
     <button class="btn btn-outline" data-key="btn-reserve" onclick="openReserveModal()">Reserve</button>
 
@@ -1745,7 +1775,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
     </div>
 
     <div class="section-title-container impact-story-heading impact-reveal">
-        <span class="subtitle" style="color:#bdaa8a;" data-key="page-eyebrow">จุดเริ่มต้นของอวดชุม…</span>
+        <span class="subtitle" style="color:#7d6748;" data-key="page-eyebrow">จุดเริ่มต้นของอวดชุม…</span>
         <h2 class="section-title" data-key="page-title">ปรัชญาอวดชุม: ธุรกิจเพื่อ "ช่วย"</h2>
     </div>
 
@@ -1784,7 +1814,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
     </div>
 
     <div class="section-title-container impact-reveal">
-        <span class="subtitle" style="color:#bdaa8a;" data-key="support-eyebrow">ร่วมเป็นส่วนหนึ่งกับเรา</span>
+        <span class="subtitle" style="color:#7d6748;" data-key="support-eyebrow">ร่วมเป็นส่วนหนึ่งกับเรา</span>
         <h2 class="section-title" data-key="support-title">สนับสนุนธุรกิจเพื่อ "ช่วย" ด้วย 4อ</h2>
     </div>
 
@@ -1802,7 +1832,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
                 <div class="impact-support-name" data-key="support-2-name">Support</div>
                 <p class="impact-support-desc" data-key="support-2-desc">ซื้อใช้ ซื้อฝาก workshop กับชุมชน</p>
             </div>
-            <div class="impact-support-step" style="--dim-accent:#b3663f;">
+            <div class="impact-support-step" style="--dim-accent:#8f4e2e;">
                 <div class="impact-support-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l4-4 4 2 4-4 8 8"/><path d="M11 14l2 2-3 3-4-4z"/></svg></div>
                 <div class="impact-support-word">เอื้อเฟื้อ</div>
                 <div class="impact-support-name" data-key="support-3-name">Contribute</div>
@@ -1818,32 +1848,32 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
     </div>
 
     <div id="dim-grid" class="section-title-container impact-reveal">
-        <span class="subtitle" style="color:#bdaa8a;" data-key="dims-eyebrow">โครงการและผลลัพธ์</span>
+        <span class="subtitle" style="color:#7d6748;" data-key="dims-eyebrow">โครงการและผลลัพธ์</span>
         <h2 class="section-title" data-key="dims-title">5 มิติหลักของอวดชุม</h2>
     </div>
 
     <div class="impact-dim-grid impact-reveal">
-        <button type="button" class="impact-dim-tile active" data-dim="occupation" style="--dim-accent:#c8952c;" onclick="switchDimension('occupation')">
+        <button type="button" class="impact-dim-tile active" data-dim="occupation" style="--dim-accent:#96691f;" onclick="switchDimension('occupation')">
             <span class="impact-dim-tile-photo"><img src="5 Core Dimention/Occupation.webp" alt="Occupation" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-1">มิติอาชีพ</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
         </button>
-        <button type="button" class="impact-dim-tile" data-dim="health" style="--dim-accent:#c8952c;" onclick="switchDimension('health')">
+        <button type="button" class="impact-dim-tile" data-dim="health" style="--dim-accent:#96691f;" onclick="switchDimension('health')">
             <span class="impact-dim-tile-photo"><img src="5 Core Dimention/Health.webp" alt="Health" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-2">มิติสุขภาพ</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
         </button>
-        <button type="button" class="impact-dim-tile" data-dim="society" style="--dim-accent:#c8952c;" onclick="switchDimension('society')">
+        <button type="button" class="impact-dim-tile" data-dim="society" style="--dim-accent:#96691f;" onclick="switchDimension('society')">
             <span class="impact-dim-tile-photo"><img src="Philosophy/FOT07625.webp" alt="Society" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-3">มิติสังคม</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
         </button>
-        <button type="button" class="impact-dim-tile" data-dim="environment" style="--dim-accent:#c8952c;" onclick="switchDimension('environment')">
+        <button type="button" class="impact-dim-tile" data-dim="environment" style="--dim-accent:#96691f;" onclick="switchDimension('environment')">
             <span class="impact-dim-tile-photo"><img src="5 Core Dimention/Environment.webp" alt="Environment" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-4">มิติสิ่งแวดล้อม</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
         </button>
-        <button type="button" class="impact-dim-tile" data-dim="education" style="--dim-accent:#c8952c;" onclick="switchDimension('education')">
+        <button type="button" class="impact-dim-tile" data-dim="education" style="--dim-accent:#96691f;" onclick="switchDimension('education')">
             <span class="impact-dim-tile-photo"><img src="5 Core Dimention/Education.webp" alt="Education" loading="lazy"></span>
             <span class="impact-dim-tile-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
             <span class="impact-dim-tile-btn"><span data-key="dim-5">มิติการศึกษา</span><span class="impact-dim-tile-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
@@ -1897,7 +1927,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
             <div class="impact-placeholder-frame"><img src="5 Core Dimention/Health.webp" alt="Health" loading="lazy"></div>
         </div>
 
-        <div id="panel-society" class="impact-panel" style="--dim-accent:#b3663f;">
+        <div id="panel-society" class="impact-panel" style="--dim-accent:#8f4e2e;">
             <span class="impact-detail-eyebrow" data-key="dim-3">มิติสังคม</span>
             <h2 class="impact-detail-title" data-key="dim-3">มิติสังคม</h2>
             <div><span class="impact-coming-soon" data-key="soon-badge">เนื้อหาโครงการฉบับเต็มกำลังจัดทำ</span></div>
@@ -1913,7 +1943,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
             <div class="impact-placeholder-frame"><img src="5 Core Dimention/Environment.webp" alt="Environment" loading="lazy"></div>
         </div>
 
-        <div id="panel-education" class="impact-panel" style="--dim-accent:#c8952c;">
+        <div id="panel-education" class="impact-panel" style="--dim-accent:#96691f;">
 
             <div class="impact-edu-header impact-reveal">
                 <svg class="impact-edu-header-icon" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
@@ -2387,6 +2417,28 @@ const langData = {
 
 let currentLang = 'en';
 
+// Cross-page transition: fades the page out before following a link to
+// another page on this site, so navigating feels like a soft crossfade
+// instead of an instant flash-cut. Left alone: external links, same-page
+// anchors (#section jumps), new-tab/download links, and modified clicks
+// (ctrl/cmd/shift/middle-click), which all need to behave normally.
+document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest("a");
+    if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+    const href = a.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("javascript:")) return;
+    let url;
+    try { url = new URL(href, location.href); } catch { return; }
+    if (url.origin !== location.origin) return;
+    if (!/\.html?($|[?#])/i.test(url.pathname) && url.pathname !== "/") return;
+    if (url.pathname === location.pathname) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    e.preventDefault();
+    document.body.classList.add("page-exit");
+    setTimeout(() => { location.href = href; }, 220);
+});
+
 const metaI18n = {
     th: {
         title: "Impact | บ้านต้นไม้อวดชุม",
@@ -2414,6 +2466,19 @@ function applyMetaLanguage(lang) {
     setContent('meta[property="og:locale"]', m.ogLocale);
     setContent('meta[name="twitter:title"]', m.title);
     setContent('meta[name="twitter:description"]', m.description);
+}
+
+// Runs switchLanguage() behind a brief whole-page opacity dip so the text
+// swap reads as a smooth crossfade instead of an instant jump-cut. Only the
+// button click goes through here - the initial page-load call still invokes
+// switchLanguage() directly so there's no needless fade on first paint.
+function switchLanguageAnimated(lang) {
+    if (lang === currentLang) return;
+    document.body.classList.add("lang-fade");
+    setTimeout(() => {
+        switchLanguage(lang);
+        requestAnimationFrame(() => document.body.classList.remove("lang-fade"));
+    }, 180);
 }
 
 function switchLanguage(lang) {
@@ -2566,12 +2631,18 @@ function switchDimension(dim) {
     }, 320);
 }
 
-// Optional deep link: an incoming #education / #health / etc. hash
-// preselects that dimension's tab on load.
+// Deep link from the index page's dimension tiles (impact.html#occupation,
+// #health, etc.): preselects that dimension's tab and jumps straight to the
+// dimension selector section, instead of landing at the top of the page.
 function initImpactDimensionFromHash() {
     const hash = location.hash.replace("#", "");
-    if (IMPACT_DIMENSIONS.includes(hash) && hash !== currentDimension) {
+    if (!IMPACT_DIMENSIONS.includes(hash)) return;
+    if (hash !== currentDimension) {
         switchDimension(hash);
+    }
+    const grid = document.getElementById("dim-grid");
+    if (grid) {
+        requestAnimationFrame(() => grid.scrollIntoView({ behavior: "auto", block: "start" }));
     }
 }
 

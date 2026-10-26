@@ -103,14 +103,29 @@ function buildGrid(roomIds, calendars) {
   };
 }
 
+// Bounds-checks the optional ?month= override to a ~3-year window around
+// today. Without this, an attacker could vary the date on every request to
+// bypass the Cache-Control above and force this function to fan out to
+// RoomScope (10 upstream requests for roomId=all) on every single hit.
+function isReasonableMonth(dateStr) {
+  const year = parseInt(dateStr.slice(0, 4), 10);
+  const thisYear = new Date().getFullYear();
+  return year >= thisYear - 1 && year <= thisYear + 2;
+}
+
 exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
   const roomId = params.roomId;
   const lang = params.lang === 'en' ? 'en' : 'th';
-  const monthParam = params.month && /^\d{4}-\d{2}-\d{2}$/.test(params.month) ? params.month : null;
+  const monthParam = params.month && /^\d{4}-\d{2}-\d{2}$/.test(params.month) && isReasonableMonth(params.month)
+    ? params.month
+    : null;
 
   const isAll = roomId === 'all';
-  const typeId = isAll ? null : ROOM_TYPE_IDS[roomId];
+  // hasOwnProperty guards against roomId values like "__proto__" or
+  // "constructor" resolving through the prototype chain instead of failing
+  // the lookup as intended.
+  const typeId = isAll ? null : (Object.prototype.hasOwnProperty.call(ROOM_TYPE_IDS, roomId) ? ROOM_TYPE_IDS[roomId] : undefined);
   if (!isAll && !typeId) {
     return {
       statusCode: 400,

@@ -24,9 +24,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Mitr:wght@400;500;600;700&display=optional" rel="stylesheet"></noscript>
 
 <style>
 :root{
@@ -59,6 +59,12 @@ html{
     /* Keeps anchor jumps (e.g. to #contact) from landing with the fixed nav
        bar covering the top of the target section. */
     scroll-padding-top: var(--nav-h);
+    /* Always reserves the vertical scrollbar's width, whether or not this
+       particular page's content is tall enough to need it - otherwise a
+       short page (no scrollbar) and a tall one (scrollbar) have different
+       effective viewport widths, which can flip the nav's responsive
+       breakpoints between pages at the same window size. */
+    scrollbar-gutter: stable;
 }
 
 body{
@@ -91,6 +97,18 @@ body{
 html {
     scrollbar-width: thin;
     scrollbar-color: #bdaa8a var(--gray-light);
+}
+
+/* Cross-page transition: clicking a link to another page on this site
+   fades the current page out before navigating, instead of hard-cutting -
+   see the click listener near the top of the script below. Deliberately
+   NOT also fading every page in on arrival: an unconditional entrance
+   animation on <body> delays First Contentful Paint on every single load
+   (including fresh/direct visits), which isn't worth it just to smooth
+   over a transition the exit fade already reads fine without. */
+body.page-exit {
+    opacity: 0;
+    transition: opacity 0.22s ease;
 }
 
 body.modal-locked {
@@ -244,6 +262,18 @@ nav{
     color: var(--white);
     background: var(--primary-dark);
     box-shadow: var(--shadow-sm);
+}
+.lang-btn:active {
+    transform: scale(0.88);
+}
+/* Smooth whole-page crossfade while switchLanguageAnimated() swaps every
+   data-key'd string - scoped to this one class so it never affects any
+   other opacity change (modals, reveals, etc.) on the page. */
+body {
+    transition: opacity 0.2s ease;
+}
+body.lang-fade {
+    opacity: 0.45;
 }
 
 .hamburger {
@@ -690,7 +720,7 @@ nav{
     align-items: center;
     background: #fff;
     border: 1.5px solid rgba(138,109,59,0.16);
-    color: #8a7a5c;
+    color: #74624a;
     padding: 10px 26px;
     border-radius: 999px;
     font-weight: 700;
@@ -1771,8 +1801,8 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 
 <div class="nav-actions">
     <div class="lang-switch">
-        <button id="btn-lang-th" class="lang-btn active" onclick="switchLanguage('th')">TH</button>
-        <button id="btn-lang-en" class="lang-btn" onclick="switchLanguage('en')">EN</button>
+        <button id="btn-lang-th" class="lang-btn active" onclick="switchLanguageAnimated('th')">TH</button>
+        <button id="btn-lang-en" class="lang-btn" onclick="switchLanguageAnimated('en')">EN</button>
     </div>
     <button class="btn btn-outline" data-key="btn-reserve" onclick="openReserveModal()">Reserve</button>
 
@@ -1787,7 +1817,7 @@ footer p { opacity: 0.85; font-size: 0.9rem; }
 <section id="articles" class="news-page-section" style="background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.03);">
 <div class="container">
     <div class="section-title-container" style="margin-bottom: 45px;">
-        <h2 class="section-title" style="color: #bdaa8a;" data-key="news-title">ข่าวสารและรีวิวจากสื่อ</h2>
+        <h2 class="section-title" style="color: #7a6749;" data-key="news-title">ข่าวสารและรีวิวจากสื่อ</h2>
     </div>
 
     <div class="filter-bar" style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:45px;">
@@ -2328,6 +2358,28 @@ const langData = {
 
 let currentLang = 'en';
 
+// Cross-page transition: fades the page out before following a link to
+// another page on this site, so navigating feels like a soft crossfade
+// instead of an instant flash-cut. Left alone: external links, same-page
+// anchors (#section jumps), new-tab/download links, and modified clicks
+// (ctrl/cmd/shift/middle-click), which all need to behave normally.
+document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest("a");
+    if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+    const href = a.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("javascript:")) return;
+    let url;
+    try { url = new URL(href, location.href); } catch { return; }
+    if (url.origin !== location.origin) return;
+    if (!/\.html?($|[?#])/i.test(url.pathname) && url.pathname !== "/") return;
+    if (url.pathname === location.pathname) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    e.preventDefault();
+    document.body.classList.add("page-exit");
+    setTimeout(() => { location.href = href; }, 220);
+});
+
 
 const metaI18n = {
     th: {
@@ -2358,6 +2410,19 @@ function applyMetaLanguage(lang) {
     setContent('meta[name="twitter:description"]', m.description);
 }
 
+// Runs switchLanguage() behind a brief whole-page opacity dip so the text
+// swap reads as a smooth crossfade instead of an instant jump-cut. Only the
+// button click goes through here - the initial page-load call still invokes
+// switchLanguage() directly so there's no needless fade on first paint.
+function switchLanguageAnimated(lang) {
+    if (lang === currentLang) return;
+    document.body.classList.add("lang-fade");
+    setTimeout(() => {
+        switchLanguage(lang);
+        requestAnimationFrame(() => document.body.classList.remove("lang-fade"));
+    }, 180);
+}
+
 function switchLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("preferredLang", lang);
@@ -2376,6 +2441,21 @@ function switchLanguage(lang) {
 
     updateGuestDropdowns(lang);
     applyAttrTranslations(lang);
+
+    // The availability modal's room name + legend are set once in JS rather
+    // than via data-key. Re-run just that part (not switchAvailabilityRoom,
+    // which would reset the calendar back to the current month) so a
+    // language switch while the modal is open doesn't leave them stale.
+    if (availabilityState.roomId && document.getElementById("availabilityModal").classList.contains("active")) {
+        const subtitleEl = document.getElementById("availabilityModalSubtitle");
+        if (availabilityState.roomId !== "all") subtitleEl.textContent = roomDisplayName(availabilityState.roomId);
+        const isGrid = availabilityState.roomId === "all";
+        const legendItems = isGrid ? AVAILABILITY_GRID_LEGEND : AVAILABILITY_MONTH_LEGEND;
+        const swatchClass = isGrid ? "availability-bar-seg" : "avail-cell";
+        document.getElementById("availabilityLegend").innerHTML = legendItems.map(item =>
+            `<div class="availability-legend-item"><span class="availability-legend-swatch ${swatchClass} status-${item.status}" style="width:12px;height:12px;"></span>${item[lang] || item.en}</div>`
+        ).join("");
+    }
 }
 
 // aria-label / title live on attributes, which the innerHTML sweep above never
