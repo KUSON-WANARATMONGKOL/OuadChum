@@ -69,10 +69,11 @@
 # inline <script>/<style> and onclick="..." handler on the site needs
 # 'unsafe-inline' (there's no build step to add nonces/hashes), but external
 # sources are locked to just what's actually used - Google Fonts, the
-# youtube-nocookie.com video embeds, the Google Maps embed, the press-coverage
-# thumbnail images hotlinked in articles.html (img.youtube.com, Thairath,
-# Wix, Haadthip, SME Thailand Club), plus the site's own same-origin /api/*
-# functions. Re-check img-src if a future press clipping hotlinks a new host.
+# youtube-nocookie.com video embeds, the Google Maps embed, the two press
+# thumbnails still hotlinked in articles.html (img.youtube.com, Thairath -
+# the rest were self-hosted to Press/ for performance), plus the site's own
+# same-origin /api/* functions. Re-check img-src if a future press clipping
+# hotlinks a new host.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -81,7 +82,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://static.thairath.co.th https://static.wixstatic.com https://www.haadthip.com https://www.smethailandclub.com; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://static.thairath.co.th; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
 
 # 7-day cache for photos/icons - long enough to pay off on repeat visits,
 # short enough that a swapped photo under the same filename (this project
